@@ -1,0 +1,74 @@
+[
+  {
+    "id": "e1",
+    "community_id": "c1",
+    "title": "Go Concurrency Workshop",
+    "description": "A deep-dive workshop into Go concurrency patterns, goroutines, channels, and select statements.",
+    "date": "2026-08-22T09:00:00",
+    "location": "Bandung",
+    "capacity": 100,
+    "attendees_count": 48,
+    "image_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+    "tags": ["Technology", "Programming", "Available"]
+  },
+  {
+    "id": "e2",
+    "community_id": "c2",
+    "title": "Frontend Craft Conference",
+    "description": "Building scalable interfaces with modern web standards, React, and performance optimizations.",
+    "date": "2026-10-12T09:00:00",
+    "location": "Jakarta",
+    "capacity": 200,
+    "attendees_count": 150,
+    "image_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    "tags": ["Frontend", "UI/UX", "Conference"]
+  },
+  {
+    "id": "e3",
+    "community_id": "c3",
+    "title": "Kubernetes & Cloud Native Workshop",
+    "description": "Mastering container orchestration, microservices deployment, and cluster management.",
+    "date": "2026-09-12T10:00:00",
+    "location": "Online",
+    "capacity": 50,
+    "attendees_count": 45,
+    "image_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3",
+    "tags": ["DevOps", "Cloud", "Workshop"]
+  },
+  {
+    "id": "e4",
+    "community_id": "c4",
+    "title": "UI/UX Design Systems Scale-Up",
+    "description": "How to build, maintain, and scale design systems across cross-functional product teams.",
+    "date": "2026-09-25T13:30:00",
+    "location": "Yogyakarta",
+    "capacity": 75,
+    "attendees_count": 60,
+    "image_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e",
+    "tags": ["Design", "UI/UX", "Product"]
+  },
+  {
+    "id": "e5",
+    "community_id": "c5",
+    "title": "Data Engineering & Pipeline Architecture",
+    "description": "Designing robust ETL pipelines, data lakes, and real-time streaming with Apache Kafka.",
+    "date": "2026-10-05T09:00:00",
+    "location": "Surabaya",
+    "capacity": 120,
+    "attendees_count": 90,
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "tags": ["Data", "Backend", "Architecture"]
+  },
+  {
+    "id": "e6",
+    "community_id": "c6",
+    "title": "Cybersecurity Fundamentals for Devs",
+    "description": "Protecting web apps against OWASP Top 10 vulnerabilities, secure coding practices, and auditing.",
+    "date": "2026-11-01T10:00:00",
+    "location": "Online",
+    "capacity": 150,
+    "attendees_count": 142,
+    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "tags": ["Security", "Programming", "Online"]
+  }
+]

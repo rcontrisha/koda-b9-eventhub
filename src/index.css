@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  /* Font Family */
+  --font-jakarta: "Plus Jakarta Sans", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  /* Color */
+  --color-primary: #FF5F22;
+  --color-secondary: #71717B;
+}
+
+@utility selected {
+  background-color: #FF5F2214;
+  color: var(--color-primary) !important;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+}

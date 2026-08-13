@@ -1,0 +1,144 @@
+[
+  {
+    "id": "c1",
+    "name": "Bandung Go Community",
+    "description": "The premier Go programming community in Bandung — weekly meetups, workshops, and mentoring for Gophers at all levels.",
+    "member_count": 847,
+    "upcoming_events_count": 3,
+    "banner_url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    "tags": [
+      "Technology",
+      "Programming"
+    ],
+    "members": [
+      {
+        "id": "u1",
+        "name": "Ridho Contrisha",
+        "role": "Member"
+      },
+      {
+        "id": "u2",
+        "name": "Ahmad Fauzan",
+        "role": "Admin"
+      },
+      {
+        "id": "u3",
+        "name": "Dina Rahayu",
+        "role": "Moderator"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d1",
+        "user_name": "Dian Purnama",
+        "time": "2d ago",
+        "message": "Super excited for this one — will there be any live coding exercises?"
+      },
+      {
+        "id": "d2",
+        "user_name": "Ahmad Fauzan",
+        "time": "1d ago",
+        "message": "Yes! The afternoon session is entirely hands-on. Bring your laptop with Go 1.22+ installed."
+      }
+    ]
+  },
+  {
+    "id": "c2",
+    "name": "Jakarta Frontend Dev",
+    "description": "A collaborative hub for frontend engineers in Jakarta focusing on modern web frameworks, UI/UX architecture, and performance.",
+    "member_count": 1240,
+    "upcoming_events_count": 2,
+    "banner_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    "tags": [
+      "Frontend",
+      "React",
+      "UI/UX"
+    ],
+    "members": [
+      {
+        "id": "u4",
+        "name": "Kevin Santoso",
+        "role": "Admin"
+      },
+      {
+        "id": "u5",
+        "name": "Siti Rahayu",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d3",
+        "user_name": "Kevin Santoso",
+        "time": "3d ago",
+        "message": "Any recommendations for state management libraries in large-scale React apps recently?"
+      }
+    ]
+  },
+  {
+    "id": "c3",
+    "name": "Cloud Native Indonesia",
+    "description": "Community dedicated to Kubernetes, microservices, containerization, and cloud infrastructure scaling.",
+    "member_count": 650,
+    "upcoming_events_count": 1,
+    "banner_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3",
+    "tags": [
+      "DevOps",
+      "Cloud",
+      "Kubernetes"
+    ],
+    "members": [
+      {
+        "id": "u6",
+        "name": "Eko Kurniawan",
+        "role": "Admin"
+      },
+      {
+        "id": "u7",
+        "name": "Budi Santoso",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d4",
+        "user_name": "Eko Kurniawan",
+        "time": "5d ago",
+        "message": "We will discuss cluster autoscaling strategies on our next meetup next week."
+      }
+    ]
+  },
+  {
+    "id": "c4",
+    "name": "Jogja UI/UX Designer Club",
+    "description": "Connecting creative minds in Yogyakarta to discuss product design thinking, usability testing, and wireframing.",
+    "member_count": 530,
+    "upcoming_events_count": 2,
+    "banner_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e",
+    "tags": [
+      "Design",
+      "UI/UX",
+      "Product"
+    ],
+    "members": [
+      {
+        "id": "u8",
+        "name": "Rian Hidayat",
+        "role": "Admin"
+      },
+      {
+        "id": "u9",
+        "name": "Maya Indah",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d5",
+        "user_name": "Rian Hidayat",
+        "time": "1d ago",
+        "message": "Don't forget to submit your case studies for the upcoming design critique session!"
+      }
+    ]
+  }
+]
