@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { NavLink, Link } from "react-router";
 import { MdOutlineDarkMode } from "react-icons/md";
 
 function Header() {
@@ -13,14 +13,29 @@ function Header() {
         </div>
         <nav className="mr-auto">
           <ul className="flex gap-4 items-center">
-            <li className="selected font-inter font-medium text-secondary text-sm">
-              <Link to={"/explore"}>Explore</Link>
+            <li className="font-inter font-medium text-secondary text-sm ">
+              <NavLink
+                to={"/explore"}
+                className={({ isActive }) => isActive ? "active" : "font-inter font-medium text-sm py-1.5 px-3"}
+              >
+                Explore
+              </NavLink>
             </li>
             <li className="font-inter font-medium text-secondary text-sm">
-              <Link to={"/events"}>Events</Link>
+              <NavLink
+                to={"/events"}
+                className={({ isActive }) => isActive ? "active" : "font-inter font-medium text-sm py-1.5 px-3"}
+              >
+                Events
+              </NavLink>
             </li>
             <li className="font-inter font-medium text-secondary text-sm">
-              <Link to={"/communities"}>Communities</Link>
+              <NavLink
+                to={"/communities"}
+                className={({ isActive }) => isActive ? "active" : "font-inter font-medium text-sm py-1.5 px-3"}
+              >
+                Communities
+              </NavLink>
             </li>
           </ul>
         </nav>

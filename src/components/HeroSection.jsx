@@ -1,4 +1,4 @@
-import { FiSearch } from "react-icons/fi";
+import SearchBar from "../components/shared/SearchBar.jsx";
 
 function HeroSection() {
   return (
@@ -15,17 +15,7 @@ function HeroSection() {
           Join workshops, conferences, and meetups in Indonesia's best tech
           communities — or create your own.
         </p>
-        <div className="mt-10 flex items-center bg-white rounded-xl p-1.5">
-          <FiSearch className="text-secondary text-lg ml-3" />
-          <input
-            type="text"
-            placeholder="Search events, topic, or locations..."
-            className="bg-white w-full px-3 py-2 focus:outline-0 font-inter"
-          />
-          <button className="bg-primary text-white font-inter font-medium text-sm px-6 py-2.5 rounded-lg">
-            Search
-          </button>
-        </div>
+        <SearchBar placeholder={"Search events, topics, or locations"} showButton={true} />
         <div className="flex flex-wrap items-center gap-2 justify-center pt-5">
           {["Technology", "AI", "Design", "Business", "Programming", "Music"].map((topic) => {
             return (

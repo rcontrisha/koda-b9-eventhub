@@ -24,7 +24,7 @@ function Explore() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
           {events.map((event) => {
-            return <EventCard key={event.id} event={event} />;
+            return <EventCard key={event.id} events={event} />;
           })}
         </div>
       </div>
