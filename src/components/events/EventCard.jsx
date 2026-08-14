@@ -11,65 +11,76 @@ function getProgressColor(pct) {
 function EventCard({ events }) {
   const pct = Math.min(100, (events.attendees_count / events.capacity) * 100);
   const isFull = events.attendees_count >= events.capacity;
+
   return (
-    <article className="border-2 border-[#E4E4E7] rounded-xl">
+    <article className="border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col bg-white">
       <div className="relative">
         <img
           src={events.image_url}
-          height={176}
-          className="rounded-t-xl w-full"
+          alt={events.title}
+          className="rounded-t-xl w-full h-44 object-cover"
         />
       </div>
-      <div className="p-4 flex flex-col gap-3"> 
-        <p className="font-jakarta font-semibold text-base">{events.title}</p>
-        <div>
+
+      <div className="p-4 flex flex-col flex-grow justify-between gap-4">
+        <div className="flex flex-col gap-3">
+          <p className="font-jakarta font-semibold text-base text-gray-900 line-clamp-2">
+            {events.title}
+          </p>
+
+          <div className="flex flex-col gap-1.5">
+            <div className="flex gap-2 items-center">
+              <CiCalendar className="text-secondary shrink-0 text-base" />
+              <p className="text-secondary font-inter font-normal text-xs truncate">
+                {events.date}
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <IoLocationOutline className="text-secondary shrink-0 text-base" />
+              <p className="text-secondary font-inter font-normal text-xs truncate">
+                {events.location}
+              </p>
+            </div>
+            <div className="flex gap-2 items-center">
+              <RxPeople className="text-secondary shrink-0 text-base" />
+              <p className="text-secondary font-inter font-normal text-xs">
+                {events.attendees_count}/{events.capacity} attendees
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 mt-auto pt-2">
+          <div>
+            <div className="flex justify-between mb-1 text-xs">
+              <span className="font-medium text-body">
+                {events.attendees_count} Attendees
+              </span>
+              <span className="font-medium text-body">
+                {events.capacity} Capacity
+              </span>
+            </div>
+            <div className="w-full bg-neutral-200 rounded-full h-2 overflow-hidden">
+              <div
+                className={`${getProgressColor(pct)} h-2 rounded-full transition-all duration-300`}
+                style={{ width: `${pct}%` }}
+              ></div>
+            </div>
+          </div>
+
           <div className="flex gap-2 items-center">
-            <CiCalendar />
-            <p className="text-secondary font-inter font-normal text-xs">
-              {events.date}
-            </p>
-          </div>
-          <div className="flex gap-2 items-center pt-1.5">
-            <IoLocationOutline />
-            <p className="text-secondary font-inter font-normal text-xs">
-              {events.location}
-            </p>
-          </div>
-          <div className="flex gap-2 items-center pt-1.5">
-            <RxPeople />
-            <p className="text-secondary font-inter font-normal text-xs">
-              {events.attendees_count}/{events.capacity} attendees
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="flex justify-between mb-1">
-            <span className="text-sm font-medium text-body">
-              {events.attendees_count} Attendees
-            </span>
-            <span className="text-sm font-medium text-body">
-              {events.capacity} Capacity
-            </span>
-          </div>
-          <div className="w-full bg-neutral-200 rounded-full h-2">
-            <div
-              className={`${getProgressColor(pct)} h-2 rounded-full`}
-              style={{ width: `${pct}%` }}
-            ></div>
-          </div>
-        </div>
-        <div className="flex gap-2 pt-1 items-center">
-          {isFull ? (
-            <div className="grow text-center bg-neutral-300 text-neutral-500 rounded-lg py-1.5 px-3 font-inter font-medium text-sm cursor-not-allowed">
-              Full
+            {isFull ? (
+              <div className="grow text-center bg-neutral-300 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
+                Full
+              </div>
+            ) : (
+              <div className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer">
+                Join Event
+              </div>
+            )}
+            <div className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center">
+              <CiBookmark className="text-lg text-gray-700" />
             </div>
-          ) : (
-            <div className="grow text-center bg-primary rounded-lg text-white py-1.5 px-3 cursor-pointer">
-              Join Event
-            </div>
-          )}
-          <div className="border-2 border-[#E4E4E7] p-2 rounded-lg cursor-pointer">
-            <CiBookmark />
           </div>
         </div>
       </div>

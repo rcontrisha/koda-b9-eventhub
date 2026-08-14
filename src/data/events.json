@@ -70,5 +70,53 @@
     "attendees_count": 150,
     "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
     "tags": ["Security", "Programming", "Online"]
+  },
+  {
+    "id": "e7",
+    "community_id": "c5",
+    "title": "Real-Time Streaming with Kafka & Flink",
+    "description": "Hands-on session building real-time data pipelines with Apache Kafka and Flink for production workloads.",
+    "date": "2026-10-20T09:00:00",
+    "location": "Surabaya",
+    "capacity": 80,
+    "attendees_count": 78,
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "tags": ["Data", "Backend", "Workshop"]
+  },
+  {
+    "id": "e8",
+    "community_id": "c6",
+    "title": "Capture The Flag Competition",
+    "description": "A full-day CTF covering web exploitation, reverse engineering, and cryptography challenges for all levels.",
+    "date": "2026-11-15T08:00:00",
+    "location": "Online",
+    "capacity": 200,
+    "attendees_count": 200,
+    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "tags": ["Security", "CTF", "Online"]
+  },
+  {
+    "id": "e9",
+    "community_id": "c7",
+    "title": "Intro to LLMs & RAG",
+    "description": "An introduction to large language models and retrieval-augmented generation, with live demos.",
+    "date": "2026-09-30T13:00:00",
+    "location": "Surabaya",
+    "capacity": 100,
+    "attendees_count": 55,
+    "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    "tags": ["AI", "Machine Learning", "Workshop"]
+  },
+  {
+    "id": "e10",
+    "community_id": "c8",
+    "title": "Flutter Performance Tuning",
+    "description": "Practical techniques to profile and optimize Flutter apps, from jank to 60fps.",
+    "date": "2026-10-02T10:00:00",
+    "location": "Bandung",
+    "capacity": 60,
+    "attendees_count": 59,
+    "image_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    "tags": ["Mobile", "Flutter", "Workshop"]
   }
 ]

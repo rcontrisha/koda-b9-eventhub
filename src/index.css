@@ -6,12 +6,12 @@
   --font-inter: "Inter", sans-serif;
 
   /* Color */
-  --color-primary: #FF5F22;
-  --color-secondary: #71717B;
+  --color-primary: #ff5f22;
+  --color-secondary: #71717b;
 }
 
 @utility active {
-  background-color: #FF5F2214;
+  background-color: #ff5f2214;
   color: var(--color-primary) !important;
   font-family: var(--font-inter);
   font-weight: 500;
@@ -21,6 +21,16 @@
 }
 
 @utility pending {
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+}
+
+@utility selected {
+  background-color: var(--color-primary);
+  color: white !important;
   font-family: var(--font-inter);
   font-weight: 500;
   font-size: 14px;

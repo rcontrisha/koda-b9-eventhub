@@ -3,47 +3,59 @@ import { CiCalendar } from "react-icons/ci";
 
 function CommunityCard({ community }) {
   return (
-    <article>
+    <article className="flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
       <div>
         <img
           src={community.banner_url}
           height={176}
           alt="Community Image"
-          className="rounded-t-xl w-full"
+          className="w-full h-44 object-cover"
         />
       </div>
-      <div className="grid grid-rows-3 p-4 auto-rows-min">
-        <p className="font-jakarta font-semibold text-base h-fit items-start">
-          {community.name}
-        </p>
-        <p className="font-inter font-normal text-secondary text-xs">
-          {community.description}
-        </p>
-        <div className="flex gap-2 items-center">
-          {community["tags"].map((tag) => {
-            return (
-              <div className="px-2 py-0.5 text-white bg-gray-500 rounded-full font-medium font-inter text-xs">
-                {tag}
-              </div>
-            );
-          })}
-        </div>
-        <div className="flex gap-3">
-          <div className="flex gap-1 items-center pt-1.5">
-            <RxPeople />
-            <p className="text-secondary font-inter font-normal text-xs">
-              {community.member_count} Members
-            </p>
-          </div>
-          <div className="flex gap-1 items-center pt-1.5">
-            <CiCalendar />
-            <p className="text-secondary font-inter font-normal text-xs">
-              {community.upcoming_events_count} Upcoming
-            </p>
+      
+      <div className="flex flex-col flex-grow p-4 justify-between">
+        <div className="flex flex-col gap-2">
+          <p className="font-jakarta font-semibold text-base text-gray-900">
+            {community.name}
+          </p>
+          <p className="font-inter font-normal text-gray-500 text-xs line-clamp-2">
+            {community.description}
+          </p>
+          
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5 pt-1">
+            {community["tags"].map((tag, index) => {
+              return (
+                <div 
+                  key={index} 
+                  className="px-2 py-0.5 text-white bg-gray-500 rounded-full font-medium font-inter text-xs"
+                >
+                  {tag}
+                </div>
+              );
+            })}
           </div>
         </div>
-        <div className="w-full mt-1 text-center bg-primary rounded-lg text-white py-1.5 px-3">
-          Join Event
+
+        <div className="pt-4 mt-auto">
+          <div className="flex gap-3 pb-3">
+            <div className="flex gap-1 items-center">
+              <RxPeople className="text-gray-500" />
+              <p className="text-gray-500 font-inter font-normal text-xs">
+                {community.member_count} Members
+              </p>
+            </div>
+            <div className="flex gap-1 items-center">
+              <CiCalendar className="text-gray-500" />
+              <p className="text-gray-500 font-inter font-normal text-xs">
+                {community.upcoming_events_count} Upcoming
+              </p>
+            </div>
+          </div>
+
+          <button className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer">
+            Join Event
+          </button>
         </div>
       </div>
     </article>

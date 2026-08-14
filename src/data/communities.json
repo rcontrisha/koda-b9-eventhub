@@ -140,5 +140,137 @@
         "message": "Don't forget to submit your case studies for the upcoming design critique session!"
       }
     ]
+  },
+  {
+    "id": "c5",
+    "name": "Data Engineering Indonesia",
+    "description": "A community for data engineers in Surabaya and beyond — ETL pipelines, data lakes, and real-time streaming.",
+    "member_count": 720,
+    "upcoming_events_count": 2,
+    "banner_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "tags": [
+      "Data",
+      "Backend",
+      "Architecture"
+    ],
+    "members": [
+      {
+        "id": "u10",
+        "name": "Fajar Prasetyo",
+        "role": "Admin"
+      },
+      {
+        "id": "u11",
+        "name": "Lestari Widodo",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d6",
+        "user_name": "Fajar Prasetyo",
+        "time": "2d ago",
+        "message": "Which streaming platform do you prefer: Kafka or Flink?"
+      }
+    ]
+  },
+  {
+    "id": "c6",
+    "name": "Cybersecurity Indonesia",
+    "description": "A nationwide community for security engineers and enthusiasts — CTF, OWASP, and secure coding.",
+    "member_count": 980,
+    "upcoming_events_count": 2,
+    "banner_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "tags": [
+      "Security",
+      "Programming",
+      "Online"
+    ],
+    "members": [
+      {
+        "id": "u12",
+        "name": "Wira Nugraha",
+        "role": "Admin"
+      },
+      {
+        "id": "u13",
+        "name": "Sari Dewi",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d7",
+        "user_name": "Wira Nugraha",
+        "time": "1d ago",
+        "message": "Registration for the upcoming CTF competition is now open!"
+      }
+    ]
+  },
+  {
+    "id": "c7",
+    "name": "Indonesia AI & Machine Learning",
+    "description": "Exploring large language models, computer vision, and applied machine learning across Indonesia.",
+    "member_count": 1100,
+    "upcoming_events_count": 1,
+    "banner_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    "tags": [
+      "AI",
+      "Machine Learning",
+      "Data"
+    ],
+    "members": [
+      {
+        "id": "u14",
+        "name": "Rendra Wijaya",
+        "role": "Admin"
+      },
+      {
+        "id": "u15",
+        "name": "Nadia Putri",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d8",
+        "user_name": "Rendra Wijaya",
+        "time": "3d ago",
+        "message": "Anyone tried fine-tuning open-weight models for Indonesian text?"
+      }
+    ]
+  },
+  {
+    "id": "c8",
+    "name": "Bandung Mobile & Flutter Dev",
+    "description": "Mobile developers in Bandung sharing Flutter, React Native, and native performance optimization tips.",
+    "member_count": 610,
+    "upcoming_events_count": 1,
+    "banner_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    "tags": [
+      "Mobile",
+      "Flutter",
+      "Programming"
+    ],
+    "members": [
+      {
+        "id": "u16",
+        "name": "Galih Ramadhan",
+        "role": "Admin"
+      },
+      {
+        "id": "u17",
+        "name": "Intan Permatasari",
+        "role": "Member"
+      }
+    ],
+    "discussions": [
+      {
+        "id": "d9",
+        "user_name": "Galih Ramadhan",
+        "time": "2d ago",
+        "message": "Flutter 3.24 brings new performance tooling — let's discuss it in the next meetup."
+      }
+    ]
   }
 ]
