@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 
-import AuthLayout from "./components/auth/AuthLayout";
+import AuthLayout from "./layouts/AuthLayout";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
 import ForgotPassword from "./components/auth/ForgotPassword";
@@ -10,6 +10,10 @@ import GuestLayout from "./components/GuestLayout";
 import Explore from "./pages/Explore";
 import Communities from "./pages/Communities";
 import EventDetail from "./pages/EventDetail";
+import CommunityDetailLayout from "./layouts/CommunityDetailLayout";
+import CommunityEvents from "./pages/community-detail/CommunityEvents";
+import CommunityMember from "./pages/community-detail/CommunityMember";
+import CommunityDiscussion from "./pages/community-detail/CommunityDiscussion";
 
 export default function App() {
   return (
@@ -26,7 +30,14 @@ export default function App() {
           {/* <Route path=":slug" element={<EventDetail />}/> */}
         </Route>
         <Route path="/event-detail" element={<EventDetail />} />
-        <Route path="/communities" element={<Communities />} />
+        <Route path="/communities">
+          <Route index element={<Communities />} />
+          <Route path=":slug" element={<CommunityDetailLayout />}>
+            <Route index element={<CommunityEvents />} />
+            <Route path="members" element={<CommunityMember />} />
+            <Route path="discussion" element={<CommunityDiscussion />} />
+          </Route>
+        </Route>
       </Route>
       
     </Routes>
