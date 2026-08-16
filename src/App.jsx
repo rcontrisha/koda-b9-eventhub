@@ -9,6 +9,7 @@ import Event from "./pages/Event";
 import GuestLayout from "./components/GuestLayout";
 import Explore from "./pages/Explore";
 import Communities from "./pages/Communities";
+import EventDetail from "./pages/EventDetail";
 
 export default function App() {
   return (
@@ -20,9 +21,14 @@ export default function App() {
       </Route>
       <Route element={<GuestLayout />}>
         <Route path="/explore" element={<Explore />} />
-        <Route path="/events" element={<Event />} />
+        <Route path="/events">
+          <Route index element={<Event />} />
+          {/* <Route path=":slug" element={<EventDetail />}/> */}
+        </Route>
+        <Route path="/event-detail" element={<EventDetail />} />
         <Route path="/communities" element={<Communities />} />
       </Route>
+      
     </Routes>
   );
 }

@@ -1,12 +1,7 @@
 import { CiCalendar, CiBookmark } from "react-icons/ci";
 import { IoLocationOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
-
-function getProgressColor(pct) {
-  if (pct >= 100) return "bg-red-500";
-  if (pct >= 80) return "bg-yellow-500";
-  return "bg-[#33B570]";
-}
+import { getProgressColor, formatEventDate } from "../../utils/event";
 
 function EventCard({ events }) {
   const pct = Math.min(100, (events.attendees_count / events.capacity) * 100);
@@ -28,11 +23,15 @@ function EventCard({ events }) {
             {events.title}
           </p>
 
+          <p className="font-inter font-normal text-xs text-secondary line-clamp-2">
+            {events.overview}
+          </p>
+
           <div className="flex flex-col gap-1.5">
             <div className="flex gap-2 items-center">
               <CiCalendar className="text-secondary shrink-0 text-base" />
               <p className="text-secondary font-inter font-normal text-xs truncate">
-                {events.date}
+                {formatEventDate(events.date)}
               </p>
             </div>
             <div className="flex gap-2 items-center">

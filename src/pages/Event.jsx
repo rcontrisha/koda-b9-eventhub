@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EventCard from "../components/events/EventCard";
 import FilterButton from "../components/shared/FilterButton";
-import SearchBar from "../components/shared/SearchBar";
+import InputField from "../components/shared/InputField";
 import events from "../data/events.json";
 
 function Event() {
@@ -10,7 +10,7 @@ function Event() {
   return (
     <>
       <div className="py-4 px-6 border-b border-b-[#E4E4E7] flex gap-3 items-center">
-        <SearchBar placeholder={"Search events..."} showButton={false} />
+        <InputField placeholder={"Search events..."} />
         <FilterButton />
       </div>
       <section className="px-4 py-8 lg:py-10 lg:px-13">

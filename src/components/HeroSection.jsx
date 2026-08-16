@@ -1,4 +1,4 @@
-import SearchBar from "../components/shared/SearchBar.jsx";
+import InputField from "../components/shared/InputField";
 
 function HeroSection() {
   return (
@@ -15,7 +15,14 @@ function HeroSection() {
           Join workshops, conferences, and meetups in Indonesia's best tech
           communities — or create your own.
         </p>
-        <SearchBar placeholder={"Search events, topics, or locations"} showButton={true} />
+        <InputField
+          placeholder={"Search events, topics, or locations"}
+          trailing={
+            <button className="bg-primary text-white font-inter font-medium text-sm px-6 py-2.5 rounded-lg">
+              Search
+            </button>
+          }
+        />
         <div className="flex flex-wrap items-center gap-2 justify-center pt-5">
           {["Technology", "AI", "Design", "Business", "Programming", "Music"].map((topic) => {
             return (

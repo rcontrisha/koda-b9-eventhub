@@ -1,5 +1,5 @@
 import CommunityCard from "../components/communities/CommunityCard";
-import SearchBar from "../components/shared/SearchBar";
+import InputField from "../components/shared/InputField";
 import communities from "../data/communities.json";
 
 function Communities() {
@@ -15,9 +15,8 @@ function Communities() {
             event recommendations.
           </p>
           <div className="pt-6">
-            <SearchBar
+            <InputField
               placeholder={"Search communities..."}
-              showButton={false}
             />
           </div>
         </div>

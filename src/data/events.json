@@ -3,120 +3,440 @@
     "id": "e1",
     "community_id": "c1",
     "title": "Go Concurrency Workshop",
-    "description": "A deep-dive workshop into Go concurrency patterns, goroutines, channels, and select statements.",
+    "overview": "A deep-dive workshop into Go concurrency patterns, goroutines, channels, and select statements.",
+    "description": "A hands-on workshop that takes you from the fundamentals of Go concurrency to the advanced patterns used in production systems.\n\nYou'll build real-world examples using goroutines and channels, explore select statements for synchronization, and learn how to avoid common pitfalls like deadlocks and race conditions.\n\nBy the end of the day, you'll be able to design safe, efficient concurrent programs in Go.",
     "date": "2026-08-22T09:00:00",
+    "start_time": "09:00",
+    "end_time": "17:00",
     "location": "Bandung",
     "capacity": 100,
     "attendees_count": 48,
     "image_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
-    "tags": ["Technology", "Programming", "Available"]
+    "tags": ["Technology", "Programming", "Available"],
+    "organizer": {
+      "name": "Ahmad Fauzan",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+    },
+    "speakers": [
+      {
+        "name": "Ahmad Fauzan",
+        "role": "Staff Engineer, Tokopedia",
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      },
+      {
+        "name": "Dina Rahayu",
+        "role": "Go Developer Advocate, Xendit",
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Dian Purnama",
+        "time": "2d ago",
+        "message": "Super excited for this one — will there be any live coding exercises?"
+      },
+      {
+        "user_name": "Ahmad Fauzan",
+        "time": "1d ago",
+        "message": "Yes! The afternoon session is entirely hands-on. Bring your laptop with Go 1.22+ installed."
+      }
+    ]
   },
   {
     "id": "e2",
     "community_id": "c2",
     "title": "Frontend Craft Conference",
-    "description": "Building scalable interfaces with modern web standards, React, and performance optimizations.",
+    "overview": "Building scalable interfaces with modern web standards, React, and performance optimizations.",
+    "description": "A full-day conference for frontend engineers who want to level up how they build and ship web applications.\n\nTalks and hands-on labs will cover modern web standards, React architecture, and performance optimization techniques that hold up at scale.\n\nYou'll leave with practical patterns and tooling recommendations you can apply to your own codebase immediately.",
     "date": "2026-10-12T09:00:00",
+    "start_time": "09:00",
+    "end_time": "17:00",
     "location": "Jakarta",
     "capacity": 200,
     "attendees_count": 150,
     "image_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
-    "tags": ["Frontend", "UI/UX", "Conference"]
+    "tags": ["Frontend", "UI/UX", "Conference"],
+    "organizer": {
+      "name": "Kevin Santoso",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+    },
+    "speakers": [
+      {
+        "name": "Kevin Santoso",
+        "role": "Frontend Lead, Gojek",
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+      },
+      {
+        "name": "Siti Rahayu",
+        "role": "UI Engineer, Tokopedia",
+        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Kevin Santoso",
+        "time": "3d ago",
+        "message": "Any recommendations for state management libraries in large-scale React apps recently?"
+      },
+      {
+        "user_name": "Siti Rahayu",
+        "time": "1d ago",
+        "message": "We've been happy with Zustand + TanStack Query for most cases."
+      }
+    ]
   },
   {
     "id": "e3",
     "community_id": "c3",
     "title": "Kubernetes & Cloud Native Workshop",
-    "description": "Mastering container orchestration, microservices deployment, and cluster management.",
+    "overview": "Mastering container orchestration, microservices deployment, and cluster management.",
+    "description": "A practical workshop on running production workloads with Kubernetes and cloud-native tooling.\n\nWe'll cover container orchestration fundamentals, deploying microservices, and managing clusters with confidence.\n\nExpect live demos on autoscaling, observability, and common operational gotchas.",
     "date": "2026-09-12T10:00:00",
+    "start_time": "10:00",
+    "end_time": "15:00",
     "location": "Online",
     "capacity": 50,
     "attendees_count": 45,
     "image_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3",
-    "tags": ["DevOps", "Cloud", "Workshop"]
+    "tags": ["DevOps", "Cloud", "Workshop"],
+    "organizer": {
+      "name": "Eko Kurniawan",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+    },
+    "speakers": [
+      {
+        "name": "Eko Kurniawan",
+        "role": "SRE, Bukalapak",
+        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+      },
+      {
+        "name": "Budi Santoso",
+        "role": "DevOps Engineer, Blibli",
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Eko Kurniawan",
+        "time": "5d ago",
+        "message": "We will discuss cluster autoscaling strategies on our next meetup next week."
+      },
+      {
+        "user_name": "Budi Santoso",
+        "time": "2d ago",
+        "message": "Looking forward to it! Please cover Karpenter vs Cluster Autoscaler."
+      }
+    ]
   },
   {
     "id": "e4",
     "community_id": "c4",
     "title": "UI/UX Design Systems Scale-Up",
-    "description": "How to build, maintain, and scale design systems across cross-functional product teams.",
+    "overview": "How to build, maintain, and scale design systems across cross-functional product teams.",
+    "description": "A session for product designers and engineers building design systems that need to scale.\n\nWe'll walk through establishing, maintaining, and evolving a design system across multiple product teams.\n\nThe second half is an open critique where you can get feedback on your own components and case studies.",
     "date": "2026-09-25T13:30:00",
+    "start_time": "13:30",
+    "end_time": "17:00",
     "location": "Yogyakarta",
     "capacity": 75,
     "attendees_count": 60,
     "image_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e",
-    "tags": ["Design", "UI/UX", "Product"]
+    "tags": ["Design", "UI/UX", "Product"],
+    "organizer": {
+      "name": "Rian Hidayat",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7"
+    },
+    "speakers": [
+      {
+        "name": "Rian Hidayat",
+        "role": "Design Lead, Traveloka",
+        "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7"
+      },
+      {
+        "name": "Maya Indah",
+        "role": "Product Designer, Tokopedia",
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Rian Hidayat",
+        "time": "1d ago",
+        "message": "Don't forget to submit your case studies for the upcoming design critique session!"
+      },
+      {
+        "user_name": "Maya Indah",
+        "time": "12h ago",
+        "message": "Submitted mine. Excited to get feedback!"
+      }
+    ]
   },
   {
     "id": "e5",
     "community_id": "c5",
     "title": "Data Engineering & Pipeline Architecture",
-    "description": "Designing robust ETL pipelines, data lakes, and real-time streaming with Apache Kafka.",
+    "overview": "Designing robust ETL pipelines, data lakes, and real-time streaming with Apache Kafka.",
+    "description": "A deep dive into the architecture behind reliable, scalable data platforms.\n\nWe'll cover ETL pipeline design, data lake patterns, and real-time streaming with Apache Kafka.\n\nYou'll learn how to reason about trade-offs in latency, throughput, and cost when designing data infrastructure.",
     "date": "2026-10-05T09:00:00",
+    "start_time": "09:00",
+    "end_time": "16:00",
     "location": "Surabaya",
     "capacity": 120,
     "attendees_count": 90,
     "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-    "tags": ["Data", "Backend", "Architecture"]
+    "tags": ["Data", "Backend", "Architecture"],
+    "organizer": {
+      "name": "Fajar Prasetyo",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+    },
+    "speakers": [
+      {
+        "name": "Fajar Prasetyo",
+        "role": "Data Engineer, Tokopedia",
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      },
+      {
+        "name": "Lestari Widodo",
+        "role": "Data Platform Engineer, GoTo",
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Fajar Prasetyo",
+        "time": "2d ago",
+        "message": "Which streaming platform do you prefer: Kafka or Flink?"
+      },
+      {
+        "user_name": "Lestari Widodo",
+        "time": "1d ago",
+        "message": "Depends on the use case — Kafka for ingestion, Flink for stateful processing."
+      }
+    ]
   },
   {
     "id": "e6",
     "community_id": "c6",
     "title": "Cybersecurity Fundamentals for Devs",
-    "description": "Protecting web apps against OWASP Top 10 vulnerabilities, secure coding practices, and auditing.",
+    "overview": "Protecting web apps against OWASP Top 10 vulnerabilities, secure coding practices, and auditing.",
+    "description": "A security-focused workshop built for developers, not just security specialists.\n\nWe'll go through the OWASP Top 10 with live demos against deliberately vulnerable applications.\n\nYou'll learn secure coding practices and auditing techniques you can apply to your own services right away.",
     "date": "2026-11-01T10:00:00",
+    "start_time": "10:00",
+    "end_time": "14:00",
     "location": "Online",
     "capacity": 150,
     "attendees_count": 150,
     "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
-    "tags": ["Security", "Programming", "Online"]
+    "tags": ["Security", "Programming", "Online"],
+    "organizer": {
+      "name": "Wira Nugraha",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+    },
+    "speakers": [
+      {
+        "name": "Wira Nugraha",
+        "role": "Security Engineer, GovTech",
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+      },
+      {
+        "name": "Sari Dewi",
+        "role": "AppSec Engineer, Bukalapak",
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Wira Nugraha",
+        "time": "1d ago",
+        "message": "We'll cover OWASP Top 10 with live demos on vulnerable apps."
+      },
+      {
+        "user_name": "Sari Dewi",
+        "time": "8h ago",
+        "message": "Great, will there be a hands-on lab?"
+      }
+    ]
   },
   {
     "id": "e7",
     "community_id": "c5",
     "title": "Real-Time Streaming with Kafka & Flink",
-    "description": "Hands-on session building real-time data pipelines with Apache Kafka and Flink for production workloads.",
+    "overview": "Hands-on session building real-time data pipelines with Apache Kafka and Flink for production workloads.",
+    "description": "A hands-on session on building production-grade real-time data pipelines.\n\nWe'll spin up a local cluster and build streaming jobs with Apache Kafka and Flink from scratch.\n\nBy the end you'll understand when to reach for each tool and how to operate streaming pipelines reliably.",
     "date": "2026-10-20T09:00:00",
+    "start_time": "09:00",
+    "end_time": "15:00",
     "location": "Surabaya",
     "capacity": 80,
     "attendees_count": 78,
     "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-    "tags": ["Data", "Backend", "Workshop"]
+    "tags": ["Data", "Backend", "Workshop"],
+    "organizer": {
+      "name": "Fajar Prasetyo",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+    },
+    "speakers": [
+      {
+        "name": "Fajar Prasetyo",
+        "role": "Data Engineer, Tokopedia",
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      },
+      {
+        "name": "Lestari Widodo",
+        "role": "Data Platform Engineer, GoTo",
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Fajar Prasetyo",
+        "time": "3d ago",
+        "message": "Bring your own machine — we'll spin up a local Kafka cluster."
+      },
+      {
+        "user_name": "Lestari Widodo",
+        "time": "1d ago",
+        "message": "Slides and repo will be shared after the session."
+      }
+    ]
   },
   {
     "id": "e8",
     "community_id": "c6",
     "title": "Capture The Flag Competition",
-    "description": "A full-day CTF covering web exploitation, reverse engineering, and cryptography challenges for all levels.",
+    "overview": "A full-day CTF covering web exploitation, reverse engineering, and cryptography challenges for all levels.",
+    "description": "A full-day capture-the-flag competition open to teams of up to three.\n\nChallenges span web exploitation, reverse engineering, and cryptography, with tiers for beginners through advanced players.\n\nThe top three teams win prizes, and every participant leaves with a clearer picture of offensive security techniques.",
     "date": "2026-11-15T08:00:00",
+    "start_time": "08:00",
+    "end_time": "17:00",
     "location": "Online",
     "capacity": 200,
     "attendees_count": 200,
     "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
-    "tags": ["Security", "CTF", "Online"]
+    "tags": ["Security", "CTF", "Online"],
+    "organizer": {
+      "name": "Wira Nugraha",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+    },
+    "speakers": [
+      {
+        "name": "Wira Nugraha",
+        "role": "Security Engineer, GovTech",
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+      },
+      {
+        "name": "Sari Dewi",
+        "role": "AppSec Engineer, Bukalapak",
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Wira Nugraha",
+        "time": "1d ago",
+        "message": "Registration for the upcoming CTF competition is now open!"
+      },
+      {
+        "user_name": "Sari Dewi",
+        "time": "6h ago",
+        "message": "Teams of up to 3 — who wants to join mine?"
+      }
+    ]
   },
   {
     "id": "e9",
     "community_id": "c7",
     "title": "Intro to LLMs & RAG",
-    "description": "An introduction to large language models and retrieval-augmented generation, with live demos.",
+    "overview": "An introduction to large language models and retrieval-augmented generation, with live demos.",
+    "description": "A beginner-friendly introduction to large language models and retrieval-augmented generation.\n\nWe'll explain how LLMs work, why they hallucinate, and how RAG grounds them in your own data.\n\nExpect live demos building a working RAG pipeline, plus pointers for fine-tuning open-weight models for Indonesian text.",
     "date": "2026-09-30T13:00:00",
+    "start_time": "13:00",
+    "end_time": "16:00",
     "location": "Surabaya",
     "capacity": 100,
     "attendees_count": 55,
     "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995",
-    "tags": ["AI", "Machine Learning", "Workshop"]
+    "tags": ["AI", "Machine Learning", "Workshop"],
+    "organizer": {
+      "name": "Rendra Wijaya",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+    },
+    "speakers": [
+      {
+        "name": "Rendra Wijaya",
+        "role": "ML Engineer, GoTo",
+        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+      },
+      {
+        "name": "Nadia Putri",
+        "role": "Data Scientist, Traveloka",
+        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Rendra Wijaya",
+        "time": "3d ago",
+        "message": "Anyone tried fine-tuning open-weight models for Indonesian text?"
+      },
+      {
+        "user_name": "Nadia Putri",
+        "time": "1d ago",
+        "message": "We'll demo a RAG pipeline with Qdrant in the workshop."
+      }
+    ]
   },
   {
     "id": "e10",
     "community_id": "c8",
     "title": "Flutter Performance Tuning",
-    "description": "Practical techniques to profile and optimize Flutter apps, from jank to 60fps.",
+    "overview": "Practical techniques to profile and optimize Flutter apps, from jank to 60fps.",
+    "description": "A hands-on workshop for Flutter developers chasing smooth 60fps experiences.\n\nWe'll profile real apps, identify jank, and apply concrete optimizations using the latest tooling.\n\nTopics include Impeller rendering, widget rebuilds, and memory optimizations you can ship immediately.",
     "date": "2026-10-02T10:00:00",
+    "start_time": "10:00",
+    "end_time": "13:00",
     "location": "Bandung",
     "capacity": 60,
     "attendees_count": 59,
     "image_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
-    "tags": ["Mobile", "Flutter", "Workshop"]
+    "tags": ["Mobile", "Flutter", "Workshop"],
+    "organizer": {
+      "name": "Galih Ramadhan",
+      "role": "Community Lead",
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+    },
+    "speakers": [
+      {
+        "name": "Galih Ramadhan",
+        "role": "Flutter Dev, DANA",
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+      },
+      {
+        "name": "Intan Permatasari",
+        "role": "Mobile Engineer, Gojek",
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+      }
+    ],
+    "discussions": [
+      {
+        "user_name": "Galih Ramadhan",
+        "time": "2d ago",
+        "message": "Flutter 3.24 brings new performance tooling — let's discuss it in the next meetup."
+      },
+      {
+        "user_name": "Intan Permatasari",
+        "time": "1d ago",
+        "message": "Can we also cover Impeller rendering optimizations?"
+      }
+    ]
   }
 ]
