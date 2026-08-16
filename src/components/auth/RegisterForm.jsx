@@ -1,13 +1,19 @@
 import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { useNavigate } from "react-router";
 
 function RegisterForm() {
   const {
     register,
     handleSubmit,
+    setError,
+    watch,
     formState: { errors },
   } = useForm();
+
+  const termsChecked = watch("terms");
+  const navigate = useNavigate();
 
   return (
     <section>
@@ -36,7 +42,29 @@ function RegisterForm() {
       <div className="pt-5">
         <form
           onSubmit={handleSubmit((form) => {
+            if (form.confirm !== form.password) {
+              setError("confirm", {
+                type: "manual",
+                message: "Passwords do not match",
+              });
+              return;
+            }
+            const users = JSON.parse(localStorage.getItem("users")) || [];
+
+            if (users.some((u) => u.email === form.email)) {
+              setError("email", {
+                type: "manual",
+                message: "Email already exists",
+              });
+              return;
+            }
             console.log(form);
+
+            const { confirm, terms, ...userInfo } = form;
+            users.push(userInfo)
+
+            localStorage.setItem("users", JSON.stringify(users));
+            navigate("/login");
           })}
         >
           <div className="flex flex-col gap-1 pb-4">
@@ -47,12 +75,25 @@ function RegisterForm() {
               Full Name
             </label>
             <input
-              className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
+              className={`px-3 py-2.5 border-2 rounded-lg ${
+                errors.fullName ? "border-red-500" : "border-gray-300"
+              }`}
               type="text"
               id="fullName"
               placeholder="Tatang Sutarman"
-              {...register("fullName", { required: true })}
+              {...register("fullName", {
+                required: "Full name is required",
+                minLength: {
+                  value: 3,
+                  message: "Full name must be at least 3 characters",
+                },
+              })}
             />
+            {errors.fullName && (
+              <p className="text-red-500 text-xs font-inter mt-1">
+                {errors.fullName.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-1 pb-4">
             <label
@@ -62,12 +103,19 @@ function RegisterForm() {
               Email Address
             </label>
             <input
-              className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
+              className={`px-3 py-2.5 border-2 rounded-lg ${
+                errors.email ? "border-red-500" : "border-gray-300"
+              }`}
               type="email"
               id="email"
               placeholder="mail@example.com"
-              {...register("email", { required: true })}
+              {...register("email", { required: "Email address is required" })}
             />
+            {errors.email && (
+              <p className="text-red-500 text-xs font-inter mt-1">
+                {errors.email.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-1 pb-4">
             <label
@@ -77,12 +125,25 @@ function RegisterForm() {
               Password
             </label>
             <input
-              className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
+              className={`px-3 py-2.5 border-2 rounded-lg ${
+                errors.password ? "border-red-500" : "border-gray-300"
+              }`}
               type="password"
               id="pwd"
               placeholder="At least 8 characters"
-              {...register("password", { required: true })}
+              {...register("password", {
+                required: "Password is required",
+                minLength: {
+                  value: 8,
+                  message: "Password must be at least 8 characters",
+                },
+              })}
             />
+            {errors.password && (
+              <p className="text-red-500 text-xs font-inter mt-1">
+                {errors.password.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-1">
             <label
@@ -92,21 +153,53 @@ function RegisterForm() {
               Confirm Password
             </label>
             <input
-              className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
+              className={`px-3 py-2.5 border-2 rounded-lg ${
+                errors.confirm ? "border-red-500" : "border-gray-300"
+              }`}
               type="password"
               id="confirm"
               placeholder="Re-enter your password"
-              {...register("confirm", { required: true })}
+              {...register("confirm", {
+                required: "Please confirm your password",
+              })}
             />
+            {errors.confirm && (
+              <p className="text-red-500 text-xs font-inter mt-1">
+                {errors.confirm.message}
+              </p>
+            )}
           </div>
           <div className="flex gap-2.5 mt-4">
-            <input type="checkbox" id="terms" />
-            <label htmlFor="terms" className="font-inter font-normal text-xs text-secondary">I agree to the <span className="text-primary font-inter font-normal text-xs">Terms of Service</span> and <span className="text-primary font-inter font-normal text-xs">Privacy Policy</span></label>
+            <input
+              type="checkbox"
+              id="terms"
+              {...register("terms", {
+                required: "You must accept the Terms of Service",
+              })}
+            />
+            <label
+              htmlFor="terms"
+              className="font-inter font-normal text-xs text-secondary"
+            >
+              I agree to the{" "}
+              <span className="text-primary font-inter font-normal text-xs">
+                Terms of Service
+              </span>{" "}
+              and{" "}
+              <span className="text-primary font-inter font-normal text-xs">
+                Privacy Policy
+              </span>
+            </label>
           </div>
-          {errors?.pwd && <p className="text-red-500">{errors.pwd.message}</p>}
+          {errors.terms && (
+            <p className="text-red-500 text-xs font-inter mt-1">
+              {errors.terms.message}
+            </p>
+          )}
           <button
             type="submit"
-            className="bg-primary cursor-pointer p-3 rounded-lg w-full text-white font-semibold text-sm font-inter mt-4"
+            disabled={!termsChecked}
+            className="bg-primary cursor-pointer p-3 rounded-lg w-full text-white font-semibold text-sm font-inter mt-4 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Create Account
           </button>

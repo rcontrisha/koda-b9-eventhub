@@ -1,9 +1,14 @@
-import { Outlet } from "react-router";
+import { Navigate, Outlet } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 function AuthLayout() {
+  const { isAttendee } = useAuth();
+
+  if (isAttendee) return <Navigate to="/explore" replace />;
+
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_2fr] bg-gray-950 text-white">
-      <div className="hidden lg:flex flex-col justify-between p-12 border-r border-gray-800 bg-gradient-to-b from-gray-900 to-gray-950">
+      <div className="hidden lg:flex flex-col justify-between p-12 border-r border-gray-800 bg-linear-to-b from-gray-900 to-gray-950">
         <div>
           <div className="flex items-center space-x-2 mb-16">
             <span className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold font-jakarta">

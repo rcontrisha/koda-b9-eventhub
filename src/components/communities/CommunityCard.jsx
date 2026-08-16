@@ -1,7 +1,15 @@
+import { useState } from "react";
 import { RxPeople } from "react-icons/rx";
 import { CiCalendar } from "react-icons/ci";
+import { useAuth } from "../../hooks/useAuth";
+import AuthPromptModal from "../shared/AuthPromptModal";
 
 function CommunityCard({ community }) {
+  const { isAttendee } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  const handleJoin = () => console.log("join community", community.id);
+
   return (
     <article className="flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
       <div>
@@ -13,7 +21,7 @@ function CommunityCard({ community }) {
         />
       </div>
       
-      <div className="flex flex-col flex-grow p-4 justify-between">
+      <div className="flex flex-col grow p-4 justify-between">
         <div className="flex flex-col gap-2">
           <p className="font-jakarta font-semibold text-base text-gray-900">
             {community.name}
@@ -53,11 +61,15 @@ function CommunityCard({ community }) {
             </div>
           </div>
 
-          <button className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer">
+          <button
+            onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
+            className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
+          >
             Join Event
           </button>
         </div>
       </div>
+      {showPrompt && <AuthPromptModal onClose={() => setShowPrompt(false)} />}
     </article>
   );
 }

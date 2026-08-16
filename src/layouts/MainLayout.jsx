@@ -1,7 +1,7 @@
 import { Outlet } from "react-router";
-import Header from "./shared/Header";
+import Header from "../components/shared/Header";
 
-function GuestLayout() {
+function MainLayout() {
   return (
     <>
       <Header />
@@ -10,4 +10,4 @@ function GuestLayout() {
   );
 }
 
-export default GuestLayout;
+export default MainLayout;

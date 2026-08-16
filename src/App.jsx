@@ -6,7 +6,7 @@ import RegisterForm from "./components/auth/RegisterForm";
 import ForgotPassword from "./components/auth/ForgotPassword";
 
 import Event from "./pages/Event";
-import GuestLayout from "./components/GuestLayout";
+import MainLayout from "./layouts/MainLayout";
 import Explore from "./pages/Explore";
 import Communities from "./pages/Communities";
 import EventDetail from "./pages/EventDetail";
@@ -23,7 +23,7 @@ export default function App() {
         <Route path="/signup" element={<RegisterForm />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
       </Route>
-      <Route element={<GuestLayout />}>
+      <Route element={<MainLayout />}>
         <Route path="/explore" element={<Explore />} />
         <Route path="/events">
           <Route index element={<Event />} />

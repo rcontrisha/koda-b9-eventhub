@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
+import { useNavigate } from "react-router";
+import { useAuth } from "../../hooks/useAuth";
 
 function LoginForm() {
   const {
@@ -8,6 +10,9 @@ function LoginForm() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const navigate = useNavigate()
+  const { login } = useAuth();
 
   return (
     <section>
@@ -37,6 +42,14 @@ function LoginForm() {
         <form
           onSubmit={handleSubmit((form) => {
             console.log(form);
+
+            const users = JSON.parse(localStorage.getItem("users") || "[]");
+            for (const user of users) {
+              if (user.email === form.email && user.password === form.password) {
+                login(form.email);
+                navigate("/explore");
+              }
+            }
           })}
         >
           <div className="flex flex-col gap-1 pb-4">

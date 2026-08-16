@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router";
 import { IoMdArrowBack, IoMdSend } from "react-icons/io";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
@@ -6,7 +7,9 @@ import { RxPeople } from "react-icons/rx";
 
 import EventCard from "../components/events/EventCard";
 import InputField from "../components/shared/InputField";
+import AuthPromptModal from "../components/shared/AuthPromptModal";
 import { getProgressColor, formatEventDate } from "../utils/event";
+import { useAuth } from "../hooks/useAuth";
 
 import events from "../data/events.json";
 import communities from "../data/communities.json";
@@ -17,6 +20,14 @@ function EventDetail() {
   const pct = Math.min(100, (event.attendees_count / event.capacity) * 100);
   const isFull = event.attendees_count >= event.capacity;
   const spotsLeft = Math.max(0, event.capacity - event.attendees_count);
+
+  const { isAttendee } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  const handleJoin = () => console.log("join event", event.id);
+  const handleSave = () => console.log("save event", event.id);
+  const handleShare = () => console.log("share event", event.id);
+  const handleComment = () => console.log("comment", event.id);
 
   const relatedEvents = events
     .filter(
@@ -82,6 +93,7 @@ function EventDetail() {
               </div>
               <button
                 disabled={isFull}
+                onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
                 className={`w-full py-3 rounded-xl font-medium transition ${
                   isFull
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -166,7 +178,10 @@ function EventDetail() {
                   placeholder="Write a comment..."
                   leading={null}
                   trailing={
-                    <button className="px-4">
+                    <button
+                      className="px-4"
+                      onClick={() => (isAttendee ? handleComment() : setShowPrompt(true))}
+                    >
                       <IoMdSend className="text-primary w-5 h-5" />
                     </button>
                   }
@@ -242,6 +257,7 @@ function EventDetail() {
               <div className="space-y-3 pt-2">
                 <button
                   disabled={isFull}
+                  onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
                   className={`w-full py-3 rounded-xl font-medium transition shadow-sm ${
                     isFull
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -251,10 +267,16 @@ function EventDetail() {
                   {isFull ? "Full" : "Join Event"}
                 </button>
                 <div className="grid grid-cols-2 gap-3">
-                  <button className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition">
+                  <button
+                    onClick={() => (isAttendee ? handleSave() : setShowPrompt(true))}
+                    className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
+                  >
                     <CiBookmark /> Save
                   </button>
-                  <button className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition">
+                  <button
+                    onClick={() => (isAttendee ? handleShare() : setShowPrompt(true))}
+                    className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
+                  >
                     <IoShareSocialOutline /> Share
                   </button>
                 </div>
@@ -285,6 +307,7 @@ function EventDetail() {
           </div>
         </div>
       </main>
+      {showPrompt && <AuthPromptModal onClose={() => setShowPrompt(false)} />}
     </>
   );
 }

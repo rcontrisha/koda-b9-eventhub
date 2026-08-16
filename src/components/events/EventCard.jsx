@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
 import { IoLocationOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { getProgressColor, formatEventDate } from "../../utils/event";
+import { useAuth } from "../../hooks/useAuth";
+import AuthPromptModal from "../shared/AuthPromptModal";
 
 function EventCard({ events }) {
   const pct = Math.min(100, (events.attendees_count / events.capacity) * 100);
   const isFull = events.attendees_count >= events.capacity;
+
+  const { isAttendee } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  const handleJoin = () => console.log("join event", events.id);
+  const handleSave = () => console.log("save event", events.id);
 
   return (
     <article className="border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col bg-white">
@@ -73,16 +82,23 @@ function EventCard({ events }) {
                 Full
               </div>
             ) : (
-              <div className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer">
+              <div
+                onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
+                className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
+              >
                 Join Event
               </div>
             )}
-            <div className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center">
+            <div
+              onClick={() => (isAttendee ? handleSave() : setShowPrompt(true))}
+              className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
+            >
               <CiBookmark className="text-lg text-gray-700" />
             </div>
           </div>
         </div>
       </div>
+      {showPrompt && <AuthPromptModal onClose={() => setShowPrompt(false)} />}
     </article>
   );
 }
