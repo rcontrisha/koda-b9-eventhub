@@ -25,6 +25,36 @@
         "id": "u3",
         "name": "Dina Rahayu",
         "role": "Moderator"
+      },
+      {
+        "id": "u18",
+        "name": "Bagus Prasetyo",
+        "role": "Member"
+      },
+      {
+        "id": "u19",
+        "name": "Citra Lestari",
+        "role": "Member"
+      },
+      {
+        "id": "u20",
+        "name": "Denny Saputra",
+        "role": "Member"
+      },
+      {
+        "id": "u21",
+        "name": "Eka Wulandari",
+        "role": "Member"
+      },
+      {
+        "id": "u22",
+        "name": "Fajar Ramadhan",
+        "role": "Member"
+      },
+      {
+        "id": "u23",
+        "name": "Gita Maharani",
+        "role": "Member"
       }
     ],
     "discussions": [
@@ -64,6 +94,46 @@
         "id": "u5",
         "name": "Siti Rahayu",
         "role": "Member"
+      },
+      {
+        "id": "u24",
+        "name": "Hendra Wijaya",
+        "role": "Moderator"
+      },
+      {
+        "id": "u25",
+        "name": "Indah Permata",
+        "role": "Member"
+      },
+      {
+        "id": "u26",
+        "name": "Joko Susilo",
+        "role": "Member"
+      },
+      {
+        "id": "u27",
+        "name": "Kurnia Sari",
+        "role": "Member"
+      },
+      {
+        "id": "u28",
+        "name": "Lukman Hakim",
+        "role": "Member"
+      },
+      {
+        "id": "u29",
+        "name": "Mega Silvia",
+        "role": "Member"
+      },
+      {
+        "id": "u30",
+        "name": "Naufal Rizki",
+        "role": "Member"
+      },
+      {
+        "id": "u31",
+        "name": "Onny Kurniawan",
+        "role": "Member"
       }
     ],
     "discussions": [
@@ -96,6 +166,31 @@
       {
         "id": "u7",
         "name": "Budi Santoso",
+        "role": "Member"
+      },
+      {
+        "id": "u32",
+        "name": "Putri Ayu",
+        "role": "Moderator"
+      },
+      {
+        "id": "u33",
+        "name": "Qori Amalia",
+        "role": "Member"
+      },
+      {
+        "id": "u34",
+        "name": "Raka Aditya",
+        "role": "Member"
+      },
+      {
+        "id": "u35",
+        "name": "Salsabila Zahra",
+        "role": "Member"
+      },
+      {
+        "id": "u36",
+        "name": "Tegar Maulana",
         "role": "Member"
       }
     ],
@@ -130,6 +225,36 @@
         "id": "u9",
         "name": "Maya Indah",
         "role": "Member"
+      },
+      {
+        "id": "u37",
+        "name": "Umar Faruq",
+        "role": "Moderator"
+      },
+      {
+        "id": "u38",
+        "name": "Vina Melinda",
+        "role": "Member"
+      },
+      {
+        "id": "u39",
+        "name": "Wahyu Hidayat",
+        "role": "Member"
+      },
+      {
+        "id": "u40",
+        "name": "Yuni Astuti",
+        "role": "Member"
+      },
+      {
+        "id": "u41",
+        "name": "Zaki Ramadhan",
+        "role": "Member"
+      },
+      {
+        "id": "u42",
+        "name": "Aldi Firmansyah",
+        "role": "Member"
       }
     ],
     "discussions": [
@@ -162,6 +287,31 @@
       {
         "id": "u11",
         "name": "Lestari Widodo",
+        "role": "Member"
+      },
+      {
+        "id": "u43",
+        "name": "Bella Safira",
+        "role": "Moderator"
+      },
+      {
+        "id": "u44",
+        "name": "Chandra Kirana",
+        "role": "Member"
+      },
+      {
+        "id": "u45",
+        "name": "Dewi Anggraini",
+        "role": "Member"
+      },
+      {
+        "id": "u46",
+        "name": "Erwin Setiawan",
+        "role": "Member"
+      },
+      {
+        "id": "u47",
+        "name": "Farah Nabila",
         "role": "Member"
       }
     ],
@@ -196,6 +346,41 @@
         "id": "u13",
         "name": "Sari Dewi",
         "role": "Member"
+      },
+      {
+        "id": "u48",
+        "name": "Gilang Prakoso",
+        "role": "Moderator"
+      },
+      {
+        "id": "u49",
+        "name": "Hana Pertiwi",
+        "role": "Member"
+      },
+      {
+        "id": "u50",
+        "name": "Irfan Maulana",
+        "role": "Member"
+      },
+      {
+        "id": "u51",
+        "name": "Jasmine Putri",
+        "role": "Member"
+      },
+      {
+        "id": "u52",
+        "name": "Kanza Aurelia",
+        "role": "Member"
+      },
+      {
+        "id": "u53",
+        "name": "Langit Biru",
+        "role": "Member"
+      },
+      {
+        "id": "u54",
+        "name": "Mahesa Anggara",
+        "role": "Member"
       }
     ],
     "discussions": [
@@ -229,6 +414,36 @@
         "id": "u15",
         "name": "Nadia Putri",
         "role": "Member"
+      },
+      {
+        "id": "u55",
+        "name": "Nimas Ayu",
+        "role": "Moderator"
+      },
+      {
+        "id": "u56",
+        "name": "Oscar Wijaya",
+        "role": "Member"
+      },
+      {
+        "id": "u57",
+        "name": "Prasetyo Nugroho",
+        "role": "Member"
+      },
+      {
+        "id": "u58",
+        "name": "Ratna Dewi",
+        "role": "Member"
+      },
+      {
+        "id": "u59",
+        "name": "Satria Yudha",
+        "role": "Member"
+      },
+      {
+        "id": "u60",
+        "name": "Tiara Anindya",
+        "role": "Member"
       }
     ],
     "discussions": [
@@ -261,6 +476,31 @@
       {
         "id": "u17",
         "name": "Intan Permatasari",
+        "role": "Member"
+      },
+      {
+        "id": "u61",
+        "name": "Ulfa Nabila",
+        "role": "Moderator"
+      },
+      {
+        "id": "u62",
+        "name": "Vito Andika",
+        "role": "Member"
+      },
+      {
+        "id": "u63",
+        "name": "Winda Pratiwi",
+        "role": "Member"
+      },
+      {
+        "id": "u64",
+        "name": "Yogi Saputra",
+        "role": "Member"
+      },
+      {
+        "id": "u65",
+        "name": "Zulfikar Rahman",
         "role": "Member"
       }
     ],

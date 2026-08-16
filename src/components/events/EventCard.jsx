@@ -26,7 +26,7 @@ function EventCard({ events }) {
         />
       </div>
 
-      <div className="p-4 flex flex-col flex-grow justify-between gap-4">
+      <div className="p-4 flex flex-col grow justify-between gap-4">
         <div className="flex flex-col gap-3">
           <p className="font-jakarta font-semibold text-base text-gray-900 line-clamp-2">
             {events.title}
