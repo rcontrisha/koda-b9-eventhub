@@ -1,29 +1,26 @@
-import EventCard from "../../components/events/EventCard";
+import EventCard from "../events/EventCard";
 import { useAuth } from "../../hooks/useAuth";
 import events from "../../data/events.json";
 
-function PastEvents() {
+function SavedEvents() {
   const { user } = useAuth();
-  const now = new Date();
-  const past = events.filter(
-    (e) => user?.joined_events?.includes(e.id) && new Date(e.date) < now,
-  );
+  const saved = events.filter((e) => user?.saved_events?.includes(e.id));
 
-  if (past.length === 0) {
+  if (saved.length === 0) {
     return (
       <p className="pt-5 text-secondary font-inter text-sm">
-        No past events.
+        No saved events.
       </p>
     );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-      {past.map((e) => (
+      {saved.map((e) => (
         <EventCard key={e.id} events={e} />
       ))}
     </div>
   );
 }
 
-export default PastEvents;
+export default SavedEvents;

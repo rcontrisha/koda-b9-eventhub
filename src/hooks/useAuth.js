@@ -7,7 +7,9 @@ function readUsers() {
 function readUser() {
   const email = localStorage.getItem("active");
   if (!email) return null;
-  return readUsers().find((u) => u.email === email) || null;
+  const user = readUsers().find((u) => u.email === email);
+  if (!user) return null;
+  return { ...user, role: user.role ?? "attendee" };
 }
 
 function updateActiveUser(updater) {
@@ -72,6 +74,7 @@ export function useAuth() {
 
   return {
     user,
+    role: user?.role ?? null,
     isGuest: !user,
     isAttendee: !!user,
     login,

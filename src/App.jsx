@@ -15,10 +15,14 @@ import CommunityEvents from "./pages/community-detail/CommunityEvents";
 import CommunityMember from "./pages/community-detail/CommunityMember";
 import CommunityDiscussion from "./pages/community-detail/CommunityDiscussion";
 import MyEventsLayout from "./layouts/MyEventsLayout";
-import UpcomingEvents from "./pages/my-events/UpcomingEvents";
-import PastEvents from "./pages/my-events/PastEvents";
-import SavedEvents from "./pages/my-events/SavedEvents";
+import UpcomingEvents from "./components/my-events/UpcomingEvents";
+import PastEvents from "./components/my-events/PastEvents";
+import SavedEvents from "./components/my-events/SavedEvents";
 import RequireAuth from "./components/shared/RequireAuth";
+import ProfileEvents from "./components/profile/Events";
+import ProfileCommunities from './components/profile/Communities';
+import ProfileSaved from './components/profile/Saved';
+import ProfileLayout from "./layouts/ProfileLayout";
 
 export default function App() {
   return (
@@ -48,9 +52,13 @@ export default function App() {
             <Route path="past" element={<PastEvents />} />
             <Route path="saved" element={<SavedEvents />} />
           </Route>
+          <Route path="/profile" element={<ProfileLayout />}>
+            <Route index element={<ProfileEvents />} />
+            <Route path="communities" element={<ProfileCommunities />} />
+            <Route path="saved" element={<ProfileSaved />} />
+          </Route>
         </Route>
       </Route>
-      
     </Routes>
   );
 }

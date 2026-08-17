@@ -61,7 +61,7 @@ function RegisterForm() {
             console.log(form);
 
             const { confirm, terms, ...userInfo } = form;
-            users.push(userInfo)
+            users.push({ ...userInfo, role: "attendee" })
 
             localStorage.setItem("users", JSON.stringify(users));
             navigate("/login");

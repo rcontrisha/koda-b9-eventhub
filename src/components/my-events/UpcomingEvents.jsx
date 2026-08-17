@@ -1,4 +1,4 @@
-import EventCard from "../../components/events/EventCard";
+import EventCard from "../events/EventCard";
 import { useAuth } from "../../hooks/useAuth";
 import events from "../../data/events.json";
 
