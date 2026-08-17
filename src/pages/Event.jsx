@@ -22,8 +22,8 @@ function Event() {
           </span>
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-          {visibleEvents.map((event) => {
-            return <EventCard events={event} />;
+          {visibleEvents.map((event, idx) => {
+            return <EventCard key={idx} events={event} />;
           })}
         </div>
         {visibleCount < events.length && (

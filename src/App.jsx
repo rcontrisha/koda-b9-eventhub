@@ -27,9 +27,8 @@ export default function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/events">
           <Route index element={<Event />} />
-          {/* <Route path=":slug" element={<EventDetail />}/> */}
+          <Route path=":slug" element={<EventDetail />}/>
         </Route>
-        <Route path="/event-detail" element={<EventDetail />} />
         <Route path="/communities">
           <Route index element={<Communities />} />
           <Route path=":slug" element={<CommunityDetailLayout />}>

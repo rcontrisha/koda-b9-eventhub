@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 import { IoMdArrowBack, IoMdSend } from "react-icons/io";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
 import { IoLocationOutline, IoShareSocialOutline, IoChatboxOutline } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
+import slugify from 'slugify'
 
 import EventCard from "../components/events/EventCard";
 import InputField from "../components/shared/InputField";
@@ -15,14 +16,19 @@ import events from "../data/events.json";
 import communities from "../data/communities.json";
 
 function EventDetail() {
-  const event = events[0];
+  const { slug } = useParams();
+
+  const { isAttendee } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  const event = events.find((e) => slugify(e.title, { lower: true }) === slug);
+
+  if (!event) return null;
+
   const community = communities.find((c) => c.id === event.community_id);
   const pct = Math.min(100, (event.attendees_count / event.capacity) * 100);
   const isFull = event.attendees_count >= event.capacity;
   const spotsLeft = Math.max(0, event.capacity - event.attendees_count);
-
-  const { isAttendee } = useAuth();
-  const [showPrompt, setShowPrompt] = useState(false);
 
   const handleJoin = () => console.log("join event", event.id);
   const handleSave = () => console.log("save event", event.id);
