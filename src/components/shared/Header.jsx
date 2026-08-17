@@ -30,7 +30,7 @@ function Header() {
           <span className="font-bold text-lg font-jakarta">EventHub</span>
         </div>
 
-        <nav className="mr-auto hidden md:block">
+        <nav className="mr-auto hidden md:block ml-4">
           <ul className="flex gap-4 items-center">
             <li className="font-inter font-medium text-secondary text-sm ">
               <NavLink

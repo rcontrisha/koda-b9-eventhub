@@ -11,23 +11,23 @@
     "location": "Bandung",
     "capacity": 100,
     "attendees_count": 48,
-    "image_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97",
+    "image_url": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=0",
     "tags": ["Technology", "Programming", "Available"],
     "organizer": {
       "name": "Ahmad Fauzan",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
     },
     "speakers": [
       {
         "name": "Ahmad Fauzan",
         "role": "Staff Engineer, Tokopedia",
-        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
       },
       {
         "name": "Dina Rahayu",
         "role": "Go Developer Advocate, Xendit",
-        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=0"
       }
     ],
     "discussions": [
@@ -55,23 +55,23 @@
     "location": "Jakarta",
     "capacity": 200,
     "attendees_count": 150,
-    "image_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    "image_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=0",
     "tags": ["Frontend", "UI/UX", "Conference"],
     "organizer": {
       "name": "Kevin Santoso",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=0"
     },
     "speakers": [
       {
         "name": "Kevin Santoso",
         "role": "Frontend Lead, Gojek",
-        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=0"
       },
       {
         "name": "Siti Rahayu",
         "role": "UI Engineer, Tokopedia",
-        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=0"
       }
     ],
     "discussions": [
@@ -99,23 +99,23 @@
     "location": "Online",
     "capacity": 50,
     "attendees_count": 45,
-    "image_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3",
+    "image_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=0",
     "tags": ["DevOps", "Cloud", "Workshop"],
     "organizer": {
       "name": "Eko Kurniawan",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=0"
     },
     "speakers": [
       {
         "name": "Eko Kurniawan",
         "role": "SRE, Bukalapak",
-        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=0"
       },
       {
         "name": "Budi Santoso",
         "role": "DevOps Engineer, Blibli",
-        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=0"
       }
     ],
     "discussions": [
@@ -143,23 +143,23 @@
     "location": "Yogyakarta",
     "capacity": 75,
     "attendees_count": 60,
-    "image_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e",
+    "image_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=0",
     "tags": ["Design", "UI/UX", "Product"],
     "organizer": {
       "name": "Rian Hidayat",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7"
+      "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=0"
     },
     "speakers": [
       {
         "name": "Rian Hidayat",
         "role": "Design Lead, Traveloka",
-        "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7"
+        "avatar_url": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=0"
       },
       {
         "name": "Maya Indah",
         "role": "Product Designer, Tokopedia",
-        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=0"
       }
     ],
     "discussions": [
@@ -187,23 +187,23 @@
     "location": "Surabaya",
     "capacity": 120,
     "attendees_count": 90,
-    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=0",
     "tags": ["Data", "Backend", "Architecture"],
     "organizer": {
       "name": "Fajar Prasetyo",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
     },
     "speakers": [
       {
         "name": "Fajar Prasetyo",
         "role": "Data Engineer, Tokopedia",
-        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
       },
       {
         "name": "Lestari Widodo",
         "role": "Data Platform Engineer, GoTo",
-        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=0"
       }
     ],
     "discussions": [
@@ -231,23 +231,23 @@
     "location": "Online",
     "capacity": 150,
     "attendees_count": 150,
-    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=0",
     "tags": ["Security", "Programming", "Online"],
     "organizer": {
       "name": "Wira Nugraha",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=0"
     },
     "speakers": [
       {
         "name": "Wira Nugraha",
         "role": "Security Engineer, GovTech",
-        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=0"
       },
       {
         "name": "Sari Dewi",
         "role": "AppSec Engineer, Bukalapak",
-        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=0"
       }
     ],
     "discussions": [
@@ -275,23 +275,23 @@
     "location": "Surabaya",
     "capacity": 80,
     "attendees_count": 78,
-    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "image_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=0",
     "tags": ["Data", "Backend", "Workshop"],
     "organizer": {
       "name": "Fajar Prasetyo",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+      "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
     },
     "speakers": [
       {
         "name": "Fajar Prasetyo",
         "role": "Data Engineer, Tokopedia",
-        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a"
+        "avatar_url": "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=0"
       },
       {
         "name": "Lestari Widodo",
         "role": "Data Platform Engineer, GoTo",
-        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=0"
       }
     ],
     "discussions": [
@@ -319,23 +319,23 @@
     "location": "Online",
     "capacity": 200,
     "attendees_count": 200,
-    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "image_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=0",
     "tags": ["Security", "CTF", "Online"],
     "organizer": {
       "name": "Wira Nugraha",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+      "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=0"
     },
     "speakers": [
       {
         "name": "Wira Nugraha",
         "role": "Security Engineer, GovTech",
-        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d"
+        "avatar_url": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=0"
       },
       {
         "name": "Sari Dewi",
         "role": "AppSec Engineer, Bukalapak",
-        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+        "avatar_url": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=0"
       }
     ],
     "discussions": [
@@ -363,23 +363,23 @@
     "location": "Surabaya",
     "capacity": 100,
     "attendees_count": 55,
-    "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    "image_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=0",
     "tags": ["AI", "Machine Learning", "Workshop"],
     "organizer": {
       "name": "Rendra Wijaya",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+      "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=0"
     },
     "speakers": [
       {
         "name": "Rendra Wijaya",
         "role": "ML Engineer, GoTo",
-        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+        "avatar_url": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=0"
       },
       {
         "name": "Nadia Putri",
         "role": "Data Scientist, Traveloka",
-        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"
+        "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=0"
       }
     ],
     "discussions": [
@@ -407,23 +407,23 @@
     "location": "Bandung",
     "capacity": 60,
     "attendees_count": 59,
-    "image_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    "image_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=0",
     "tags": ["Mobile", "Flutter", "Workshop"],
     "organizer": {
       "name": "Galih Ramadhan",
       "role": "Community Lead",
-      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+      "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=0"
     },
     "speakers": [
       {
         "name": "Galih Ramadhan",
         "role": "Flutter Dev, DANA",
-        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d"
+        "avatar_url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=0"
       },
       {
         "name": "Intan Permatasari",
         "role": "Mobile Engineer, Gojek",
-        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2"
+        "avatar_url": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=0"
       }
     ],
     "discussions": [

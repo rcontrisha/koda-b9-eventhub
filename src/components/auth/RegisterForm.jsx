@@ -60,6 +60,7 @@ function RegisterForm() {
             }
             console.log(form);
 
+            // eslint-disable-next-line no-unused-vars
             const { confirm, terms, ...userInfo } = form;
             users.push({ ...userInfo, role: "attendee" })
 

@@ -10,7 +10,20 @@ const categories = [
 const locations = ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Online"];
 const sortBy = ["Most Popular", "Almost Full", "Recently Added"];
 
-function Filters() {
+function Filters({ searchParams, setSearchParams }) {
+  const currentCat = searchParams.get("cat") || "";
+  const currentLoc = searchParams.get("loc") || "";
+  // const currentSort = searchParams.get("sort") || "";
+
+  const handleFilterChange = (key, value) => {
+    if (value) {
+      searchParams.set(key, value);
+    } else {
+      searchParams.delete(key);
+    }
+    setSearchParams(searchParams);
+  };
+
   return (
     <>
       <div className="px-1">
@@ -19,12 +32,24 @@ function Filters() {
             CATEGORY
           </p>
           <div className="flex gap-2 pt-2 flex-wrap">
-            <button className="btn btn-primary font-inter font-medium text-xs">
+            <button
+              onClick={() => handleFilterChange("cat", "")}
+              className={`btn font-inter font-medium text-xs ${
+                !currentCat ? "btn-primary" : "text-secondary"
+              }`}
+            >
               All
             </button>
             {categories.map((category) => {
+              const isActive = currentCat === category;
               return (
-                <button className="btn font-inter font-medium text-xs text-secondary">
+                <button
+                  key={category}
+                  onClick={() => handleFilterChange("cat", category)}
+                  className={`btn font-inter font-medium text-xs ${
+                    isActive ? "btn-primary" : "text-secondary"
+                  }`}
+                >
                   {category}
                 </button>
               );
@@ -37,12 +62,24 @@ function Filters() {
               LOCATION
             </p>
             <div className="flex gap-2 pt-2 flex-wrap">
-              <button className="btn btn-primary font-inter font-medium text-xs">
+              <button
+                onClick={() => handleFilterChange("loc", "")}
+                className={`btn font-inter font-medium text-xs ${
+                  !currentLoc ? "btn-primary" : "text-secondary"
+                }`}
+              >
                 All Locations
               </button>
               {locations.map((location) => {
+                const isActive = currentLoc === location;
                 return (
-                  <button className="btn font-inter font-medium text-xs">
+                  <button
+                    key={location}
+                    onClick={() => handleFilterChange("loc", location)}
+                    className={`btn font-inter font-medium text-xs ${
+                      isActive ? "btn-primary" : "text-secondary"
+                    }`}
+                  >
                     {location}
                   </button>
                 );

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router";
 import {
   MdOutlineEvent,
@@ -6,9 +7,11 @@ import {
 } from "react-icons/md";
 
 import { useAuth } from "../hooks/useAuth";
+import EditModal from "../components/profile/EditModal";
 
 function ProfileLayout() {
   const { user, role } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
 
   return (
     <main>
@@ -28,7 +31,12 @@ function ProfileLayout() {
                   {user.email}
                 </p>
               </div>
-              <button className="flex gap-2 mt-2 lg:mt-0 h-fit items-center px-3 py-1.5 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary">
+              <button
+                onClick={() => {
+                  setShowPrompt(true);
+                }}
+                className="flex gap-2 mt-2 lg:mt-0 h-fit items-center px-3 py-1.5 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
+              >
                 <MdOutlineEdit />
                 Edit Profile
               </button>
@@ -60,7 +68,7 @@ function ProfileLayout() {
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center">
               <p className="font-jakarta font-bold text-2xl">
-                {user.joined_events.length}
+                {user.joined_events ? user.joined_events.length : 0}
               </p>
               <p className="font-inter font-normal text-secondary text-xs">
                 Events
@@ -68,7 +76,7 @@ function ProfileLayout() {
             </div>
             <div className="text-center border-x-2 border-x-[#E4E4E7]">
               <p className="font-jakarta font-bold text-2xl">
-                {user.joined_communities.length}
+                {user.joined_communities ? user.joined_communities.length : 0}
               </p>
               <p className="font-inter font-normal text-secondary text-xs">
                 Communities
@@ -76,7 +84,7 @@ function ProfileLayout() {
             </div>
             <div className="text-center">
               <p className="font-jakarta font-bold text-2xl">
-                {user.saved_events.length}
+                {user.saved_events ? user.saved_events.length : 0}
               </p>
               <p className="font-inter font-normal text-secondary text-xs">
                 Saved
@@ -125,6 +133,7 @@ function ProfileLayout() {
           <Outlet />
         </div>
       </div>
+      {showPrompt && <EditModal onClose={() => setShowPrompt(false)} />}
     </main>
   );
 }

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function Banner() {
   return (
     <div className="p-8 bg-black rounded-2xl">
@@ -15,8 +17,8 @@ function Banner() {
       <p className="pt-4 font-jakarta font-bold text-white text-2xl text-center">Ready to find your community?</p>
       <p className="pt-3 font-inter font-normal text-secondary text-sm text-center">Join thousands of developers, designers, and makers in Indonesia's most active tech communities.</p>
       <div className="pt-6 flex flex-col lg:flex-row gap-3 justify-center items-center">
-        <div className="bg-primary px-6 py-3 rounded-lg text-white font-inter font-medium text-base w-fit">Explore Events</div>
-        <div className="border-2 border-[#3F3F47] px-6 py-3 rounded-lg text-secondary font-inter font-medium text-base w-fit">Browse Communities</div>
+        <Link to={"/events"} className="bg-primary px-6 py-3 rounded-lg text-white font-inter font-medium text-base w-fit">Explore Events</Link>
+        <Link to={"/communities"} className="border-2 border-[#3F3F47] px-6 py-3 rounded-lg text-secondary font-inter font-medium text-base w-fit">Browse Communities</Link>
       </div>
     </div>
   );

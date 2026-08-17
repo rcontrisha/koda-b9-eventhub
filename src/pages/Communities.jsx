@@ -1,8 +1,40 @@
+import { useSearchParams } from "react-router";
+
+import { useAuth } from "../hooks/useAuth";
 import CommunityCard from "../components/communities/CommunityCard";
 import InputField from "../components/shared/InputField";
 import communities from "../data/communities.json";
 
 function Communities() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { user, hasJoinedCommunity } = useAuth();
+
+  const query = searchParams.get("q") || "";
+  const status = searchParams.get("status") || "All";
+  const category = searchParams.get("cat") || "All Categories";
+
+  const filteredCommunities = communities.filter((c) => {
+    const matchName = c.name.toLowerCase().includes(query.toLowerCase());
+
+    const matchCat = category === "All Categories" || c.tags.includes(category);
+
+    const isJoined = user ? hasJoinedCommunity(c.id) : false;
+    const matchStatus =
+      status === "All" ? true : status === "Joined" ? isJoined : !isJoined;
+
+    return matchName && matchCat && matchStatus;
+  });
+
+  const handleFilter = (key, value) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (value === "All" || value === "All Categories") {
+      newParams.delete(key);
+    } else {
+      newParams.set(key, value);
+    }
+    setSearchParams(newParams);
+  };
+
   return (
     <main>
       <section className="bg-black lg:px-[347.5px]">
@@ -17,54 +49,65 @@ function Communities() {
           <div className="pt-6">
             <InputField
               placeholder={"Search communities..."}
+              value={query}
+              onChange={(c) => handleFilter("q", c.target.value)}
             />
           </div>
         </div>
       </section>
       <div className="flex flex-col lg:flex-row gap-3 px-4 lg:px-13 pt-6">
         <div className="flex gap-1 rounded-lg border border-[#E4E4E7] p-1 items-center">
-          <div className="selected font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer">
-            All
-          </div>
-          <div className="font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer">
-            Joined
-          </div>
-          <div className="font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer">
-            Not Joined
-          </div>
-        </div>
-        <div className="flex items-center gap-2 lg:justify-center justify-start flex-wrap">
-          <div className="selected font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer border border-[#E4E4E7]">
-            All Categories
-          </div>
-          {[
-            "Technology",
-            "AI",
-            "Design",
-            "Business",
-            "Programming",
-            "Music",
-          ].map((topic) => {
+          {["All", "Joined", "Not Joined"].map((s) => {
+            const isActive =
+              status === s || (s === "All" && !searchParams.get("status"));
             return (
-              <div className="font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer border border-[#E4E4E7]">
-                {topic}
+              <div
+                key={s}
+                onClick={() => handleFilter("status", s)}
+                className={`${isActive ? "selected" : ""} font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer`}
+              >
+                {s}
               </div>
             );
           })}
         </div>
+        <div className="flex items-center gap-2 lg:justify-center justify-start flex-wrap">
+          <div className="flex items-center gap-2 lg:justify-center justify-start flex-wrap">
+            {[
+              "All Categories",
+              "Technology",
+              "AI",
+              "Design",
+              "Business",
+              "Programming",
+              "Music",
+            ].map((cat) => {
+              const isActive = category === cat;
+              return (
+                <div
+                  key={cat}
+                  onClick={() => handleFilter("cat", cat)}
+                  className={`${isActive ? "selected" : ""} font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer border border-[#E4E4E7]`}
+                >
+                  {cat}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
       <section className="px-4 py-6 lg:px-13">
         <p className="font-inter font-semibold text-sm text-secondary">
-          {communities.length}
+          {filteredCommunities.length}
           <span className="font-inter font-normal text-sm text-secondary">
             {" "}
             communities found
           </span>
         </p>
         <div className="pt-4 grid grid-cols-1 lg:grid-cols-4 gap-4">
-          {communities.map((community) => {
-            return <CommunityCard community={community} />;
-          })}
+          {filteredCommunities.map((community) => (
+            <CommunityCard key={community.id} community={community} />
+          ))}
         </div>
       </section>
     </main>

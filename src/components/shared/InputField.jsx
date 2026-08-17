@@ -1,6 +1,6 @@
 import { FiSearch } from "react-icons/fi";
 
-function InputField({ placeholder, leading, trailing }) {
+function InputField({ placeholder, leading, trailing, value, onChange }) {
   return (
     <div className="flex items-center rounded-xl p-1.5 bg-[#F4F4F5] grow">
       {leading === undefined ? (
@@ -10,6 +10,8 @@ function InputField({ placeholder, leading, trailing }) {
       )}
       <input
         type="text"
+        value={value}
+        onChange={onChange}
         placeholder={placeholder}
         className="w-full px-3 py-1 focus:outline-0 font-inter bg-transparent"
       />

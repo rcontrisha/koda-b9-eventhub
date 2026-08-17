@@ -5,7 +5,7 @@
     "description": "The premier Go programming community in Bandung — weekly meetups, workshops, and mentoring for Gophers at all levels.",
     "member_count": 847,
     "upcoming_events_count": 3,
-    "banner_url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    "banner_url": "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=0",
     "tags": [
       "Technology",
       "Programming"
@@ -78,7 +78,7 @@
     "description": "A collaborative hub for frontend engineers in Jakarta focusing on modern web frameworks, UI/UX architecture, and performance.",
     "member_count": 1240,
     "upcoming_events_count": 2,
-    "banner_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998",
+    "banner_url": "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=0",
     "tags": [
       "Frontend",
       "React",
@@ -151,7 +151,7 @@
     "description": "Community dedicated to Kubernetes, microservices, containerization, and cloud infrastructure scaling.",
     "member_count": 650,
     "upcoming_events_count": 1,
-    "banner_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3",
+    "banner_url": "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=0",
     "tags": [
       "DevOps",
       "Cloud",
@@ -209,7 +209,7 @@
     "description": "Connecting creative minds in Yogyakarta to discuss product design thinking, usability testing, and wireframing.",
     "member_count": 530,
     "upcoming_events_count": 2,
-    "banner_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e",
+    "banner_url": "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=0",
     "tags": [
       "Design",
       "UI/UX",
@@ -272,7 +272,7 @@
     "description": "A community for data engineers in Surabaya and beyond — ETL pipelines, data lakes, and real-time streaming.",
     "member_count": 720,
     "upcoming_events_count": 2,
-    "banner_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
+    "banner_url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=0",
     "tags": [
       "Data",
       "Backend",
@@ -330,7 +330,7 @@
     "description": "A nationwide community for security engineers and enthusiasts — CTF, OWASP, and secure coding.",
     "member_count": 980,
     "upcoming_events_count": 2,
-    "banner_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3",
+    "banner_url": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=0",
     "tags": [
       "Security",
       "Programming",
@@ -398,7 +398,7 @@
     "description": "Exploring large language models, computer vision, and applied machine learning across Indonesia.",
     "member_count": 1100,
     "upcoming_events_count": 1,
-    "banner_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995",
+    "banner_url": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=0",
     "tags": [
       "AI",
       "Machine Learning",
@@ -461,7 +461,7 @@
     "description": "Mobile developers in Bandung sharing Flutter, React Native, and native performance optimization tips.",
     "member_count": 610,
     "upcoming_events_count": 1,
-    "banner_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c",
+    "banner_url": "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=0",
     "tags": [
       "Mobile",
       "Flutter",

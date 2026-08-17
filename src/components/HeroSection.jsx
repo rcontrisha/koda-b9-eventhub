@@ -15,19 +15,30 @@ function HeroSection() {
           Join workshops, conferences, and meetups in Indonesia's best tech
           communities — or create your own.
         </p>
-        <InputField
-          placeholder={"Search events, topics, or locations"}
-          trailing={
-            <button className="bg-primary text-white font-inter font-medium text-sm px-6 py-2.5 rounded-lg">
-              Search
-            </button>
-          }
-        />
+        <div className="pt-5">
+          <InputField
+            placeholder={"Search events, topics, or locations"}
+            trailing={
+              <button className="bg-primary text-white font-inter font-medium text-sm px-6 py-2.5 rounded-lg cursor-pointer">
+                Search
+              </button>
+            }
+          />
+        </div>
         <div className="flex flex-wrap items-center gap-2 justify-center pt-5">
-          {["Technology", "AI", "Design", "Business", "Programming", "Music"].map((topic) => {
+          {[
+            "Technology",
+            "AI",
+            "Design",
+            "Business",
+            "Programming",
+            "Music",
+          ].map((topic) => {
             return (
-              <div className="px-3 py-1 border-2 border-[#3F3F47] w-fit text-secondary rounded-full">{topic}</div>
-            )
+              <div className="px-3 py-1 border-2 border-[#3F3F47] w-fit text-secondary rounded-full">
+                {topic}
+              </div>
+            );
           })}
         </div>
       </div>
