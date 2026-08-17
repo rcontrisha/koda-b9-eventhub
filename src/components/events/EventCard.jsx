@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
-import { IoLocationOutline } from "react-icons/io5";
+import { IoLocationOutline, IoCheckmark } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import { Link } from "react-router";
 import slugify from "slugify";
+import { GoBookmarkFill } from "react-icons/go";
 
 import { getProgressColor, formatEventDate } from "../../utils/event";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,11 +14,15 @@ function EventCard({ events }) {
   const pct = Math.min(100, (events.attendees_count / events.capacity) * 100);
   const isFull = events.attendees_count >= events.capacity;
 
-  const { isAttendee } = useAuth();
+  const { isAttendee, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } =
+    useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
-  const handleJoin = () => console.log("join event", events.id);
-  const handleSave = () => console.log("save event", events.id);
+  const joined = hasJoinedEvent(events.id);
+  const saved = hasSavedEvent(events.id);
+
+  const handleJoin = () => joinEvent(events.id);
+  const handleSave = () => saveEvent(events.id);
 
   return (
     <article className="border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col bg-white">
@@ -88,9 +93,14 @@ function EventCard({ events }) {
                     <div className="grow text-center bg-neutral-300 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
                       Full
                     </div>
+                  ) : joined ? (
+                    <div className="grow flex items-center justify-center gap-1.5 bg-[#33B570] text-white rounded-lg py-2 px-3 font-inter font-medium text-sm">
+                      <IoCheckmark />
+                      Registered
+                    </div>
                   ) : (
                     <div
-                      onClick={() =>
+                      onClickCapture={() =>
                         isAttendee ? handleJoin() : setShowPrompt(true)
                       }
                       className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
@@ -99,12 +109,16 @@ function EventCard({ events }) {
                     </div>
                   )}
                   <div
-                    onClick={() =>
+                    onClickCapture={() =>
                       isAttendee ? handleSave() : setShowPrompt(true)
                     }
                     className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
                   >
-                    <CiBookmark className="text-lg text-gray-700" />
+                    {saved ? (
+                      <GoBookmarkFill className="text-lg text-primary" />
+                    ) : (
+                      <CiBookmark className="text-lg text-gray-700" />
+                    )}
                   </div>
                 </div>
               </div>

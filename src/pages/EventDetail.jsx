@@ -2,7 +2,8 @@ import { useState } from "react";
 import { Link, useParams } from "react-router";
 import { IoMdArrowBack, IoMdSend } from "react-icons/io";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
-import { IoLocationOutline, IoShareSocialOutline, IoChatboxOutline } from "react-icons/io5";
+import { GoBookmarkFill } from "react-icons/go";
+import { IoLocationOutline, IoShareSocialOutline, IoChatboxOutline, IoCheckmark } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
 import slugify from 'slugify'
 
@@ -18,7 +19,7 @@ import communities from "../data/communities.json";
 function EventDetail() {
   const { slug } = useParams();
 
-  const { isAttendee } = useAuth();
+  const { isAttendee, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const event = events.find((e) => slugify(e.title, { lower: true }) === slug);
@@ -30,8 +31,10 @@ function EventDetail() {
   const isFull = event.attendees_count >= event.capacity;
   const spotsLeft = Math.max(0, event.capacity - event.attendees_count);
 
-  const handleJoin = () => console.log("join event", event.id);
-  const handleSave = () => console.log("save event", event.id);
+  const joined = hasJoinedEvent(event.id);
+  const saved = hasSavedEvent(event.id);
+  const handleJoin = () => joinEvent(event.id);
+  const handleSave = () => saveEvent(event.id);
   const handleShare = () => console.log("share event", event.id);
   const handleComment = () => console.log("comment", event.id);
 
@@ -98,15 +101,26 @@ function EventDetail() {
                 ></div>
               </div>
               <button
-                disabled={isFull}
+                disabled={isFull || joined}
                 onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
                 className={`w-full py-3 rounded-xl font-medium transition ${
                   isFull
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                    : "bg-orange-600 text-white hover:bg-orange-700"
+                    : joined
+                      ? "bg-[#33B570] text-white"
+                      : "bg-orange-600 text-white hover:bg-orange-700"
                 }`}
               >
-                {isFull ? "Full" : "Join Event"}
+                {isFull ? (
+                  "Full"
+                ) : joined ? (
+                  <span className="flex items-center justify-center gap-1.5">
+                    <IoCheckmark />
+                    Registered
+                  </span>
+                ) : (
+                  "Join Event"
+                )}
               </button>
             </div>
 
@@ -208,7 +222,7 @@ function EventDetail() {
             </div>
           </div>
 
-          <div className="hidden lg:block space-y-6 sticky top-8">
+          <div className="hidden lg:block space-y-6 top-8">
             {/* Card Info Event */}
             <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm space-y-6">
               <h3 className="font-inter text-xs font-medium text-secondary uppercase">
@@ -262,25 +276,41 @@ function EventDetail() {
               {/* Action Buttons */}
               <div className="space-y-3 pt-2">
                 <button
-                  disabled={isFull}
-                  onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
+                  disabled={isFull || joined}
+                  onClickCapture={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
                   className={`w-full py-3 rounded-xl font-medium transition shadow-sm ${
                     isFull
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-orange-600 text-white hover:bg-orange-700"
+                      : joined
+                        ? "bg-[#33B570] text-white"
+                        : "bg-orange-600 text-white hover:bg-orange-700"
                   }`}
                 >
-                  {isFull ? "Full" : "Join Event"}
+                  {isFull ? (
+                    "Full"
+                  ) : joined ? (
+                    <span className="flex items-center justify-center gap-1.5">
+                      <IoCheckmark />
+                      Registered
+                    </span>
+                  ) : (
+                    "Join Event"
+                  )}
                 </button>
                 <div className="grid grid-cols-2 gap-3">
                   <button
-                    onClick={() => (isAttendee ? handleSave() : setShowPrompt(true))}
+                    onClickCapture={() => (isAttendee ? handleSave() : setShowPrompt(true))}
                     className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
                   >
-                    <CiBookmark /> Save
+                    {saved ? (
+                      <GoBookmarkFill className="text-lg text-primary" />
+                    ) : (
+                      <CiBookmark />
+                    )}
+                    {saved ? "Saved" : "Save"}
                   </button>
                   <button
-                    onClick={() => (isAttendee ? handleShare() : setShowPrompt(true))}
+                    onClickCapture={() => (isAttendee ? handleShare() : setShowPrompt(true))}
                     className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
                   >
                     <IoShareSocialOutline /> Share

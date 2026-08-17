@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoCheckmark } from "react-icons/io5";
 import slugify from "slugify";
 
+import { useAuth } from "../hooks/useAuth";
+import AuthPromptModal from "../components/shared/AuthPromptModal";
 import communities from "../data/communities.json";
 
 function CommunityDetailLayout() {
@@ -10,7 +14,12 @@ function CommunityDetailLayout() {
     (c) => slugify(c.name, { lower: true }) === slug,
   );
 
+  const { isAttendee, joinCommunity, hasJoinedCommunity } = useAuth();
+  const [showPrompt, setShowPrompt] = useState(false);
+
   if (!community) return null;
+
+  const joined = hasJoinedCommunity(community.id);
 
   return (
     <main>
@@ -44,9 +53,23 @@ function CommunityDetailLayout() {
             </div>
           </div>
           <div>
-            <button className="w-fit rounded-lg px-4 py-2 bg-primary text-white cursor-pointer">
-              Join Community
-            </button>
+            {joined ? (
+              <div className="w-fit flex items-center justify-center gap-1.5 rounded-lg px-4 py-2 bg-[#33B570] text-white font-inter font-medium text-sm">
+                <IoCheckmark />
+                Registered
+              </div>
+            ) : (
+              <button
+                onClick={() =>
+                  isAttendee
+                    ? joinCommunity(community.id)
+                    : setShowPrompt(true)
+                }
+                className="w-fit rounded-lg px-4 py-2 bg-primary text-white cursor-pointer"
+              >
+                Join Community
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -107,6 +130,7 @@ function CommunityDetailLayout() {
           <Outlet />
         </div>
       </section>
+      {showPrompt && <AuthPromptModal onClose={() => setShowPrompt(false)} />}
     </main>
   );
 }

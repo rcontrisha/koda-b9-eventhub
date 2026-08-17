@@ -23,7 +23,7 @@ function Explore() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-          {events.map((event) => {
+          {events.slice(0,6).map((event) => {
             return <EventCard key={event.id} events={event} />;
           })}
         </div>
@@ -39,7 +39,7 @@ function Explore() {
           </Link>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 pt-5">
-          {communities.map((community) => {
+          {communities.slice(0,4).map((community) => {
             return <CommunityCard key={community.id} community={community} />;
           })}
         </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { RxPeople } from "react-icons/rx";
 import { CiCalendar } from "react-icons/ci";
+import { IoCheckmark } from "react-icons/io5";
 import { Link } from "react-router";
 import slugify from "slugify";
 
@@ -8,10 +9,12 @@ import { useAuth } from "../../hooks/useAuth";
 import AuthPromptModal from "../shared/AuthPromptModal";
 
 function CommunityCard({ community }) {
-  const { isAttendee } = useAuth();
+  const { isAttendee, joinCommunity, hasJoinedCommunity } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
-  const handleJoin = () => console.log("join community", community.id);
+  const joined = hasJoinedCommunity(community.id);
+
+  const handleJoin = () => joinCommunity(community.id);
 
   return (
     <article className="flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
@@ -68,14 +71,21 @@ function CommunityCard({ community }) {
                   </div>
                 </div>
 
-                <button
-                  onClick={() =>
-                    isAttendee ? handleJoin() : setShowPrompt(true)
-                  }
-                  className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
-                >
-                  Join Event
-                </button>
+                {joined ? (
+                  <div className="w-full flex items-center justify-center gap-1.5 bg-[#33B570] text-white rounded-lg font-medium py-2 px-3 text-sm">
+                    <IoCheckmark />
+                    Registered
+                  </div>
+                ) : (
+                  <button
+                    onClickCapture={() =>
+                      isAttendee ? handleJoin() : setShowPrompt(true)
+                    }
+                    className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
+                  >
+                    Join Community
+                  </button>
+                )}
               </div>
             </div>
           </Link>
