@@ -20,6 +20,18 @@
   border-radius: 0.5rem;
 }
 
+@utility btn {
+  color: var(--color-secondary);
+  border-radius: 8px;
+  padding: 6px 12px;
+  border: 1px solid #E4E4E7;
+}
+
+@utility btn-primary {
+  color: white;
+  background-color: var(--color-primary);
+}
+
 @utility pending {
   font-family: var(--font-inter);
   font-weight: 500;
@@ -46,4 +58,3 @@
   font-size: 14px;
   color: #ff5f22;
 }
-

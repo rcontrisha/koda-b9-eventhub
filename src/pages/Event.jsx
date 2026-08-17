@@ -3,16 +3,24 @@ import EventCard from "../components/events/EventCard";
 import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
 import events from "../data/events.json";
+import Filters from "../components/events/Filters";
 
 function Event() {
   const [visibleCount, setVisibleCount] = useState(6);
   const visibleEvents = events.slice(0, visibleCount);
+  const [filterOpen, setFilterOpen] = useState(false);
+
   return (
     <>
       <div className="py-4 px-6 border-b border-b-[#E4E4E7] flex gap-3 items-center">
         <InputField placeholder={"Search events..."} />
-        <FilterButton />
+        <FilterButton isOpen={filterOpen} clicked={setFilterOpen} />
       </div>
+      {filterOpen && (
+        <div className="px-6 py-4 border-b border-b-[#E4E4E7]">
+          <Filters />
+        </div>
+      )}
       <section className="px-4 py-8 lg:py-10 lg:px-13">
         <p className="font-inter font-semibold text-sm text-secondary">
           {events.length}

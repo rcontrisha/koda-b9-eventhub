@@ -21,7 +21,7 @@ function Communities() {
           </div>
         </div>
       </section>
-      <div className="flex gap-3 px-13 pt-6">
+      <div className="flex flex-col lg:flex-row gap-3 px-4 lg:px-13 pt-6">
         <div className="flex gap-1 rounded-lg border border-[#E4E4E7] p-1 items-center">
           <div className="selected font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer">
             All
@@ -33,7 +33,7 @@ function Communities() {
             Not Joined
           </div>
         </div>
-        <div className="flex items-center gap-2 justify-center">
+        <div className="flex items-center gap-2 lg:justify-center justify-start flex-wrap">
           <div className="selected font-inter font-medium text-xs text-secondary rounded-md px-3 py-1.5 cursor-pointer border border-[#E4E4E7]">
             All Categories
           </div>
