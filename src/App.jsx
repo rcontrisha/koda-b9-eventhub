@@ -24,6 +24,9 @@ import ProfileCommunities from './components/profile/Communities';
 import ProfileSaved from './components/profile/Saved';
 import ProfileLayout from "./layouts/ProfileLayout";
 
+import OrganizerDashboard from "./pages/organizer/Dashboard"
+import CreateEvent from "./pages/organizer/CreateEvent";
+
 export default function App() {
   return (
     <Routes>
@@ -57,6 +60,10 @@ export default function App() {
             <Route path="communities" element={<ProfileCommunities />} />
             <Route path="saved" element={<ProfileSaved />} />
           </Route>
+        </Route>
+        <Route path="organizer">
+          <Route index element={<OrganizerDashboard />} />
+          <Route path="create-event" element={<CreateEvent />} />
         </Route>
       </Route>
     </Routes>
