@@ -1,43 +1,15 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import { IoMdArrowBack } from "react-icons/io";
+import { RxCheck } from "react-icons/rx";
+
+import { useEventContext } from "../../hooks/useEventContext";
+
 import BasicInformation from "../../components/organizer/BasicInformation";
 import Detail from "../../components/organizer/Detail";
 import Review from "../../components/organizer/Review";
-import { RxCheck } from "react-icons/rx";
 
 function CreateEvent() {
-  const [step, setStep] = useState(1);
-  const [formData, setFormData] = useState({
-    image_url: "",
-    title: "",
-    tags: [],
-    date: "",
-    start_time: "",
-    end_time: "",
-    location: "",
-    capacity: 0,
-    speakers: [],
-  });
-
-  const nextStep = () => setStep((prev) => prev + 1);
-  const prevStep = () => setStep((prev) => prev - 1);
-
-  const navigate = useNavigate();
-  const cancel = () => {
-    navigate("/organizer");
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Form submitted successfully!");
-  };
-
+  const { currentStep } = useEventContext()
   return (
     <>
       <div className="px-6 py-3 border-b border-b-[#E4E4E7]">
@@ -56,56 +28,33 @@ function CreateEvent() {
           </h1>
           <div className="flex items-center gap-2">
             <div
-              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${step >= 1 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep >= 1 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
             >
-              {step > 1 ? <RxCheck /> : 1}
+              {currentStep > 1 ? <RxCheck /> : 1}
             </div>
             <div
-              className={`w-8 h-0.5 ${step > 1 ? "bg-primary" : "bg-[#E4E4E7]"}`}
+              className={`w-8 h-0.5 ${currentStep > 1 ? "bg-primary" : "bg-[#E4E4E7]"}`}
             ></div>
             <div
-              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${step >= 2 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep >= 2 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
             >
-              {step > 2 ? <RxCheck /> : 2}
+              {currentStep > 2 ? <RxCheck /> : 2}
             </div>
             <div
-              className={`w-8 h-0.5 ${step > 2 ? "bg-primary" : "bg-[#E4E4E7]"}`}
+              className={`w-8 h-0.5 ${currentStep > 2 ? "bg-primary" : "bg-[#E4E4E7]"}`}
             ></div>
             <div
-              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${step === 3 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+              className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep === 3 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
             >
-              {step > 3 ? <RxCheck /> : 3}
+              {currentStep > 3 ? <RxCheck /> : 3}
             </div>
           </div>
         </div>
       </div>
       <main className="max-w-334.5 px-4 lg:px-77.25 py-8">
-        {step === 1 && (
-          <BasicInformation
-            data={formData}
-            setFormData={setFormData}
-            onChange={handleInputChange}
-            next={nextStep}
-            prev={cancel}
-          />
-        )}
-        {step === 2 && (
-          <Detail
-            data={formData}
-            onChange={handleInputChange}
-            setFormData={setFormData}
-            next={nextStep}
-            prev={prevStep}
-          />
-        )}
-        {step === 3 && (
-          <Review
-            data={formData}
-            setFormData={setFormData}
-            onSubmit={handleSubmit}
-            prev={prevStep}
-          />
-        )}
+        {currentStep === 1 && <BasicInformation />}
+        {currentStep === 2 && <Detail />}
+        {currentStep === 3 && <Review />}
       </main>
     </>
   );

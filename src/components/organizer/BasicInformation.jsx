@@ -2,18 +2,21 @@ import { FiUploadCloud, FiArrowRight, FiTrash2 } from "react-icons/fi";
 import { useState } from "react";
 
 import tags from "../../data/tags.json";
+import { useEventContext } from "../../hooks/useEventContext";
 
-function BasicInformation({ data, setFormData, onChange, prev, next }) {
+function BasicInformation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { formData, updateFields, nextStep } = useEventContext();
 
   const handleRemoveImage = () => {
-    if (data.image_url) {
-      URL.revokeObjectURL(data.image_url);
+    if (formData.image_url) {
+      URL.revokeObjectURL(formData.image_url);
     }
-    setFormData((prev) => ({
-      ...prev,
-      image_url: null,
-    }));
+    updateFields({image_url: ""})
+    // setFormData((prev) => ({
+    //   ...prev,
+    //   image_url: null,
+    // }));
   };
 
   return (
@@ -31,10 +34,10 @@ function BasicInformation({ data, setFormData, onChange, prev, next }) {
           Cover Image
         </p>
         <div className="pt-1.5">
-          {data.image_url ? (
+          {formData.image_url ? (
             <div className="relative w-full h-48 border border-[#E4E4E7] rounded-xl overflow-hidden group">
               <img
-                src={data.image_url}
+                src={formData.image_url}
                 alt="Event Cover Preview"
                 className="w-full h-full object-cover"
               />
@@ -76,13 +79,16 @@ function BasicInformation({ data, setFormData, onChange, prev, next }) {
             accept="image/*"
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
-                if (data.image_url) {
-                  URL.revokeObjectURL(data.image_url);
+                if (formData.image_url) {
+                  URL.revokeObjectURL(formData.image_url);
                 }
-                setFormData((prev) => ({
-                  ...prev,
+                updateFields({
                   image_url: URL.createObjectURL(e.target.files[0]),
-                }));
+                });
+                // setFormData((prev) => ({
+                //   ...prev,
+                //   image_url: URL.createObjectURL(e.target.files[0]),
+                // }));
               }
             }}
           />
@@ -96,8 +102,8 @@ function BasicInformation({ data, setFormData, onChange, prev, next }) {
           id="title"
           placeholder="Go Concurrency Workshop"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={data.title}
-          onChange={onChange}
+          value={formData.title}
+          onChange={(e) => updateFields({ title: e.target.value })}
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -108,8 +114,8 @@ function BasicInformation({ data, setFormData, onChange, prev, next }) {
           placeholder="What will attendees learn or experience?"
           rows={5}
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={data.desc}
-          onChange={onChange}
+          value={formData.desc}
+          onChange={(e) => updateFields({ desc: e.target.value })}
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -133,11 +139,9 @@ function BasicInformation({ data, setFormData, onChange, prev, next }) {
       </div>
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
-          <button onClick={prev} className="cursor-pointer">
-            Cancel
-          </button>
+          <button className="cursor-pointer">Cancel</button>
           <button
-            onClick={next}
+            onClick={nextStep}
             className="flex gap-2 px-4 py-2 rounded-lg bg-primary text-white items-center cursor-pointer"
           >
             Continue

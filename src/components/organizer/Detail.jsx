@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
+import { useEventContext } from "../../hooks/useEventContext";
 
-function Detail({ data, onChange, setFormData, prev, next }) {
+function Detail() {
+  const { formData, updateFields, prevStep, nextStep } = useEventContext();
   const [format, setFormat] = useState(
-    data.location === "online" ? "online" : "in-person",
+    formData.location === "online" ? "online" : "in-person",
   );
 
   return (
@@ -23,8 +25,8 @@ function Detail({ data, onChange, setFormData, prev, next }) {
           name="date"
           id="date"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={data.date}
-          onChange={onChange}
+          value={formData.date}
+          onChange={(e) => updateFields({ date: e.target.value })}
         />
       </div>
       <div className="pt-6 flex gap-4">
@@ -35,8 +37,8 @@ function Detail({ data, onChange, setFormData, prev, next }) {
             name="start_time"
             id="start_time"
             className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-            value={data.start_time}
-            onChange={onChange}
+            value={formData.start_time}
+            onChange={(e) => updateFields({ start_time: e.target.value })}
           />
         </div>
         <div className="flex flex-col gap-1.5 grow">
@@ -46,8 +48,8 @@ function Detail({ data, onChange, setFormData, prev, next }) {
             name="end_time"
             id="end_time"
             className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-            value={data.end_time}
-            onChange={onChange}
+            value={formData.end_time}
+            onChange={(e) => updateFields({ end_time: e.target.value })}
           />
         </div>
       </div>
@@ -59,12 +61,13 @@ function Detail({ data, onChange, setFormData, prev, next }) {
             type="button"
             onClick={() => {
               setFormat("in-person");
-              setFormData((prev) => {
-                return {
-                  ...prev,
-                  location: "",
-                };
-              });
+              updateFields({ location: "" });
+              // setFormData((prev) => {
+              //   return {
+              //     ...prev,
+              //     location: "",
+              //   };
+              // });
             }}
             className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               format === "in-person"
@@ -80,12 +83,13 @@ function Detail({ data, onChange, setFormData, prev, next }) {
             type="button"
             onClick={() => {
               setFormat("online");
-              setFormData((prev) => {
-                return {
-                  ...prev,
-                  location: "online",
-                };
-              });
+              updateFields({location: "online"})
+              // setFormData((prev) => {
+              //   return {
+              //     ...prev,
+              //     location: "online",
+              //   };
+              // });
             }}
             className={`flex items-center justify-center gap-2 py-2.5 px-2 rounded-lg text-sm font-medium transition-all cursor-pointer ${
               format === "online"
@@ -107,8 +111,8 @@ function Detail({ data, onChange, setFormData, prev, next }) {
           id="location"
           placeholder="Bandung, West Java"
           className={`px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 ${format === "online" && "bg-gray-300 text-secondary"}`}
-          value={data.location}
-          onChange={onChange}
+          value={formData.location}
+          onChange={(e) => updateFields({location: e.target.value})}
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -119,21 +123,21 @@ function Detail({ data, onChange, setFormData, prev, next }) {
           id="capacity"
           placeholder="100"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={data.capacity}
-          onChange={onChange}
+          value={formData.capacity}
+          onChange={(e) => updateFields({capacity: e.target.value})}
         />
       </div>
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
           <button
-            onClick={prev}
+            onClick={prevStep}
             className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7]"
           >
             <FiArrowLeft />
             Previous
           </button>
           <button
-            onClick={next}
+            onClick={nextStep}
             className="flex gap-2 px-4 py-2 rounded-lg bg-primary text-white items-center cursor-pointer"
           >
             Continue

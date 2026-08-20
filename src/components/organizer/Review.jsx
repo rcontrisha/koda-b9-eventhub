@@ -1,23 +1,33 @@
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { RxCross2, RxCheck } from "react-icons/rx";
+import { useEventContext } from "../../hooks/useEventContext";
+import { formatEventDate } from "../../utils/event";
 
-function Review({ data, setFormData, onSubmit, prev }) {
-  const [speakers, setSpeakers] = useState(data.speakers || []);
+function Review() {
+  const {formData, updateFields, prevStep, submit} = useEventContext()
+  const [speakers, setSpeakers] = useState(formData.speakers || []);
   const [inputSpeaker, setInputSpeaker] = useState("");
+
+  const handleSubmitEvent = () => {
+    console.log("Submitted Event Data:", formData);
+    submit();
+  };
 
   const handleAddSpeaker = () => {
     if (inputSpeaker.trim() === "") return;
     const updatedSpeakers = [...speakers, inputSpeaker];
     setSpeakers(updatedSpeakers);
-    setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
+    updateFields({speakers: updatedSpeakers})
+    // setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
     setInputSpeaker("");
   };
 
   const handleRemoveSpeaker = (indexToRemove) => {
     const updatedSpeakers = speakers.filter((_, index) => index !== indexToRemove);
     setSpeakers(updatedSpeakers);
-    setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
+    updateFields({speakers: updatedSpeakers})
+    // setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
   };
 
   return (
@@ -85,31 +95,31 @@ function Review({ data, setFormData, onSubmit, prev }) {
         <div className="border border-[#E4E4E7] rounded-xl">
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Title</p>
-            <p></p>
+            <p>{formData.title}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Category</p>
-            <p></p>
+            <p>{formData.tags.length > 0 ? formData.tags.forEach((cat) => cat) : 'No Categories Added'}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Date</p>
-            <p></p>
+            <p>{formatEventDate(formData.date)}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Time</p>
-            <p></p>
+            <p>{formData.start_time} - {formData.end_time}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Format</p>
-            <p></p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">Format (Location)</p>
+            <p>{formData.location}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Capacity</p>
-            <p></p>
+            <p>{formData.capacity} persons</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Speakers</p>
-            <p></p>
+            <p>{formData.speakers.join(", ")}</p>
           </div>
         </div>
       </div>
@@ -117,14 +127,14 @@ function Review({ data, setFormData, onSubmit, prev }) {
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
           <button
-            onClick={prev}
+            onClick={prevStep}
             className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7]"
           >
             <FiArrowLeft />
             Previous
           </button>
           <button
-            onClick={onSubmit}
+            onClick={handleSubmitEvent}
             className="flex gap-2 px-4 py-2 rounded-lg bg-[#33B570] text-white items-center cursor-pointer"
           >
             <RxCheck />

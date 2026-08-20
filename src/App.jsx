@@ -20,12 +20,13 @@ import PastEvents from "./components/my-events/PastEvents";
 import SavedEvents from "./components/my-events/SavedEvents";
 import RequireAuth from "./components/shared/RequireAuth";
 import ProfileEvents from "./components/profile/Events";
-import ProfileCommunities from './components/profile/Communities';
-import ProfileSaved from './components/profile/Saved';
+import ProfileCommunities from "./components/profile/Communities";
+import ProfileSaved from "./components/profile/Saved";
 import ProfileLayout from "./layouts/ProfileLayout";
 
-import OrganizerDashboard from "./pages/organizer/Dashboard"
+import OrganizerDashboard from "./pages/organizer/Dashboard";
 import CreateEvent from "./pages/organizer/CreateEvent";
+import EventProvider from "./contexts/event/EventProvider";
 
 export default function App() {
   return (
@@ -39,7 +40,7 @@ export default function App() {
         <Route path="/explore" element={<Explore />} />
         <Route path="/events">
           <Route index element={<Event />} />
-          <Route path=":slug" element={<EventDetail />}/>
+          <Route path=":slug" element={<EventDetail />} />
         </Route>
         <Route path="/communities">
           <Route index element={<Communities />} />
@@ -63,7 +64,9 @@ export default function App() {
         </Route>
         <Route path="organizer">
           <Route index element={<OrganizerDashboard />} />
-          <Route path="create-event" element={<CreateEvent />} />
+          <Route path="create-event" element={<EventProvider />}>
+            <Route index element={<CreateEvent />} />
+          </Route>
         </Route>
       </Route>
     </Routes>

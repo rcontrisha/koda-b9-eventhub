@@ -6,7 +6,7 @@ export function getProgressColor(pct) {
 
 export function formatEventDate(dateISO) {
   return new Date(dateISO).toLocaleDateString("en-US", {
-    month: "short",
+    month: "long",
     day: "numeric",
     year: "numeric",
   });
