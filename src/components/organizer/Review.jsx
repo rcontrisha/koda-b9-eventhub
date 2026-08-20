@@ -99,7 +99,7 @@ function Review() {
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Category</p>
-            <p>{formData.tags.length > 0 ? formData.tags.forEach((cat) => cat) : 'No Categories Added'}</p>
+            <p>{formData.tags.length > 0 ? formData.tags.join(", ") : 'No Categories Added'}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
             <p className="font-inter font-medium text-xs text-secondary leading-4">Date</p>

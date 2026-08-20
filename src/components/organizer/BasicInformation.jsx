@@ -1,22 +1,42 @@
 import { FiUploadCloud, FiArrowRight, FiTrash2 } from "react-icons/fi";
 import { useState } from "react";
+import { RxCross2 } from "react-icons/rx";
 
-import tags from "../../data/tags.json";
+import tagList from "../../data/tags.json";
 import { useEventContext } from "../../hooks/useEventContext";
 
 function BasicInformation() {
-  const [isOpen, setIsOpen] = useState(false);
   const { formData, updateFields, nextStep } = useEventContext();
+  const [tags, setTags] = useState(formData.tags || []);
 
   const handleRemoveImage = () => {
     if (formData.image_url) {
       URL.revokeObjectURL(formData.image_url);
     }
-    updateFields({image_url: ""})
+    updateFields({ image_url: "" });
     // setFormData((prev) => ({
     //   ...prev,
     //   image_url: null,
     // }));
+  };
+
+  const handleTagChange = (e) => {
+    const selectedTag = e.target.value;
+    if (!selectedTag) return;
+
+    if (!tags.includes(selectedTag)) {
+      const updatedTags = [...tags, selectedTag];
+      setTags(updatedTags);
+      updateFields({ tags: updatedTags });
+    }
+
+    e.target.value = "";
+  };
+
+  const handleRemoveTag = (tagToRemove) => {
+    const updatedTags = tags.filter((tag) => tag !== tagToRemove);
+    setTags(updatedTags);
+    updateFields({ tags: updatedTags });
   };
 
   return (
@@ -120,7 +140,44 @@ function BasicInformation() {
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
         <p>Category</p>
-        <div
+        <div className="w-full relative block">
+          <select
+            defaultValue=""
+            onChange={handleTagChange}
+            className="w-full overflow-hidden whitespace-nowrap px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 text-sm bg-white cursor-pointer"
+          >
+            <option value="" disabled>
+              Select Category
+            </option>
+            {tagList?.map((tag, index) => (
+              <option key={index} value={tag}>
+                {tag}
+              </option>
+            ))}
+          </select>
+
+          {/* Selected Tags Chips */}
+          {tags.length > 0 && (
+            <div className="pt-2 flex flex-wrap gap-2">
+              {tags.map((tag, index) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-[#E4E4E7] rounded-lg text-xs font-medium text-gray-700"
+                >
+                  <span>{tag}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTag(tag)}
+                    className="text-gray-400 hover:text-red-600 transition cursor-pointer"
+                  >
+                    <RxCross2 />
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        {/* <div
           onClick={() => setIsOpen(!isOpen)}
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
         >
@@ -129,7 +186,7 @@ function BasicInformation() {
             tags.map((tag) => {
               return <div>{tag}</div>;
             })}
-        </div>
+        </div> */}
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
         <p>Community (Optional)</p>
