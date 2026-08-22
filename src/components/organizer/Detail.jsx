@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
-import { useEventContext } from "../../hooks/useEventContext";
+import { useDispatch, useSelector } from "react-redux";
+import { nextStep, prevStep, updateField } from "../../redux/slices/EventForm";
 
 function Detail() {
-  const { formData, updateFields, prevStep, nextStep } = useEventContext();
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.eventState);
+  // const { formData, updateFields, prevStep, nextStep } = useEventContext();
   const [format, setFormat] = useState(
-    formData.location === "online" ? "online" : "in-person",
+    state.event.location === "online" ? "online" : "in-person",
   );
 
   return (
@@ -25,8 +28,10 @@ function Detail() {
           name="date"
           id="date"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={formData.date}
-          onChange={(e) => updateFields({ date: e.target.value })}
+          value={state.event.date}
+          onChange={(e) =>
+            dispatch(updateField({ ...state.event, date: e.target.value }))
+          }
         />
       </div>
       <div className="pt-6 flex gap-4">
@@ -37,8 +42,10 @@ function Detail() {
             name="start_time"
             id="start_time"
             className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-            value={formData.start_time}
-            onChange={(e) => updateFields({ start_time: e.target.value })}
+            value={state.event.start_time}
+            onChange={(e) =>
+              dispatch(updateField({ ...state.event, start_time: e.target.value }))
+            }
           />
         </div>
         <div className="flex flex-col gap-1.5 grow">
@@ -48,8 +55,10 @@ function Detail() {
             name="end_time"
             id="end_time"
             className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-            value={formData.end_time}
-            onChange={(e) => updateFields({ end_time: e.target.value })}
+            value={state.event.end_time}
+            onChange={(e) =>
+              dispatch(updateField({ ...state.event, end_time: e.target.value }))
+            }
           />
         </div>
       </div>
@@ -61,7 +70,7 @@ function Detail() {
             type="button"
             onClick={() => {
               setFormat("in-person");
-              updateFields({ location: "" });
+              dispatch(updateField({ ...state.event, location: "" }));
               // setFormData((prev) => {
               //   return {
               //     ...prev,
@@ -83,7 +92,7 @@ function Detail() {
             type="button"
             onClick={() => {
               setFormat("online");
-              updateFields({location: "online"})
+              dispatch(updateField({ ...state.event, location: "online" }));
               // setFormData((prev) => {
               //   return {
               //     ...prev,
@@ -111,8 +120,10 @@ function Detail() {
           id="location"
           placeholder="Bandung, West Java"
           className={`px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 ${format === "online" && "bg-gray-300 text-secondary"}`}
-          value={formData.location}
-          onChange={(e) => updateFields({location: e.target.value})}
+          value={state.event.location}
+          onChange={(e) =>
+            dispatch(updateField({ ...state.event, location: e.target.value }))
+          }
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -123,21 +134,27 @@ function Detail() {
           id="capacity"
           placeholder="100"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
-          value={formData.capacity}
-          onChange={(e) => updateFields({capacity: e.target.value})}
+          value={state.event.capacity}
+          onChange={(e) =>
+            dispatch(updateField({ ...state.event, capacity: e.target.value }))
+          }
         />
       </div>
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
           <button
-            onClick={prevStep}
+            onClick={() => {
+              dispatch(prevStep());
+            }}
             className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7]"
           >
             <FiArrowLeft />
             Previous
           </button>
           <button
-            onClick={nextStep}
+            onClick={() => {
+              dispatch(nextStep());
+            }}
             className="flex gap-2 px-4 py-2 rounded-lg bg-primary text-white items-center cursor-pointer"
           >
             Continue

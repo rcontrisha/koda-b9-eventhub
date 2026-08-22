@@ -15,7 +15,7 @@ const initState = {
     end_time: "",
     location: "",
     capacity: 0,
-    speakers: [],
+  speakers: [],
   },
 };
 

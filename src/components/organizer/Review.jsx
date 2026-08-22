@@ -1,32 +1,39 @@
 import { useState } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { RxCross2, RxCheck } from "react-icons/rx";
-import { useEventContext } from "../../hooks/useEventContext";
+import { useDispatch, useSelector } from "react-redux";
+
+// import { useEventContext } from "../../hooks/useEventContext";
+import { updateField, prevStep, addEvent } from "../../redux/slices/EventForm";
 import { formatEventDate } from "../../utils/event";
 
 function Review() {
-  const {formData, updateFields, prevStep, submit} = useEventContext()
-  const [speakers, setSpeakers] = useState(formData.speakers || []);
+  // const {formData, updateFields, prevStep, submit} = useEventContext()
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.eventState);
+  const [speakers, setSpeakers] = useState(state.event.speakers || []);
   const [inputSpeaker, setInputSpeaker] = useState("");
 
   const handleSubmitEvent = () => {
-    console.log("Submitted Event Data:", formData);
-    submit();
+    console.log("Submitted Event Data:", state.event);
+    dispatch(addEvent(state.event));
   };
 
   const handleAddSpeaker = () => {
     if (inputSpeaker.trim() === "") return;
     const updatedSpeakers = [...speakers, inputSpeaker];
     setSpeakers(updatedSpeakers);
-    updateFields({speakers: updatedSpeakers})
+    dispatch(updateField({ ...state.event, speakers: updatedSpeakers }));
     // setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
     setInputSpeaker("");
   };
 
   const handleRemoveSpeaker = (indexToRemove) => {
-    const updatedSpeakers = speakers.filter((_, index) => index !== indexToRemove);
+    const updatedSpeakers = speakers.filter(
+      (_, index) => index !== indexToRemove,
+    );
     setSpeakers(updatedSpeakers);
-    updateFields({speakers: updatedSpeakers})
+    dispatch(updateField({ ...state.event, speakers: updatedSpeakers }));
     // setFormData((prev) => ({ ...prev, speakers: updatedSpeakers }));
   };
 
@@ -36,7 +43,7 @@ function Review() {
         <h2 className="font-jakarta font-bold text-xl leading-7">
           Speakers and Review
         </h2>
-        <p className="font-inter font-normal text-sm text-secondary leading-5"> 
+        <p className="font-inter font-normal text-sm text-secondary leading-5">
           Add speakers and confirm your event details.
         </p>
       </div>
@@ -94,32 +101,52 @@ function Review() {
       <div className="pt-6">
         <div className="border border-[#E4E4E7] rounded-xl">
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Title</p>
-            <p>{formData.title}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Title
+            </p>
+            <p>{state.event.title}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Category</p>
-            <p>{formData.tags.length > 0 ? formData.tags.join(", ") : 'No Categories Added'}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Category
+            </p>
+            <p>
+              {state.event.tags.length > 0
+                ? state.event.tags.join(", ")
+                : "No Categories Added"}
+            </p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Date</p>
-            <p>{formatEventDate(formData.date)}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Date
+            </p>
+            <p>{formatEventDate(state.event.date)}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Time</p>
-            <p>{formData.start_time} - {formData.end_time}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Time
+            </p>
+            <p>
+              {state.event.start_time} - {state.event.end_time}
+            </p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Format (Location)</p>
-            <p>{formData.location}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Format (Location)
+            </p>
+            <p>{state.event.location}</p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Capacity</p>
-            <p>{formData.capacity} persons</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Capacity
+            </p>
+            <p>{state.event.capacity} persons</p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">Speakers</p>
-            <p>{formData.speakers.join(", ")}</p>
+            <p className="font-inter font-medium text-xs text-secondary leading-4">
+              Speakers
+            </p>
+            <p>{state.event.speakers?.length > 0 ? state.event.speakers.join(", ") : ""}</p>
           </div>
         </div>
       </div>
@@ -127,7 +154,7 @@ function Review() {
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
           <button
-            onClick={prevStep}
+            onClick={() => dispatch(prevStep())}
             className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7]"
           >
             <FiArrowLeft />

@@ -2,14 +2,18 @@ import { Link } from "react-router";
 import { IoMdArrowBack } from "react-icons/io";
 import { RxCheck } from "react-icons/rx";
 
-import { useEventContext } from "../../hooks/useEventContext";
+// import { useEventContext } from "../../hooks/useEventContext";
 
 import BasicInformation from "../../components/organizer/BasicInformation";
 import Detail from "../../components/organizer/Detail";
 import Review from "../../components/organizer/Review";
 
+import { useSelector } from "react-redux";
+
 function CreateEvent() {
-  const { currentStep } = useEventContext()
+  const state = useSelector((state) => state.eventState);
+  const { currentStep } = state;
+  // const { currentStep } = useEventContext();
   return (
     <>
       <div className="px-6 py-3 border-b border-b-[#E4E4E7]">
