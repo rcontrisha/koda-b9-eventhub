@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { FaArrowTrendUp, FaPlus } from "react-icons/fa6";
 import { Bar } from "react-chartjs-2";
+import { useNavigate } from "react-router";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,6 +32,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
+  const navigate = useNavigate();
   const communityEvents = events.filter((e) => e.community_id === "c5");
 
   const chartData = {
@@ -80,7 +82,10 @@ function Dashboard() {
             Manage your events and track performance.
           </h2>
         </div>
-        <button className="flex gap-2 items-center px-4 py-2 bg-primary text-white rounded-lg h-fit w-fit mt-4 lg:mt-0 cursor-pointer">
+        <button
+          onClick={() => navigate("create-event")}
+          className="flex gap-2 items-center px-4 py-2 bg-primary text-white rounded-lg h-fit w-fit mt-4 lg:mt-0 cursor-pointer"
+        >
           <span>+</span>
           Create Event
         </button>
@@ -221,7 +226,10 @@ function Dashboard() {
               Quick Actions
             </h2>
             <div className="flex flex-col gap-2 pt-3">
-              <button className="flex justify-center items-center gap-2 rounded-lg px-3 py-1.5 bg-primary text-white font-medium text-sm w-full cursor-pointer">
+              <button
+                onClick={() => navigate("create-event")}
+                className="flex justify-center items-center gap-2 rounded-lg px-3 py-1.5 bg-primary text-white font-medium text-sm w-full cursor-pointer"
+              >
                 <FaPlus />
                 Create New Event
               </button>
@@ -238,7 +246,10 @@ function Dashboard() {
             <div className="pt-3 flex flex-col gap-2">
               {communityEvents.map((e) => {
                 return (
-                  <div key={e.id} className="flex gap-3 py-2 items-center justify-between">
+                  <div
+                    key={e.id}
+                    className="flex gap-3 py-2 items-center justify-between"
+                  >
                     <div className="flex gap-3 items-center">
                       <div className="bg-[#33B570] rounded-full w-1.5 h-1.5"></div>
                       <div>

@@ -2,6 +2,7 @@ import { FiUploadCloud, FiArrowRight, FiTrash2 } from "react-icons/fi";
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 import tagList from "../../data/tags.json";
 // import { useEventContext } from "../../hooks/useEventContext";
@@ -12,6 +13,7 @@ function BasicInformation() {
   const state = useSelector((state) => state.eventState);
   // const { formData, updateFields } = useEventContext();
   const [tags, setTags] = useState(state.event.tags || []);
+  const navigate = useNavigate()
 
   const handleRemoveImage = () => {
     if (state.event.image_url) {
@@ -200,7 +202,7 @@ function BasicInformation() {
       </div>
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
-          <button className="cursor-pointer">Cancel</button>
+          <button onClick={() => navigate('/organizer')} className="cursor-pointer">Cancel</button>
           <button
             onClick={() => {dispatch(nextStep())}}
             className="flex gap-2 px-4 py-2 rounded-lg bg-primary text-white items-center cursor-pointer"
