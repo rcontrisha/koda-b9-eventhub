@@ -1,6 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 
+import userReducer from "./slices/RegisterSlice";
+import activeReducer from "./slices/LoginSlice";
 import eventReducer from "./slices/EventForm";
 
 const storage = {
@@ -15,6 +17,18 @@ const storage = {
   },
 };
 
+const persistUserConfig = {
+  key: "users",
+  storage,
+  whitelist: ["users"],
+};
+
+const persistActiveConfig = {
+  key: "active",
+  storage,
+  whitelist: ["active"],
+};
+
 const persistEventConfig = {
   key: "event",
   storage,
@@ -23,6 +37,8 @@ const persistEventConfig = {
 
 const store = configureStore({
   reducer: {
+    userState: persistReducer(persistUserConfig, userReducer),
+    activeState: persistReducer(persistActiveConfig, activeReducer),
     eventState: persistReducer(persistEventConfig, eventReducer),
   },
 });

@@ -11,7 +11,7 @@ import Review from "../../components/organizer/Review";
 import { useSelector } from "react-redux";
 
 function CreateEvent() {
-  const state = useSelector((state) => state.eventState);
+const state = useSelector((state) => state.eventState);
   const { currentStep } = state;
   // const { currentStep } = useEventContext();
   return (

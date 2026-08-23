@@ -2,17 +2,23 @@ import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../hooks/useAuth";
+// import { useAuth } from "../../hooks/useAuth";
+
+import { useDispatch, useSelector } from "react-redux";
+import { loginUser } from "../../redux/slices/LoginSlice";
 
 function LoginForm() {
+  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.userState);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const navigate = useNavigate()
-  const { login } = useAuth();
+  const navigate = useNavigate();
+  // const { login } = useAuth();
 
   return (
     <section>
@@ -43,11 +49,15 @@ function LoginForm() {
           onSubmit={handleSubmit((form) => {
             console.log(form);
 
-            const users = JSON.parse(localStorage.getItem("users") || "[]");
-            for (const user of users) {
-              if (user.email === form.email && user.password === form.password) {
-                login(form.email);
+            // const users = JSON.parse(localStorage.getItem("users") || "[]");
+            for (const user of userState.users) {
+              if (
+                user.email === form.email &&
+                user.password === form.password
+              ) {
+                dispatch(loginUser({ email: form.email }));
                 navigate("/explore");
+                // {console.log("founded")}
               }
             }
           })}

@@ -2,8 +2,13 @@ import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { registerUser } from "../../redux/slices/RegisterSlice";
 
 function RegisterForm() {
+  const dispatch = useDispatch();
+  const { users } = useSelector((state) => state.userState);
+
   const {
     register,
     handleSubmit,
@@ -49,8 +54,7 @@ function RegisterForm() {
               });
               return;
             }
-            const users = JSON.parse(localStorage.getItem("users")) || [];
-
+            
             if (users.some((u) => u.email === form.email)) {
               setError("email", {
                 type: "manual",
@@ -62,9 +66,9 @@ function RegisterForm() {
 
             // eslint-disable-next-line no-unused-vars
             const { confirm, terms, ...userInfo } = form;
-            users.push({ ...userInfo, role: "attendee" })
+            dispatch(registerUser({ ...userInfo, role: "attendee" }));
 
-            localStorage.setItem("users", JSON.stringify(users));
+            // localStorage.setItem("users", JSON.stringify(users));
             navigate("/login");
           })}
         >
