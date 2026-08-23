@@ -26,7 +26,7 @@ import ProfileLayout from "./layouts/ProfileLayout";
 
 import OrganizerDashboard from "./pages/organizer/Dashboard";
 import CreateEvent from "./pages/organizer/CreateEvent";
-import EventProvider from "./contexts/event/EventProvider";
+import EditEvent from "./pages/organizer/EditEvent";
 
 export default function App() {
   return (
@@ -64,9 +64,8 @@ export default function App() {
         </Route>
         <Route path="organizer">
           <Route index element={<OrganizerDashboard />} />
-          <Route path="create-event" element={<EventProvider />}>
-            <Route index element={<CreateEvent />} />
-          </Route>
+          <Route path="create-event" element={<CreateEvent />} />
+          <Route path="edit-event" element={<EditEvent />} />
         </Route>
       </Route>
     </Routes>

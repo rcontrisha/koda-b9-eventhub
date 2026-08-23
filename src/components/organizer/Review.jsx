@@ -4,10 +4,10 @@ import { RxCross2, RxCheck } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 
 // import { useEventContext } from "../../hooks/useEventContext";
-import { updateField, prevStep, addEvent } from "../../redux/slices/EventForm";
+import { updateField, prevStep, addEvent, resetForm, editEvent } from "../../redux/slices/EventForm";
 import { formatEventDate } from "../../utils/event";
 
-function Review() {
+function Review({isEditing = false}) {
   // const {formData, updateFields, prevStep, submit} = useEventContext()
   const dispatch = useDispatch();
   const state = useSelector((state) => state.eventState);
@@ -16,7 +16,8 @@ function Review() {
 
   const handleSubmitEvent = () => {
     console.log("Submitted Event Data:", state.event);
-    dispatch(addEvent(state.event));
+    isEditing ? dispatch(editEvent(state.event)) : dispatch(addEvent(state.event));
+    dispatch(resetForm())
   };
 
   const handleAddSpeaker = () => {
@@ -165,7 +166,7 @@ function Review() {
             className="flex gap-2 px-4 py-2 rounded-lg bg-[#33B570] text-white items-center cursor-pointer"
           >
             <RxCheck />
-            Publish Event
+            {isEditing ? "Commit Changes" : "Publish Event"}
           </button>
         </div>
       </div>

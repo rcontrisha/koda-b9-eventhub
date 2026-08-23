@@ -1,19 +1,27 @@
 import { FiUploadCloud, FiArrowRight, FiTrash2 } from "react-icons/fi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 import tagList from "../../data/tags.json";
 // import { useEventContext } from "../../hooks/useEventContext";
-import { updateField, nextStep } from "../../redux/slices/EventForm";
+import { updateField, nextStep, resetForm } from "../../redux/slices/EventForm";
 
 function BasicInformation() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const state = useSelector((state) => state.eventState);
   // const { formData, updateFields } = useEventContext();
   const [tags, setTags] = useState(state.event.tags || []);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    (() => {
+      if (state.event.tags.length > 0) {
+        setTags(state.event.tags)
+      }
+    })()
+  }, [state.event.tags])
 
   const handleRemoveImage = () => {
     if (state.event.image_url) {
@@ -108,9 +116,12 @@ function BasicInformation() {
                 if (state.event.image_url) {
                   URL.revokeObjectURL(state.event.image_url);
                 }
-                dispatch(updateField({
-                  ...state.event, image_url: URL.createObjectURL(e.target.files[0]),
-                }));
+                dispatch(
+                  updateField({
+                    ...state.event,
+                    image_url: URL.createObjectURL(e.target.files[0]),
+                  }),
+                );
                 // setFormData((prev) => ({
                 //   ...prev,
                 //   image_url: URL.createObjectURL(e.target.files[0]),
@@ -129,7 +140,9 @@ function BasicInformation() {
           placeholder="Go Concurrency Workshop"
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
           value={state.event.title}
-          onChange={(e) => dispatch(updateField({ ...state.event, title: e.target.value }))}
+          onChange={(e) =>
+            dispatch(updateField({ ...state.event, title: e.target.value }))
+          }
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -141,7 +154,9 @@ function BasicInformation() {
           rows={5}
           className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
           value={state.event.desc}
-          onChange={(e) => dispatch(updateField({ ...state.event, desc: e.target.value }))}
+          onChange={(e) =>
+            dispatch(updateField({ ...state.event, desc: e.target.value }))
+          }
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
@@ -163,7 +178,7 @@ function BasicInformation() {
           </select>
 
           {/* Selected Tags Chips */}
-          {tags.length > 0 && (
+          {tags?.length > 0 && (
             <div className="pt-2 flex flex-wrap gap-2">
               {tags.map((tag, index) => (
                 <div
@@ -202,9 +217,19 @@ function BasicInformation() {
       </div>
       <div className="pt-8">
         <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
-          <button onClick={() => navigate('/organizer')} className="cursor-pointer">Cancel</button>
           <button
-            onClick={() => {dispatch(nextStep())}}
+            onClick={() => {
+              dispatch(resetForm());
+              navigate("/organizer");
+            }}
+            className="cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={() => {
+              dispatch(nextStep());
+            }}
             className="flex gap-2 px-4 py-2 rounded-lg bg-primary text-white items-center cursor-pointer"
           >
             Continue

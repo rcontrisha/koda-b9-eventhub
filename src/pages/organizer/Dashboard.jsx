@@ -7,6 +7,7 @@ import {
 } from "react-icons/md";
 import { FaArrowTrendUp, FaPlus } from "react-icons/fa6";
 import { Bar } from "react-chartjs-2";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import {
   Chart as ChartJS,
@@ -18,7 +19,7 @@ import {
   Legend,
 } from "chart.js";
 
-import events from "../../data/events.json";
+// import events from "../../data/events.json";
 import { formatEventDate, getProgressColor } from "../../utils/event";
 // import communities from "../../data/communities.json";
 
@@ -32,8 +33,9 @@ ChartJS.register(
 );
 
 function Dashboard() {
+  const {events: communityEvents} = useSelector((state) => state.eventState)
   const navigate = useNavigate();
-  const communityEvents = events.filter((e) => e.community_id === "c5");
+  // const communityEvents = events.filter((e) => e.community_id === "c5");
 
   const chartData = {
     labels: ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
@@ -176,7 +178,7 @@ function Dashboard() {
                     <div className="pt-3">
                       <div className="flex justify-between mb-1 text-xs">
                         <span className="font-medium text-body">
-                          {e.attendees_count} Attendees
+                          {e.attendees_count || 0} Attendees
                         </span>
                         <span className="font-medium text-body">
                           {e.capacity} Capacity
@@ -200,7 +202,7 @@ function Dashboard() {
                         <span>
                           <MdOutlineRemoveRedEye />
                         </span>
-                        {e.attendees_count} Attendees
+                        {e.attendees_count || 0} Attendees
                       </button>
                     </div>
                   </div>

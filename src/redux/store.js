@@ -32,7 +32,7 @@ const persistActiveConfig = {
 const persistEventConfig = {
   key: "event",
   storage,
-  whitelist: ["event"],
+  whitelist: ["events"],
 };
 
 const store = configureStore({
