@@ -18,10 +18,14 @@ function ProfileLayout() {
       <div className="px-4 py-8">
         <div className="flex gap-5 lg:px-61.25">
           <div className="relative w-20 h-20 bg-secondary text-white rounded-2xl flex items-center justify-center font-semibold text-lg shrink-0">
-            {user.fullName[0]}
+            {user.photo ? (
+              <img src={user.photo} className="w-full h-full rounded-2xl" />
+            ) : (
+              user.fullName[0]
+            )}
             <div className="bg-[#33B570] w-5 h-5 absolute -bottom-1 -right-1 rounded-full"></div>
           </div>
-          <div>
+          <div className="w-full">
             <div className="lg:flex lg:justify-between">
               <div>
                 <p className="font-jakarta font-bold text-xl">
@@ -44,7 +48,7 @@ function ProfileLayout() {
             <div className="flex justify-between lg:justify-start flex-wrap gap-3 pt-2">
               <div className="flex gap-1 items-center font-inter font-normal text-xs text-secondary">
                 <MdOutlinePinDrop height={11} width={11} />
-                Bandung, Indonesia
+                {user.location || 'Bandung, Indonesia'}
               </div>
               <div className="flex gap-1 items-center font-inter font-normal text-xs text-secondary">
                 <MdOutlineEvent height={11} width={11} />
@@ -58,8 +62,7 @@ function ProfileLayout() {
             </div>
             <div className="pt-2">
               <p className="font-inter font-normal text-sm text-secondary">
-                Backend engineer & community builder. Passionate about Go,
-                distributed systems, and connecting people through events.
+                {user.bio || `Backend engineer & community builder. Passionate about Go, distributed systems, and connecting people through events.`}
               </p>
             </div>
           </div>

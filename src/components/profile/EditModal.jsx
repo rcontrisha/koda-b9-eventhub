@@ -1,10 +1,14 @@
-// import { useForm } from "react-hook-form";
-import { RxCross2 } from "react-icons/rx";
+import { useForm } from "react-hook-form";
+import { RxCross2, RxUpload, RxTrash } from "react-icons/rx";
+import { GrPowerCycle } from "react-icons/gr";
+import { useState } from "react";
+
 import { useAuth } from "../../hooks/useAuth";
 
 function EditModal({ onClose }) {
-  const { user } = useAuth();
-  // const { register, handleSubmit } = useForm();
+  const { user, editProfile } = useAuth();
+  const { register, handleSubmit } = useForm();
+  const [photo, setPhoto] = useState(user.photo || null);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
@@ -16,90 +20,119 @@ function EditModal({ onClose }) {
             onClick={onClose}
           />
         </div>
-        <div className="p-6">
-          <div>
-            <div></div>
-            <div>
-              <div class="flex items-center justify-center w-full">
-                <label
-                  for="dropzone-file"
-                  class="flex flex-col items-center justify-center w-full bg-neutral-secondary-medium border border-solid border-[#E4E4E7] rounded-lg cursor-pointer hover:bg-neutral-tertiary-medium"
+        <form
+          onSubmit={handleSubmit((form) => {
+            editProfile({
+              fullName: form.fullName,
+              location: form.location,
+              bio: form.bio,
+              photo: photo,
+            });
+          })}
+        >
+          <div className="p-6">
+            <div className="flex gap-2 items-center justify-start w-full">
+              <div className="w-20 h-20 bg-secondary text-white rounded-2xl flex items-center justify-center font-semibold text-lg shrink-0">
+                {photo ? (
+                  <img src={photo} className="w-full h-full" />
+                ) : (
+                  user.fullName[0]
+                )}
+              </div>
+              <div className="flex flex-col gap-2">
+                {photo ? (
+                  <label
+                    htmlFor="photo"
+                    className="px-3 py-1.5 flex justify-center items-center w-fit border border-[#E4E4E7] text-sm text-secondary font-inter font-medium rounded-lg gap-2 cursor-pointer"
+                  >
+                    <GrPowerCycle />
+                    Change Photo
+                  </label>
+                ) : (
+                  <label
+                    htmlFor="photo"
+                    className="px-3 py-1.5 flex justify-center items-center w-fit border border-[#E4E4E7] text-sm text-secondary font-inter font-medium rounded-lg gap-2 cursor-pointer"
+                  >
+                    <RxUpload />
+                    Upload Photo
+                  </label>
+                )}
+                <button
+                  onClick={() => setPhoto(null)}
+                  className="px-3 py-1.5 flex justify-center items-center w-fit border border-[#E4E4E7] text-sm text-secondary font-inter font-medium rounded-lg gap-2 cursor-pointer"
                 >
-                  <div class="flex flex-col items-center justify-center text-body py-2">
-                    <svg
-                      class="w-8 h-8 mb-4"
-                      aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24"
-                      height="24"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M15 17h3a3 3 0 0 0 0-6h-.025a5.56 5.56 0 0 0 .025-.5A5.5 5.5 0 0 0 7.207 9.021C7.137 9.017 7.071 9 7 9a4 4 0 1 0 0 8h2.167M12 19v-9m0 0-2 2m2-2 2 2"
-                      />
-                    </svg>
-                    <p class="mb-2 text-sm">
-                      <span class="font-semibold">Click to upload</span> (SVG,
-                      PNG, or JPG)
-                    </p>
-                  </div>
-                  <input id="dropzone-file" type="file" class="hidden" />
+                  <RxTrash />
+                  Remove Photo
+                </button>
+                <input
+                  type="file"
+                  id="photo"
+                  name="photo"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={(e) => {
+                    if (photo) {
+                      URL.revokeObjectURL(photo);
+                    }
+                    setPhoto(() => URL.createObjectURL(e.target.files[0]));
+                  }}
+                />
+              </div>
+            </div>
+            <div>
+              <div className="pt-4 flex flex-col gap-1.5">
+                <label className="font-inter font-medium text-sm text-secondary">
+                  Full Name
                 </label>
+                <input
+                  type="text"
+                  defaultValue={user.fullName}
+                  className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
+                  {...register("fullName")}
+                />
+              </div>
+              <div className="pt-4 flex flex-col gap-1.5">
+                <label className="font-inter font-medium text-sm text-secondary">
+                  Location
+                </label>
+                <input
+                  type="text"
+                  placeholder="Your location..."
+                  defaultValue={user.location || ''}
+                  className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
+                  {...register("location")}
+                />
+              </div>
+              <div className="pt-4 flex flex-col gap-1.5">
+                <label className="font-inter font-medium text-sm text-secondary">
+                  Bio
+                </label>
+                <textarea
+                  defaultValue={user.bio || ''}
+                  className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
+                  placeholder="Tell the community a little about yourself..."
+                  rows={3}
+                  {...register("bio")}
+                />
               </div>
             </div>
           </div>
-          <form>
-            <div className="pt-4 flex flex-col gap-1.5">
-              <label className="font-inter font-medium text-sm text-secondary">
-                Full Name
-              </label>
-              <input
-                type="text"
-                defaultValue={user.fullName}
-                className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
-              />
-            </div>
-            <div className="pt-4 flex flex-col gap-1.5">
-              <label className="font-inter font-medium text-sm text-secondary">
-                Location
-              </label>
-              <input
-                type="text"
-                placeholder="Your location..."
-                className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
-              />
-            </div>
-            <div className="pt-4 flex flex-col gap-1.5">
-              <label className="font-inter font-medium text-sm text-secondary">
-                Bio
-              </label>
-              <textarea
-                className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
-                placeholder="Tell the community a little about yourself..."
-                rows={3}
-              />
-            </div>
-          </form>
-        </div>
-        <div className="flex gap-3 p-6 pt-0 justify-end">
-          <button
-            onClick={onClose}
-            className="w-fit py-2 px-4 border border-[#E4E4E7] text-secondary rounded-lg font-inter text-sm cursor-pointer"
-          >
-            Cancel
-          </button>
-          <button
-            // onClick={onClose}
-            className="w-fit text-center bg-primary text-white py-2 px-4 rounded-lg font-inter text-sm"
-          >
-            Save Changes
-          </button>
-        </div>
+          <div className="flex gap-3 p-6 pt-0 justify-end">
+            <button
+              onClick={onClose}
+              className="w-fit py-2 px-4 border border-[#E4E4E7] text-secondary rounded-lg font-inter text-sm cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              // onClick={onClose}
+              className="w-fit text-center bg-primary text-white py-2 px-4 rounded-lg font-inter text-sm"
+            >
+              Save Changes
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

@@ -15,10 +15,9 @@ import { useAuth } from "../hooks/useAuth";
 
 // import events from "../data/events.json";
 import communities from "../data/communities.json";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function EventDetail() {
-  const dispatch = useDispatch()
   const state = useSelector((state) => state.eventState)
 
   const events = state.events
@@ -161,7 +160,7 @@ function EventDetail() {
                     />
                     <div>
                       <h4 className="font-semibold text-sm">{speaker.name}</h4>
-                      <p className="text-xs text-gray-500">{speaker.role}</p>
+                      <p className="text-xs text-gray-500">{speaker.role} at {speaker.company}</p>
                     </div>
                   </div>
                 )) : <p>No Information</p>}
@@ -171,7 +170,7 @@ function EventDetail() {
             {/* Discussion Section */}
             <div className="space-y-4 pt-4 border-t border-gray-100">
               <h3 className="flex gap-2 items-center text-lg font-bold text-gray-900">
-                <IoChatboxOutline />Discussion ({event.discussions?.length})
+                <IoChatboxOutline />Discussion ({event.discussions?.length || 0})
               </h3>
               <div className="space-y-4">
                 {event.discussions?.map((discussion, index) => (

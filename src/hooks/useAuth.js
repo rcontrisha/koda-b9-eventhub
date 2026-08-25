@@ -73,6 +73,17 @@ export function useAuth() {
     }
   };
 
+  const editProfile = (payload) => {
+    const updated = {
+      ...user, ...payload
+    }
+    
+    if (updated) {
+      dispatch(updateActiveUser(updated))
+      dispatch(updateUser(updated))
+    }
+  }
+
   const hasJoinedEvent = (eventId) =>
     user?.joined_events?.includes(eventId) || false;
   const hasSavedEvent = (eventId) =>
@@ -85,6 +96,7 @@ export function useAuth() {
     role: user?.role ?? null,
     isGuest: !user?.role,
     isAttendee: user?.role === "attendee",
+    editProfile,
     joinEvent,
     saveEvent,
     hasSavedEvent,

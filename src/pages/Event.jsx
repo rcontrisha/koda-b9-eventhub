@@ -6,10 +6,9 @@ import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
 // import events from "../data/events.json";
 import Filters from "../components/events/Filters";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Event() {
-  const dispatch = useDispatch()
   const state = useSelector((state) => state.eventState)
   const events = state.events
 
