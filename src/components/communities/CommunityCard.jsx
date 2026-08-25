@@ -21,15 +21,17 @@ function CommunityCard({ community }) {
       {(() => {
         const slug = slugify(community.name, { lower: true });
         return (
-          <Link to={`/communities/${slug}`}>
-            <div>
-              <img
-                src={community.banner_url}
-                height={176}
-                alt="Community Image"
-                className="w-full h-44 object-cover"
-              />
-            </div>
+          <>
+            <Link to={`/communities/${slug}`}>
+              <div>
+                <img
+                  src={community.banner_url}
+                  height={176}
+                  alt="Community Image"
+                  className="w-full h-44 object-cover"
+                />
+              </div>
+            </Link>
 
             <div className="flex flex-col grow p-4 justify-between">
               <div className="flex flex-col gap-2">
@@ -88,7 +90,7 @@ function CommunityCard({ community }) {
                 )}
               </div>
             </div>
-          </Link>
+          </>
         );
       })()}
 

@@ -11,7 +11,10 @@ import { useAuth } from "../../hooks/useAuth";
 import AuthPromptModal from "../shared/AuthPromptModal";
 
 function EventCard({ events }) {
-  const pct = Math.min(100, (events.attendees_count / events.capacity) * 100);
+  const pct = Math.min(
+    100,
+    ((events.attendees_count || 0) / events.capacity) * 100,
+  );
   const isFull = events.attendees_count >= events.capacity;
   const now = new Date();
 
@@ -31,14 +34,16 @@ function EventCard({ events }) {
       {(() => {
         const slug = slugify(events.title, { lower: true });
         return (
-          <Link to={`/events/${slug}`}>
-            <div className="relative">
-              <img
-                src={events.image_url}
-                alt={events.title}
-                className="rounded-t-xl w-full h-44 object-cover"
-              />
-            </div>
+          <>
+            <Link to={`/events/${slug}`}>
+              <div className="relative">
+                <img
+                  src={events.image_url}
+                  alt={events.title}
+                  className="rounded-t-xl w-full h-44 object-cover"
+                />
+              </div>
+            </Link>
 
             <div className="p-4 flex flex-col grow justify-between gap-4">
               <div className="flex flex-col gap-3">
@@ -46,9 +51,9 @@ function EventCard({ events }) {
                   {events.title}
                 </p>
 
-                <p className="font-inter font-normal text-xs text-secondary line-clamp-2">
+                {/* <p className="font-inter font-normal text-xs text-secondary line-clamp-2">
                   {events.overview}
-                </p>
+                </p> */}
 
                 <div className="flex flex-col gap-1.5">
                   <div className="flex gap-2 items-center">
@@ -66,7 +71,7 @@ function EventCard({ events }) {
                   <div className="flex gap-2 items-center">
                     <RxPeople className="text-secondary shrink-0 text-base" />
                     <p className="text-secondary font-inter font-normal text-xs">
-                      {events.attendees_count}/{events.capacity} attendees
+                      {events.attendees_count || 0}/{events.capacity} attendees
                     </p>
                   </div>
                 </div>
@@ -76,7 +81,7 @@ function EventCard({ events }) {
                 <div>
                   <div className="flex justify-between mb-1 text-xs">
                     <span className="font-medium text-body">
-                      {events.attendees_count} Attendees
+                      {events.attendees_count || 0} Attendees
                     </span>
                     <span className="font-medium text-body">
                       {events.capacity} Capacity
@@ -106,16 +111,17 @@ function EventCard({ events }) {
                     </div>
                   ) : (
                     <div
-                      onClickCapture={() =>
-                        isAttendee ? handleJoin() : setShowPrompt(true)
-                      }
+                      onClick={() => {
+                        isAttendee ? handleJoin() : setShowPrompt(true);
+                        console.log("tot");
+                      }}
                       className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
                     >
                       Join Event
                     </div>
                   )}
                   <div
-                    onClickCapture={() =>
+                    onClick={() =>
                       isAttendee ? handleSave() : setShowPrompt(true)
                     }
                     className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
@@ -129,7 +135,7 @@ function EventCard({ events }) {
                 </div>
               </div>
             </div>
-          </Link>
+          </>
         );
       })()}
 

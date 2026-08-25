@@ -55,9 +55,18 @@ function LoginForm() {
                 user.email === form.email &&
                 user.password === form.password
               ) {
-                dispatch(loginUser({ email: form.email }));
+                dispatch(
+                  loginUser({
+                    fullName: user.fullName,
+                    email: form.email,
+                    role: user.role,
+                    joined_events: user.joined_events || [],
+                    saved_events: user.saved_events || [],
+                    joined_communities: user.joined_communities || [],
+                  }),
+                );
                 navigate("/explore");
-                // {console.log("founded")}
+                {console.log("founded")}
               }
             }
           })}

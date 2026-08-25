@@ -1,8 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import mockEvents from '../../data/events.json'
 
 const initialState = {
   currentStep: 1,
-  events: [],
+  events: mockEvents || [],
   event: {
     image_url: "",
     title: "",

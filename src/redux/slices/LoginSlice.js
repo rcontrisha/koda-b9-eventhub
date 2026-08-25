@@ -28,9 +28,12 @@ const activeSlice = createSlice({
   name: "login",
   initialState,
   reducers: {
+    updateActiveUser: (state, { payload }) => {
+      state.active = payload
+    },
     logout: (state) => {
-      state.active = null
-    }
+      state.active = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addAsyncThunk(loginUser, {
@@ -53,5 +56,5 @@ const activeSlice = createSlice({
   },
 });
 
-export const {logout} = activeSlice.actions
+export const { logout, updateActiveUser } = activeSlice.actions;
 export default activeSlice.reducer;

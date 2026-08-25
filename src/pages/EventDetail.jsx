@@ -13,10 +13,16 @@ import AuthPromptModal from "../components/shared/AuthPromptModal";
 import { getProgressColor, formatEventDate } from "../utils/event";
 import { useAuth } from "../hooks/useAuth";
 
-import events from "../data/events.json";
+// import events from "../data/events.json";
 import communities from "../data/communities.json";
+import { useDispatch, useSelector } from "react-redux";
 
 function EventDetail() {
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state.eventState)
+
+  const events = state.events
+  
   const { slug } = useParams();
 
   const { isAttendee, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } = useAuth();
@@ -27,9 +33,9 @@ function EventDetail() {
   if (!event) return null;
 
   const community = communities.find((c) => c.id === event.community_id);
-  const pct = Math.min(100, (event.attendees_count / event.capacity) * 100);
+  const pct = Math.min(100, (event.attendees_count || 0 / event.capacity) * 100);
   const isFull = event.attendees_count >= event.capacity;
-  const spotsLeft = Math.max(0, event.capacity - event.attendees_count);
+  const spotsLeft = Math.max(0, event.capacity - (event.attendees_count || 0));
 
   const joined = hasJoinedEvent(event.id);
   const saved = hasSavedEvent(event.id);
@@ -129,7 +135,7 @@ function EventDetail() {
               <h2 className="text-xl font-bold text-gray-900">
                 About this event
               </h2>
-              {event.description.split("\n\n").map((paragraph, i) => (
+              {event.desc.split("\n\n").map((paragraph, i) => (
                 <p
                   key={i}
                   className="text-gray-600 leading-relaxed text-sm md:text-base"
@@ -143,7 +149,7 @@ function EventDetail() {
             <div>
               <h3 className="text-lg font-bold text-gray-900 mb-4">Speakers</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {event.speakers.map((speaker) => (
+                {event.speakers.length > 0 ? event.speakers.map((speaker) => (
                   <div
                     key={speaker.name}
                     className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl"
@@ -158,17 +164,17 @@ function EventDetail() {
                       <p className="text-xs text-gray-500">{speaker.role}</p>
                     </div>
                   </div>
-                ))}
+                )) : <p>No Information</p>}
               </div>
             </div>
 
             {/* Discussion Section */}
             <div className="space-y-4 pt-4 border-t border-gray-100">
               <h3 className="flex gap-2 items-center text-lg font-bold text-gray-900">
-                <IoChatboxOutline />Discussion ({event.discussions.length})
+                <IoChatboxOutline />Discussion ({event.discussions?.length})
               </h3>
               <div className="space-y-4">
-                {event.discussions.map((discussion, index) => (
+                {event.discussions?.map((discussion, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 text-sm font-semibold shrink-0">
                       {discussion.user_name.charAt(0)}
@@ -326,13 +332,13 @@ function EventDetail() {
               </h3>
               <div className="flex items-center gap-3">
                 <img
-                  src={event.organizer.avatar_url}
+                  src={event.organizer?.avatar_url}
                   className="w-10 h-10 rounded-full object-cover"
-                  alt={event.organizer.name}
+                  alt={event.organizer?.name}
                 />
                 <div>
                   <h4 className="font-semibold text-sm text-gray-900 font-inter">
-                    {event.organizer.name}
+                    {event.organizer?.name}
                   </h4>
                   <p className="text-xs text-[#3363FF] font-normal font-inter">
                     {community?.name}

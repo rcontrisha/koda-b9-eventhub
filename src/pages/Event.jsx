@@ -4,10 +4,15 @@ import { useSearchParams } from "react-router";
 import EventCard from "../components/events/EventCard";
 import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
-import events from "../data/events.json";
+// import events from "../data/events.json";
 import Filters from "../components/events/Filters";
+import { useDispatch, useSelector } from "react-redux";
 
 function Event() {
+  const dispatch = useDispatch()
+  const state = useSelector((state) => state.eventState)
+  const events = state.events
+
   const [visibleCount, setVisibleCount] = useState(6);
   const [filterOpen, setFilterOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();

@@ -33,9 +33,9 @@ function HeroSection() {
             "Business",
             "Programming",
             "Music",
-          ].map((topic) => {
+          ].map((topic, idx) => {
             return (
-              <div className="px-3 py-1 border-2 border-[#3F3F47] w-fit text-secondary rounded-full">
+              <div key={idx} className="px-3 py-1 border-2 border-[#3F3F47] w-fit text-secondary rounded-full">
                 {topic}
               </div>
             );

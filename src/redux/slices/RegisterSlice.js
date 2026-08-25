@@ -34,7 +34,14 @@ export const registerUser = createAsyncThunk(
 const userSlice = createSlice({
   name: "register",
   initialState,
-  reducers: {},
+  reducers: {
+    updateUser: (state, { payload }) => {
+      const idx = state.users.findIndex((user) => user.email === payload.email);
+      console.log(idx);
+      if (idx === -1) return null;
+      state.users[idx] = { ...state.users[idx], ...payload };
+    },
+  },
   extraReducers: (builder) => {
     builder.addAsyncThunk(registerUser, {
       pending: (state) => {
@@ -48,12 +55,14 @@ const userSlice = createSlice({
           state.users.push(payload));
       },
       rejected: (state, { payload }) => {
-        state.isPending = false,
-        state.isRejected = true,
-        state.error = payload
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
       },
     });
   },
 });
 
-export default userSlice.reducer
+export const { updateUser } = userSlice.actions;
+
+export default userSlice.reducer;
