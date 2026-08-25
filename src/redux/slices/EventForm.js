@@ -7,6 +7,7 @@ const initialState = {
   event: {
     image_url: "",
     title: "",
+    community_id: "",
     desc: "",
     tags: [],
     date: "",
@@ -90,8 +91,8 @@ const eventSlice = createSlice({
       state.event = initialState.event;
       state.currentStep = 1;
     },
-    editData: (state) => {
-      state.event = state.events[0];
+    editData: (state, {payload}) => {
+      state.event = state.events[payload];
     },
   },
   extraReducers: (builder) => {

@@ -17,7 +17,7 @@ function EditEvent() {
 
   useEffect(() => {
     (() => {
-      dispatch(editData())
+      dispatch(editData(11))
     })();
   }, [dispatch]);
 

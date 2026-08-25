@@ -66,7 +66,20 @@ function LoginForm() {
                   }),
                 );
                 navigate("/explore");
-                {console.log("founded")}
+              }
+
+              if (
+                import.meta.env.VITE_ORGANIZER_EMAIL === form.email &&
+                import.meta.env.VITE_ORGANIZER_PASSWORD
+              ) {
+                dispatch(
+                  loginUser({
+                    fullName: import.meta.env.VITE_ORGANIZER_NAME,
+                    email: import.meta.env.VITE_ORGANIZER_EMAIL,
+                    role: import.meta.env.VITE_ORGANIZER_ROLE,
+                  }),
+                );
+                navigate("/explore")
               }
             }
           })}

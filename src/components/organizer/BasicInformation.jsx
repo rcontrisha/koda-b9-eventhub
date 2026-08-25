@@ -4,6 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
+import communities from "../../data/communities.json";
 import tagList from "../../data/tags.json";
 // import { useEventContext } from "../../hooks/useEventContext";
 import { updateField, nextStep, resetForm } from "../../redux/slices/EventForm";
@@ -18,10 +19,10 @@ function BasicInformation() {
   useEffect(() => {
     (() => {
       if (state.event.tags.length > 0) {
-        setTags(state.event.tags)
+        setTags(state.event.tags);
       }
-    })()
-  }, [state.event.tags])
+    })();
+  }, [state.event.tags]);
 
   const handleRemoveImage = () => {
     if (state.event.image_url) {
@@ -211,8 +212,21 @@ function BasicInformation() {
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
         <p>Community (Optional)</p>
-        <select className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400">
-          <option>No Community</option>
+        <select
+          value={state.event.community_id || ""}
+          onChange={(e) =>
+            dispatch(
+              updateField({ ...state.event, community_id: e.target.value }),
+            )
+          }
+          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
+        >
+          <option value="">No Community</option>
+          {communities?.map((c) => (
+            <option key={c.id} value={c.id}>
+              {c.name}
+            </option>
+          ))}
         </select>
       </div>
       <div className="pt-8">

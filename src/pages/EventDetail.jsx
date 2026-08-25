@@ -264,7 +264,7 @@ function EventDetail() {
               {/* Capacity & Progress */}
               <div className="space-y-2 pt-4 border-t border-gray-100">
                 <div className="flex justify-between text-xs text-gray-500">
-                  <span>{event.attendees_count} attendees</span>
+                  <span>{event.attendees_count || 0} attendees</span>
                   <span>{event.capacity} capacity</span>
                 </div>
                 <div className="w-full bg-gray-200 h-2 rounded-full overflow-hidden">
@@ -331,13 +331,13 @@ function EventDetail() {
               </h3>
               <div className="flex items-center gap-3">
                 <img
-                  src={event.organizer?.avatar_url}
+                  src={import.meta.env.VITE_ORGANIZER_PHOTO}
                   className="w-10 h-10 rounded-full object-cover"
-                  alt={event.organizer?.name}
+                  alt={import.meta.env.VITE_ORGANIZER_NAME}
                 />
                 <div>
                   <h4 className="font-semibold text-sm text-gray-900 font-inter">
-                    {event.organizer?.name}
+                    {import.meta.env.VITE_ORGANIZER_NAME}
                   </h4>
                   <p className="text-xs text-[#3363FF] font-normal font-inter">
                     {community?.name}

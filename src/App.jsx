@@ -27,6 +27,7 @@ import ProfileLayout from "./layouts/ProfileLayout";
 import OrganizerDashboard from "./pages/organizer/Dashboard";
 import CreateEvent from "./pages/organizer/CreateEvent";
 import EditEvent from "./pages/organizer/EditEvent";
+import OrganizerAuth from "./components/shared/OrganizerAuth";
 
 export default function App() {
   return (
@@ -62,7 +63,7 @@ export default function App() {
             <Route path="saved" element={<ProfileSaved />} />
           </Route>
         </Route>
-        <Route path="organizer">
+        <Route path="organizer" element={<OrganizerAuth />}>
           <Route index element={<OrganizerDashboard />} />
           <Route path="create-event" element={<CreateEvent />} />
           <Route path="edit-event" element={<EditEvent />} />

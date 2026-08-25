@@ -17,10 +17,11 @@ import { useDispatch } from "react-redux";
 
 import { useAuth } from "../../hooks/useAuth";
 import { logout } from "../../redux/slices/LoginSlice";
+import { RxDashboard } from "react-icons/rx";
 
 function Header() {
   const dispatch = useDispatch();
-  const { user, isGuest } = useAuth();
+  const { user, isGuest, isOrganizer } = useAuth();
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -108,6 +109,21 @@ function Header() {
             </>
           ) : (
             <>
+              {isOrganizer && (
+                <NavLink
+                  to="/organizer"
+                  className={`flex items-center gap-2 font-inter font-medium text-secondary text-sm ${({
+                    isActive,
+                  }) =>
+                    isActive
+                      ? "active"
+                      : "font-inter font-medium text-sm py-1.5 px-3"}
+                  `}
+                >
+                  <RxDashboard />
+                  Dashboard
+                </NavLink>
+              )}
               <div className="p-2 cursor-pointer">
                 <MdOutlineNotificationsNone
                   color="#52525C"
@@ -273,7 +289,7 @@ function Header() {
                   ) : (
                     <button
                       onClick={() => {
-                        console.log('bujang')
+                        console.log("bujang");
                         dispatch(logout());
                       }}
                       className="w-full flex items-center gap-2 text-left px-4 py-2 font-inter text-sm text-red-500 font-medium hover:bg-gray-50"

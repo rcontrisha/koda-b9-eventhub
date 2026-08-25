@@ -28,7 +28,7 @@ import { updateUser } from "../redux/slices/RegisterSlice";
 
 export function useAuth() {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.userState);
+  // const { users } = useSelector((state) => state.userState);
   const { active: user } = useSelector((state) => state.activeState);
 
   const joinEvent = (eventId) => {
@@ -77,7 +77,7 @@ export function useAuth() {
     const updated = {
       ...user, ...payload
     }
-    
+
     if (updated) {
       dispatch(updateActiveUser(updated))
       dispatch(updateUser(updated))
@@ -96,6 +96,7 @@ export function useAuth() {
     role: user?.role ?? null,
     isGuest: !user?.role,
     isAttendee: user?.role === "attendee",
+    isOrganizer: user?.role === "organizer",
     editProfile,
     joinEvent,
     saveEvent,
