@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 function RequireAuth() {
   const { isAttendee } = useAuth();
-  return isAttendee ? <Outlet /> : <Navigate to="/explore" replace />;
+  return isAttendee ? <Outlet /> : <Navigate to="/" replace />;
 }
 
 export default RequireAuth;

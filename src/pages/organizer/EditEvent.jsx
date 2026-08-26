@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { RxCheck } from "react-icons/rx";
 import { IoMdArrowBack } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 
 import { editData } from "../../redux/slices/EventForm";
 import BasicInformation from "../../components/organizer/BasicInformation";
@@ -11,15 +11,15 @@ import { useEffect } from "react";
 
 function EditEvent() {
   const dispatch = useDispatch();
+  const { id } = useParams();
   const state = useSelector((state) => state.eventState);
   const { currentStep } = state;
-  // const { events, event } = state;
 
   useEffect(() => {
     (() => {
-      dispatch(editData(11))
+      dispatch(editData(id));
     })();
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <>

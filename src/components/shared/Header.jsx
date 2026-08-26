@@ -39,7 +39,7 @@ function Header() {
           <ul className="flex gap-4 items-center">
             <li className="font-inter font-medium text-secondary text-sm ">
               <NavLink
-                to={"/explore"}
+                to={"/"}
                 className={({ isActive }) =>
                   isActive
                     ? "active"
@@ -218,7 +218,7 @@ function Header() {
                   <ul className="flex flex-col">
                     <li>
                       <NavLink
-                        to="/explore"
+                        to="/"
                         className={({ isActive }) =>
                           `flex items-center gap-2 px-4 py-2 font-inter text-sm ${isActive ? "text-primary font-medium" : "text-secondary"}`
                         }

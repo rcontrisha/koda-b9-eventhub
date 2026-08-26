@@ -65,7 +65,7 @@ function LoginForm() {
                     joined_communities: user.joined_communities || [],
                   }),
                 );
-                navigate("/explore");
+                navigate("/");
               }
 
               if (
@@ -79,7 +79,7 @@ function LoginForm() {
                     role: import.meta.env.VITE_ORGANIZER_ROLE,
                   }),
                 );
-                navigate("/explore")
+                navigate("/")
               }
             }
           })}

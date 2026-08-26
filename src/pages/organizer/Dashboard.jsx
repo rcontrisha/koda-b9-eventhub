@@ -8,7 +8,7 @@ import {
 import { FaArrowTrendUp, FaPlus } from "react-icons/fa6";
 import { Bar } from "react-chartjs-2";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -147,7 +147,7 @@ function Dashboard() {
           <h2 className="font-semibold font-jakarta text-lg">Your Events</h2>
           <div className="pt-4 flex flex-col gap-3">
             {communityEvents.map((e) => {
-              const pct = Math.min(100, (e.attendees_count / e.capacity) * 100);
+              const pct = Math.min(100, ((e.attendees_count || 0) / e.capacity) * 100);
 
               return (
                 <div
@@ -192,12 +192,12 @@ function Dashboard() {
                       </div>
                     </div>
                     <div className="flex pt-3 gap-2">
-                      <button className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary items-center cursor-pointer">
+                      <Link to={`event/${e.id}/edit`} className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary items-center cursor-pointer">
                         <span>
                           <MdOutlineEdit />
                         </span>
                         Edit
-                      </button>
+                      </Link>
                       <button className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary items-center cursor-pointer">
                         <span>
                           <MdOutlineRemoveRedEye />
@@ -211,7 +211,7 @@ function Dashboard() {
             })}
           </div>
         </section>
-        <section className="grid grid-cols-1 gap-4">
+        <section className="grid grid-cols-1 gap-4 h-fit">
           <div className="border border-[#E4E4E7] rounded-xl p-5">
             <h2 className="flex items-center gap-2 font-inter font-semibold text-sm leading-5">
               <span className="text-secondary">
@@ -264,7 +264,7 @@ function Dashboard() {
                       </div>
                     </div>
                     <p className="font-inter font-normal text-xs leading-4 text-secondary">
-                      {e.attendees_count}/{e.capacity}
+                      {e.attendees_count || 0}/{e.capacity}
                     </p>
                   </div>
                 );

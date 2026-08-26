@@ -92,7 +92,7 @@ const eventSlice = createSlice({
       state.currentStep = 1;
     },
     editData: (state, {payload}) => {
-      state.event = state.events[payload];
+      state.event = state.events.find((e) => e.id === payload);
     },
   },
   extraReducers: (builder) => {

@@ -33,17 +33,17 @@ export default function App() {
   return (
     <Routes>
       <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginForm />} />
-        <Route path="/signup" element={<RegisterForm />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="login" element={<LoginForm />} />
+        <Route path="signup" element={<RegisterForm />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
       </Route>
       <Route element={<MainLayout />}>
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/events">
+        <Route path="/" element={<Explore />} />
+        <Route path="events">
           <Route index element={<Event />} />
           <Route path=":slug" element={<EventDetail />} />
         </Route>
-        <Route path="/communities">
+        <Route path="communities">
           <Route index element={<Communities />} />
           <Route path=":slug" element={<CommunityDetailLayout />}>
             <Route index element={<CommunityEvents />} />
@@ -52,12 +52,12 @@ export default function App() {
           </Route>
         </Route>
         <Route element={<RequireAuth />}>
-          <Route path="/my-events" element={<MyEventsLayout />}>
+          <Route path="my-events" element={<MyEventsLayout />}>
             <Route index element={<UpcomingEvents />} />
             <Route path="past" element={<PastEvents />} />
             <Route path="saved" element={<SavedEvents />} />
           </Route>
-          <Route path="/profile" element={<ProfileLayout />}>
+          <Route path="profile" element={<ProfileLayout />}>
             <Route index element={<ProfileEvents />} />
             <Route path="communities" element={<ProfileCommunities />} />
             <Route path="saved" element={<ProfileSaved />} />
@@ -66,7 +66,10 @@ export default function App() {
         <Route path="organizer" element={<OrganizerAuth />}>
           <Route index element={<OrganizerDashboard />} />
           <Route path="create-event" element={<CreateEvent />} />
-          <Route path="edit-event" element={<EditEvent />} />
+          <Route path="event/:id">
+            <Route path="edit" element={<EditEvent />} />
+            <Route path="preview"  />
+          </Route>
         </Route>
       </Route>
     </Routes>

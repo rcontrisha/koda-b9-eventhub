@@ -4,7 +4,7 @@ import { useAuth } from "../hooks/useAuth";
 function AuthLayout() {
   const { isAttendee } = useAuth();
 
-  if (isAttendee) return <Navigate to="/explore" replace />;
+  if (isAttendee) return <Navigate to="/" replace />;
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_2fr] bg-gray-950 text-white">

@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 function OrganizerAuth() {
   const { isOrganizer } = useAuth();
-  return isOrganizer ? <Outlet /> : <Navigate to="/explore" replace />;
+  return isOrganizer ? <Outlet /> : <Navigate to="/" replace />;
 }
 
 export default OrganizerAuth;
