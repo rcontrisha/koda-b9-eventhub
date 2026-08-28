@@ -4,6 +4,7 @@ import { GrPowerCycle } from "react-icons/gr";
 import { useState } from "react";
 
 import { useAuth } from "../../hooks/useAuth";
+import { toast } from "sonner";
 
 function EditModal({ onClose }) {
   const { user, editProfile } = useAuth();
@@ -28,6 +29,7 @@ function EditModal({ onClose }) {
               bio: form.bio,
               photo: photo,
             });
+            toast.success("Success Updating User Info")
           })}
         >
           <div className="p-6">
@@ -127,7 +129,7 @@ function EditModal({ onClose }) {
             <button
               type="submit"
               // onClick={onClose}
-              className="w-fit text-center bg-primary text-white py-2 px-4 rounded-lg font-inter text-sm"
+              className="w-fit text-center bg-primary text-white py-2 px-4 rounded-lg font-inter text-sm cursor-pointer"
             >
               Save Changes
             </button>

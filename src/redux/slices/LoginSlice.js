@@ -1,4 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { RxCheck } from "react-icons/rx";
+import { toast } from "sonner";
 
 const initialState = {
   active: null,
@@ -15,8 +17,13 @@ export const loginUser = createAsyncThunk(
       const data = await new Promise((resolve) => {
         setTimeout(() => {
           resolve(payload);
+          // resolve(() => {
+          //   payload;
+          //   toast.success("Login Success");
+          // });
         }, 2000);
       });
+
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to Sign In");
@@ -29,7 +36,7 @@ const activeSlice = createSlice({
   initialState,
   reducers: {
     updateActiveUser: (state, { payload }) => {
-      state.active = payload
+      state.active = payload;
     },
     logout: (state) => {
       state.active = null;

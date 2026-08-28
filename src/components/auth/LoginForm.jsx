@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 // import { useAuth } from "../../hooks/useAuth";
 
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/slices/LoginSlice";
+import { toast } from "sonner";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -14,11 +15,70 @@ function LoginForm() {
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm();
 
   const navigate = useNavigate();
   // const { login } = useAuth();
+
+  const handleLogin = async (form) => {
+    const loginPromise = new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const organizerEmail = import.meta.env.VITE_ORGANIZER_EMAIL;
+        const organizerPassword = import.meta.env.VITE_ORGANIZER_PASSWORD;
+
+        if (
+          organizerEmail &&
+          form.email === organizerEmail &&
+          form.password === organizerPassword
+        ) {
+          dispatch(
+            loginUser({
+              fullName: import.meta.env.VITE_ORGANIZER_NAME || "Organizer",
+              email: organizerEmail,
+              role: import.meta.env.VITE_ORGANIZER_ROLE || "organizer",
+            }),
+          );
+          resolve("Welcome back, Organizer!");
+          return;
+        }
+
+        const foundUser = userState.users.find(
+          (u) => u.email === form.email && u.password === form.password,
+        );
+
+        if (foundUser) {
+          dispatch(
+            loginUser({
+              fullName: foundUser.fullName,
+              email: form.email,
+              role: foundUser.role,
+              joined_events: foundUser.joined_events || [],
+              saved_events: foundUser.saved_events || [],
+              joined_communities: foundUser.joined_communities || [],
+            }),
+          );
+          resolve(`Welcome back, ${foundUser.fullName}!`);
+          return;
+        }
+
+        reject("Incorrect email or password.");
+      }, 1000);
+    });
+
+    toast.promise(loginPromise, {
+      loading: "Signing in...",
+      success: (msg) => {
+        navigate("/");
+        return msg;
+      },
+      error: (err) => {
+        setError("password", { type: "manual", message: err });
+        return `Login Failed. ${err}`;
+      },
+    });
+  };
 
   return (
     <section>
@@ -26,7 +86,7 @@ function LoginForm() {
       <p className="font-inter font-normal text-sm mt-1">
         Don't have an account?{" "}
         <span className="font-inter font-medium text-sm text-primary">
-          Sign Up
+          <Link to="/signup">Sign Up</Link>
         </span>
       </p>
       <div className="flex gap-2 pt-7">
@@ -45,45 +105,7 @@ function LoginForm() {
         </Divider>
       </div>
       <div className="pt-5">
-        <form
-          onSubmit={handleSubmit((form) => {
-            console.log(form);
-
-            // const users = JSON.parse(localStorage.getItem("users") || "[]");
-            for (const user of userState.users) {
-              if (
-                user.email === form.email &&
-                user.password === form.password
-              ) {
-                dispatch(
-                  loginUser({
-                    fullName: user.fullName,
-                    email: form.email,
-                    role: user.role,
-                    joined_events: user.joined_events || [],
-                    saved_events: user.saved_events || [],
-                    joined_communities: user.joined_communities || [],
-                  }),
-                );
-                navigate("/");
-              }
-
-              if (
-                import.meta.env.VITE_ORGANIZER_EMAIL === form.email &&
-                import.meta.env.VITE_ORGANIZER_PASSWORD
-              ) {
-                dispatch(
-                  loginUser({
-                    fullName: import.meta.env.VITE_ORGANIZER_NAME,
-                    email: import.meta.env.VITE_ORGANIZER_EMAIL,
-                    role: import.meta.env.VITE_ORGANIZER_ROLE,
-                  }),
-                );
-                navigate("/")
-              }
-            }
-          })}
-        >
+        <form onSubmit={handleSubmit(handleLogin)}>
           <div className="flex flex-col gap-1 pb-4">
             <label
               htmlFor="email"

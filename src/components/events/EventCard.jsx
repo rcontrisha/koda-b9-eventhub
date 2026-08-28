@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
 import { IoLocationOutline, IoCheckmark } from "react-icons/io5";
-import { RxPeople } from "react-icons/rx";
+import { RxCheck, RxCross2, RxPeople } from "react-icons/rx";
 import { Link } from "react-router";
 import slugify from "slugify";
 import { GoBookmarkFill } from "react-icons/go";
+import { toast } from "sonner";
 
 import { getProgressColor, formatEventDate } from "../../utils/event";
 import { useAuth } from "../../hooks/useAuth";
@@ -26,7 +27,9 @@ function EventCard({ events }) {
   const ended = new Date(events.date) < now;
   const saved = hasSavedEvent(events.id);
 
-  const handleJoin = () => joinEvent(events.id);
+  const handleJoin = () => {
+    joinEvent(events.id);
+  };
   const handleSave = () => saveEvent(events.id);
 
   return (
@@ -113,17 +116,20 @@ function EventCard({ events }) {
                     <div
                       onClick={() => {
                         isAttendee ? handleJoin() : setShowPrompt(true);
-                        console.log("tot");
+                        toast.success("Success Joining Event");
                       }}
                       className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
                     >
                       Join Event
                     </div>
                   )}
-                  <div
-                    onClick={() =>
-                      isAttendee ? handleSave() : setShowPrompt(true)
-                    }
+                  <button
+                    onClick={() => {
+                      isAttendee ? handleSave() : setShowPrompt(true);
+                      saved
+                        ? toast.error("Removed from 'Saved' List")
+                        : toast.success("Added to 'Saved' List");
+                    }}
                     className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
                   >
                     {saved ? (
@@ -131,7 +137,7 @@ function EventCard({ events }) {
                     ) : (
                       <CiBookmark className="text-lg text-gray-700" />
                     )}
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

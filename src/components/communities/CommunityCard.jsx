@@ -7,6 +7,7 @@ import slugify from "slugify";
 
 import { useAuth } from "../../hooks/useAuth";
 import AuthPromptModal from "../shared/AuthPromptModal";
+import { toast } from "sonner";
 
 function CommunityCard({ community }) {
   const { isAttendee, joinCommunity, hasJoinedCommunity } = useAuth();
@@ -80,9 +81,10 @@ function CommunityCard({ community }) {
                   </div>
                 ) : (
                   <button
-                    onClickCapture={() =>
-                      isAttendee ? handleJoin() : setShowPrompt(true)
-                    }
+                    onClick={() => {
+                      isAttendee ? handleJoin() : setShowPrompt(true);
+                      toast.success("Success Joining Community.");
+                    }}
                     className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
                   >
                     Join Community

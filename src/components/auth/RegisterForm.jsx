@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
-import { useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/slices/RegisterSlice";
+import { toast } from "sonner";
 
 function RegisterForm() {
   const dispatch = useDispatch();
@@ -20,13 +21,52 @@ function RegisterForm() {
   const termsChecked = watch("terms");
   const navigate = useNavigate();
 
+  const handleRegister = async (form) => {
+    if (form.confirm !== form.password) {
+      setError("confirm", {
+        type: "manual",
+        message: "Passwords do not match",
+      });
+      return;
+    }
+
+    if (users.some((u) => u.email === form.email)) {
+      setError("email", {
+        type: "manual",
+        message: "Email already exists",
+      });
+      return;
+    }
+    console.log(form);
+
+    // eslint-disable-next-line no-unused-vars
+    const { confirm, terms, ...userInfo } = form;
+
+    const registrationPromise = dispatch(
+      registerUser({ ...userInfo, role: "attendee" }),
+    ).unwrap();
+
+    toast.promise(registrationPromise, {
+      loading: "Creating your account...",
+      success: () => {
+        navigate("/login");
+        return "Success Register. Redirecting to 'Login' Page";
+      },
+      error: (err) => {
+        return typeof err === "string" ? err : "Failed to create account.";
+      },
+    });
+
+    // localStorage.setItem("users", JSON.stringify(users));
+  };
+
   return (
     <section>
       <h2 className="font-jakarta font-bold text-2xl">Create your account</h2>
       <p className="font-inter font-normal text-sm mt-1">
         Already have an account?{" "}
         <span className="font-inter font-medium text-sm text-primary">
-          Sign In
+          <Link to="/login">Sign In</Link>
         </span>
       </p>
       <div className="flex gap-2 pt-7">
@@ -45,33 +85,7 @@ function RegisterForm() {
         </Divider>
       </div>
       <div className="pt-5">
-        <form
-          onSubmit={handleSubmit((form) => {
-            if (form.confirm !== form.password) {
-              setError("confirm", {
-                type: "manual",
-                message: "Passwords do not match",
-              });
-              return;
-            }
-            
-            if (users.some((u) => u.email === form.email)) {
-              setError("email", {
-                type: "manual",
-                message: "Email already exists",
-              });
-              return;
-            }
-            console.log(form);
-
-            // eslint-disable-next-line no-unused-vars
-            const { confirm, terms, ...userInfo } = form;
-            dispatch(registerUser({ ...userInfo, role: "attendee" }));
-
-            // localStorage.setItem("users", JSON.stringify(users));
-            navigate("/login");
-          })}
-        >
+        <form onSubmit={handleSubmit(handleRegister)}>
           <div className="flex flex-col gap-1 pb-4">
             <label
               htmlFor="fullName"
