@@ -138,13 +138,27 @@ function Header() {
                   onClick={() => setProfileOpen((v) => !v)}
                   className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm"
                 >
-                  {user?.fullName[0]}
+                  {user.photo ? (
+                    <img
+                      src={user.photo}
+                      className="w-8 h-8 rounded-full object-center"
+                    />
+                  ) : (
+                    user?.fullName[0]
+                  )}
                 </button>
                 {profileOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white border border-[#E4E4E7] rounded-lg shadow-lg overflow-hidden">
                     <div className="flex items-center gap-3 px-2 py-3 border-b border-[#E4E4E7]">
                       <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
-                        {user?.fullName[0]}
+                        {user.photo ? (
+                          <img
+                            src={user.photo}
+                            className="w-10 h-10 rounded-full object-center"
+                          />
+                        ) : (
+                          user?.fullName[0]
+                        )}
                       </div>
                       <div>
                         <p className="font-inter font-semibold text-sm">
@@ -202,7 +216,14 @@ function Header() {
                 {!isGuest && (
                   <div className="flex items-center gap-3 px-4 py-3 border-b border-[#E4E4E7]">
                     <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
-                      {user?.fullName[0]}
+                      {user.photo ? (
+                        <img
+                          src={user.photo}
+                          className="w-10 h-10 rounded-full object-center"
+                        />
+                      ) : (
+                        user?.fullName[0]
+                      )}
                     </div>
                     <div>
                       <p className="font-inter font-semibold text-sm">
@@ -289,7 +310,6 @@ function Header() {
                   ) : (
                     <button
                       onClick={() => {
-                        console.log("bujang");
                         dispatch(logout());
                       }}
                       className="w-full flex items-center gap-2 text-left px-4 py-2 font-inter text-sm text-red-500 font-medium hover:bg-gray-50"
