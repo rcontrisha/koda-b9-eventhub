@@ -87,6 +87,9 @@ const eventSlice = createSlice({
     prevStep: (state) => {
       state.currentStep = Math.max(1, state.currentStep - 1);
     },
+    submitAndRedirect: (state) => {
+      state.currentStep = 'submitted'
+    },
     resetForm: (state) => {
       state.event = initialState.event;
       state.currentStep = 1;
@@ -162,7 +165,7 @@ const eventSlice = createSlice({
   },
 });
 
-export const { updateField, nextStep, prevStep, resetForm, editData } =
+export const { updateField, nextStep, prevStep, submitAndRedirect, resetForm, editData } =
   eventSlice.actions;
 
 export default eventSlice.reducer;

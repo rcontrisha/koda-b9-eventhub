@@ -30,6 +30,7 @@ import EditEvent from "./pages/organizer/EditEvent";
 import OrganizerAuth from "./components/shared/OrganizerAuth";
 import { Toaster } from "sonner";
 import { RxCheck, RxCross2 } from "react-icons/rx";
+import EventSuccess from "./components/organizer/EventSuccess";
 
 export default function App() {
   return (
@@ -73,6 +74,7 @@ export default function App() {
               <Route path="edit" element={<EditEvent />} />
               <Route path="preview" />
             </Route>
+            <Route path="success" element={<EventSuccess />} />
           </Route>
         </Route>
       </Routes>

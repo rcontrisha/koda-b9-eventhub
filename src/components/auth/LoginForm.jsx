@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-// import { useAuth } from "../../hooks/useAuth";
+import { toast } from "sonner";
 
+// import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../../redux/slices/LoginSlice";
-import { toast } from "sonner";
 
 function LoginForm() {
   const dispatch = useDispatch();
@@ -27,9 +27,13 @@ function LoginForm() {
       setTimeout(() => {
         const organizerEmail = import.meta.env.VITE_ORGANIZER_EMAIL;
         const organizerPassword = import.meta.env.VITE_ORGANIZER_PASSWORD;
+        
+        console.log(`[${form.email}]`, `[${organizerEmail}]`);
+
+        console.log(organizerEmail);
+        console.log(organizerPassword);
 
         if (
-          organizerEmail &&
           form.email === organizerEmail &&
           form.password === organizerPassword
         ) {

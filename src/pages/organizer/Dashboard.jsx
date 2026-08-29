@@ -100,7 +100,7 @@ function Dashboard() {
               <MdOutlineEvent className="w-4 h-4" />
             </span>
           </div>
-          <div className="pt-3 font-jakarta font-bold text-2xl">2</div>
+          <div className="pt-3 font-jakarta font-bold text-2xl">{communityEvents.length}</div>
           <div className="font-inter font-normal text-secondary text-xs">
             All Time
           </div>
@@ -112,7 +112,9 @@ function Dashboard() {
               <MdOutlinePeople className="w-4 h-4" />
             </span>
           </div>
-          <div className="pt-3 font-jakarta font-bold text-2xl">103</div>
+          <div className="pt-3 font-jakarta font-bold text-2xl">{communityEvents.reduce((total, event) => {
+            return total + (event.attendees_count || 0)
+          }, 0)}</div>
           <div className="font-inter font-normal text-secondary text-xs">
             Across All Events
           </div>

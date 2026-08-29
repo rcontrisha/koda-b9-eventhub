@@ -7,8 +7,10 @@ import { useNavigate } from "react-router";
 import {
   updateField,
   prevStep,
+  submitAndRedirect,
   addEvent,
   editEvent,
+  resetForm,
 } from "../../redux/slices/EventForm";
 import { formatEventDate } from "../../utils/event";
 
@@ -16,9 +18,9 @@ function Review({ isEditing = false }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state.eventState);
-  
+
   const speakers = state.event.speakers || [];
-  
+
   const [speakerInput, setSpeakerInput] = useState({
     name: "",
     role: "",
@@ -41,7 +43,13 @@ function Review({ isEditing = false }) {
       } else {
         await dispatch(addEvent(state.event)).unwrap();
       }
-      navigate("/events");
+
+      dispatch(resetForm())
+      dispatch(submitAndRedirect());
+      // navigate("/events");
+      setTimeout(() => {
+        navigate("/organizer"); 
+      }, 2000);
     } catch (error) {
       console.error("Submit error:", error);
     }
@@ -70,7 +78,7 @@ function Review({ isEditing = false }) {
 
   const handleRemoveSpeaker = (indexToRemove) => {
     const updatedSpeakers = speakers.filter(
-      (_, index) => index !== indexToRemove
+      (_, index) => index !== indexToRemove,
     );
     dispatch(updateField({ speakers: updatedSpeakers }));
   };
@@ -138,7 +146,8 @@ function Review({ isEditing = false }) {
             {speakers.map((speaker, index) => {
               const name = typeof speaker === "object" ? speaker.name : speaker;
               const role = typeof speaker === "object" ? speaker.role : "";
-              const company = typeof speaker === "object" ? speaker.company : "";
+              const company =
+                typeof speaker === "object" ? speaker.company : "";
 
               return (
                 <div
@@ -223,7 +232,7 @@ function Review({ isEditing = false }) {
                     .map((s) =>
                       typeof s === "object"
                         ? `${s.name} (${s.role}${s.company ? `, ${s.company}` : ""})`
-                        : s
+                        : s,
                     )
                     .join("; ")
                 : "No Speakers Added"}
@@ -253,8 +262,8 @@ function Review({ isEditing = false }) {
             {state.isPending
               ? "Saving..."
               : isEditing
-              ? "Commit Changes"
-              : "Publish Event"}
+                ? "Commit Changes"
+                : "Publish Event"}
           </button>
         </div>
       </div>
