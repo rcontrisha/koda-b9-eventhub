@@ -131,9 +131,9 @@ function LoginForm() {
               className="flex justify-between font-inter font-medium text-secondary text-sm"
             >
               Password
-              <span className="text-primary font-inter font-normal text-xs cursor-pointer">
+              <Link to="/forgot-password" className="text-primary font-inter font-normal text-xs cursor-pointer">
                 Forgot password?
-              </span>
+              </Link>
             </label>
             <input
               className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
@@ -152,7 +152,7 @@ function LoginForm() {
         </form>
       </div>
       <div className="text-secondary text-center mt-4 font-inter font-normal text-xs">
-        Just browsing? <span className="underline">Continue as guest →</span>
+        Just browsing? <Link to="/" className="underline">Continue as guest →</Link>
       </div>
     </section>
   );
