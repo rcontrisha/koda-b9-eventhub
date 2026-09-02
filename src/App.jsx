@@ -31,6 +31,11 @@ import OrganizerAuth from "./components/shared/OrganizerAuth";
 import { Toaster } from "sonner";
 import { RxCheck, RxCross2 } from "react-icons/rx";
 import EventSuccess from "./components/organizer/EventSuccess";
+import AdminLayout from "./layouts/AdminLayout";
+import AdminOverview from "./components/admin/AdminOverview";
+import AdminUsers from "./components/admin/AdminUsers";
+import AdminEvents from "./components/admin/AdminEvents";
+import AdminCommunities from "./components/admin/AdminCommunities";
 
 export default function App() {
   return (
@@ -75,6 +80,12 @@ export default function App() {
               <Route path="preview" />
             </Route>
             <Route path="success" element={<EventSuccess />} />
+          </Route>
+          <Route path="admin" element={<AdminLayout />}>
+            <Route index element={<AdminOverview />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="events" element={<AdminEvents />} />
+            <Route path="communities" element={<AdminCommunities />} />
           </Route>
         </Route>
       </Routes>
