@@ -11,7 +11,7 @@ import {
   addEvent,
   editEvent,
   resetForm,
-} from "../../redux/slices/EventForm";
+} from "../../redux/slices/EventSlice";
 import { formatEventDate } from "../../utils/event";
 
 function Review({ isEditing = false }) {
@@ -44,10 +44,10 @@ function Review({ isEditing = false }) {
         await dispatch(addEvent(state.event)).unwrap();
       }
 
-      dispatch(resetForm())
       dispatch(submitAndRedirect());
       // navigate("/events");
       setTimeout(() => {
+        dispatch(resetForm())
         navigate("/organizer"); 
       }, 2000);
     } catch (error) {

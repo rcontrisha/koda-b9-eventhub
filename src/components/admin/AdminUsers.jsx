@@ -33,9 +33,9 @@ function AdminUsers() {
                     {user.email}
                   </p>
                 </div>
-                <div className={"px-4 pt-3"}><div className={`rounded-full w-fit flex justify-center items-center px-2 py-0.5 font-inter font-medium text-xs leading-4 ${user.role === 'organizer' ? 'bg-[#FF5F221A] text-primary' : 'bg-[#F4F4F5] text-secondary' }`}>{user.role}</div></div>
-                <div className="px-4 pt-3">{user.status || "active"}</div>
-                <div className="px-4 pt-3">{user.created_at || "Aug 2026"}</div>
+                <div className="px-4 pt-3"><div className={`rounded-full w-fit flex justify-center items-center px-2 py-0.5 font-inter font-medium text-xs leading-4 ${user.role === 'organizer' ? 'bg-[#FF5F221A] text-primary' : 'bg-[#F4F4F5] text-secondary' }`}>{user.role}</div></div>
+                <div className="px-4 pt-3"><div className={`rounded-full w-fit flex justify-center items-center px-2 py-0.5 font-inter font-medium text-xs leading-4 ${user.status === 'suspended' ? 'bg-[#FFE2E2] text-[#E7000B]' : 'bg-[#33B5701A] text-[#33B570]' }`}>{user.status || "active"}</div></div>
+                <div className="px-4 pt-3 font-inter font-normal text-xs text-secondary leading-4">{user.created_at || "Aug 2026"}</div>
                 <div className="px-4 pt-3">...</div>
               </>
             );

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import { nextStep, prevStep, updateField } from "../../redux/slices/EventForm";
+import { nextStep, prevStep, updateField } from "../../redux/slices/EventSlice";
 
 function Detail() {
   const dispatch = useDispatch();

@@ -3,11 +3,12 @@ import { useSearchParams } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 import CommunityCard from "../components/communities/CommunityCard";
 import InputField from "../components/shared/InputField";
-import communities from "../data/communities.json";
+import { useSelector } from "react-redux";
 
 function Communities() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { user, hasJoinedCommunity } = useAuth();
+  const { communities } = useSelector((state) => state.communitiesState);
 
   const query = searchParams.get("q") || "";
   const status = searchParams.get("status") || "All";

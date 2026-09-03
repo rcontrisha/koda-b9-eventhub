@@ -1,8 +1,13 @@
 import { FiCalendar, FiShield } from "react-icons/fi";
 import { RxPeople } from "react-icons/rx";
-import { NavLink, Outlet } from "react-router";
+import { Navigate, NavLink, Outlet } from "react-router";
+import { useAuth } from "../hooks/useAuth";
 
 function AdminLayout() {
+  const { user } = useAuth();
+
+  if (user?.role !== 'admin') return <Navigate to="/" replace />
+
   return (
     <main>
       <div className="lg:px-13 py-8">

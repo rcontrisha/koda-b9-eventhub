@@ -27,11 +27,9 @@ function LoginForm() {
       setTimeout(() => {
         const organizerEmail = import.meta.env.VITE_ORGANIZER_EMAIL;
         const organizerPassword = import.meta.env.VITE_ORGANIZER_PASSWORD;
-        
-        console.log(`[${form.email}]`, `[${organizerEmail}]`);
 
-        console.log(organizerEmail);
-        console.log(organizerPassword);
+        const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+        const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
 
         if (
           form.email === organizerEmail &&
@@ -44,7 +42,22 @@ function LoginForm() {
               role: import.meta.env.VITE_ORGANIZER_ROLE || "organizer",
             }),
           );
-          resolve("Welcome back, Organizer!");
+          resolve(`Welcome back, ${import.meta.env.VITE_ORGANIZER_NAME}!`);
+          return;
+        }
+
+        if (
+          form.email === adminEmail &&
+          form.password === adminPassword
+        ) {
+          dispatch(
+            loginUser({
+              fullName: import.meta.env.VITE_ADMIN_NAME || "Admin",
+              email: adminEmail,
+              role: import.meta.env.VITE_ADMIN_ROLE || "admin",
+            }),
+          );
+          resolve(`Welcome back, ${import.meta.env.VITE_ADMIN_NAME}!`);
           return;
         }
 

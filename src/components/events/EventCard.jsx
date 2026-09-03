@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { CiCalendar, CiBookmark } from "react-icons/ci";
 import { IoLocationOutline, IoCheckmark } from "react-icons/io5";
-import { RxCheck, RxCross2, RxPeople } from "react-icons/rx";
+import { RxPeople } from "react-icons/rx";
 import { Link } from "react-router";
 import slugify from "slugify";
 import { GoBookmarkFill } from "react-icons/go";

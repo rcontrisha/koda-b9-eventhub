@@ -2,8 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RxCheck } from "react-icons/rx";
 import { IoMdArrowBack } from "react-icons/io";
 import { Link, useParams } from "react-router";
-
-import { editData } from "../../redux/slices/EventForm";
+import { editData } from "../../redux/slices/EventSlice";
 import BasicInformation from "../../components/organizer/BasicInformation";
 import Detail from "../../components/organizer/Detail";
 import Review from "../../components/organizer/Review";

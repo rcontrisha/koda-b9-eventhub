@@ -3,7 +3,8 @@ import { persistStore, persistReducer } from "redux-persist";
 
 import userReducer from "./slices/RegisterSlice";
 import activeReducer from "./slices/LoginSlice";
-import eventReducer from "./slices/EventForm";
+import eventReducer from "./slices/EventSlice";
+import communitiesReducer from "./slices/CommunitySlice"
 
 const storage = {
   getItem: (key) => {
@@ -35,11 +36,18 @@ const persistEventConfig = {
   whitelist: ["events"],
 };
 
+const persistCommunitiesConfig = {
+  key: "communities",
+  storage,
+  whitelist: ["communities"]
+}
+
 const store = configureStore({
   reducer: {
     userState: persistReducer(persistUserConfig, userReducer),
     activeState: persistReducer(persistActiveConfig, activeReducer),
     eventState: persistReducer(persistEventConfig, eventReducer),
+    communitiesState: persistReducer(persistCommunitiesConfig, communitiesReducer)
   },
 });
 

@@ -109,9 +109,9 @@ function Header() {
             </>
           ) : (
             <>
-              {isOrganizer && (
+              {(isOrganizer || user?.role === 'admin') && (
                 <NavLink
-                  to="/organizer"
+                  to={isOrganizer ? "/organizer" : user?.role === 'admin' && "/admin"}
                   className={`flex items-center gap-2 font-inter font-medium text-secondary text-sm ${({
                     isActive,
                   }) =>

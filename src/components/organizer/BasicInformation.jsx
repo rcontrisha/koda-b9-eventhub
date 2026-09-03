@@ -7,7 +7,7 @@ import { useNavigate } from "react-router";
 import communities from "../../data/communities.json";
 import tagList from "../../data/tags.json";
 // import { useEventContext } from "../../hooks/useEventContext";
-import { updateField, nextStep, resetForm } from "../../redux/slices/EventForm";
+import { updateField, nextStep, resetForm } from "../../redux/slices/EventSlice";
 
 function BasicInformation() {
   const dispatch = useDispatch();
