@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import EventCard from "../components/events/EventCard";
 import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
 // import events from "../data/events.json";
 import Filters from "../components/events/Filters";
-import { useSelector } from "react-redux";
+import { getEvents } from "../redux/slices/EventSlice";
 
 function Event() {
-  const state = useSelector((state) => state.eventState)
-  const events = state.events
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state.eventState);
+  const { events, isPending, isRejected } = state;
+
+  useEffect(() => {
+    dispatch(getEvents());
+  }, [dispatch]);
 
   const [visibleCount, setVisibleCount] = useState(6);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -23,8 +29,8 @@ function Event() {
   const visibleEvents = events
     .filter((e) => {
       const matchTitle = e.title.toLowerCase().includes(query);
-      const matchCat = !cat || e.tags.includes(cat)
-      const matchLoc = !loc || e.location === loc
+      const matchCat = !cat || e.tags.includes(cat);
+      const matchLoc = !loc || e.location === loc;
       return matchTitle && matchCat && matchLoc;
     })
     .slice(0, visibleCount);
@@ -49,31 +55,44 @@ function Event() {
       </div>
       {filterOpen && (
         <div className="px-6 py-4 border-b border-b-[#E4E4E7]">
-          <Filters searchParams={searchParams} setSearchParams={setSearchParams} />
+          <Filters
+            searchParams={searchParams}
+            setSearchParams={setSearchParams}
+          />
         </div>
       )}
-      <section className="px-4 py-8 lg:py-10 lg:px-13">
-        <p className="font-inter font-semibold text-sm text-secondary">
-          {events.length}
-          <span className="font-inter font-normal text-sm text-secondary">
-            {" "}
-            events found
-          </span>
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-          {visibleEvents.map((event, idx) => {
-            return <EventCard key={idx} events={event} />;
-          })}
-        </div>
-        {visibleCount < events.length && (
-          <div className="pt-8 flex items-center justify-center">
-            <div
-              onClick={() => setVisibleCount((c) => c + 6)}
-              className="w-fit px-4 py-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
-            >
-              Load More Events
-            </div>
+      <section className="px-4 py-8 lg:py-10 lg:px-13 flex flex-col min-h-[calc(100vh-200px)]">
+        {isPending && (
+          <div className="flex items-center justify-center grow">
+            <div className="w-16 h-16 border-10 border-gray-300 border-t-primary rounded-full animate-spin"></div>
           </div>
+        )}
+
+        {!isPending && !isRejected && (
+          <>
+            <p className="font-inter font-semibold text-sm text-secondary">
+              {searchParams.size === 0 ? events.length : visibleEvents.length}
+              <span className="font-inter font-normal text-sm text-secondary">
+                {" "}
+                events found
+              </span>
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
+              {visibleEvents.map((event, idx) => {
+                return <EventCard key={idx} events={event} />;
+              })}
+            </div>
+            {visibleCount < events.length && (
+              <div className="pt-8 flex items-center justify-center">
+                <div
+                  onClick={() => setVisibleCount((c) => c + 6)}
+                  className="w-fit px-4 py-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
+                >
+                  Load More Events
+                </div>
+              </div>
+            )}
+          </>
         )}
       </section>
     </>

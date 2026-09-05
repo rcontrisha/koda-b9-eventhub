@@ -47,8 +47,8 @@ function Review({ isEditing = false }) {
       dispatch(submitAndRedirect());
       // navigate("/events");
       setTimeout(() => {
-        dispatch(resetForm())
         navigate("/organizer"); 
+        dispatch(resetForm())
       }, 2000);
     } catch (error) {
       console.error("Submit error:", error);

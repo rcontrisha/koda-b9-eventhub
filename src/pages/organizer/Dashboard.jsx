@@ -33,7 +33,7 @@ ChartJS.register(
 );
 
 function Dashboard() {
-  const {events: communityEvents} = useSelector((state) => state.eventState)
+  const { events: communityEvents } = useSelector((state) => state.eventState);
   const navigate = useNavigate();
   // const communityEvents = events.filter((e) => e.community_id === "c5");
 
@@ -100,7 +100,9 @@ function Dashboard() {
               <MdOutlineEvent className="w-4 h-4" />
             </span>
           </div>
-          <div className="pt-3 font-jakarta font-bold text-2xl">{communityEvents.length}</div>
+          <div className="pt-3 font-jakarta font-bold text-2xl">
+            {communityEvents.length}
+          </div>
           <div className="font-inter font-normal text-secondary text-xs">
             All Time
           </div>
@@ -112,9 +114,11 @@ function Dashboard() {
               <MdOutlinePeople className="w-4 h-4" />
             </span>
           </div>
-          <div className="pt-3 font-jakarta font-bold text-2xl">{communityEvents.reduce((total, event) => {
-            return total + (event.attendees_count || 0)
-          }, 0)}</div>
+          <div className="pt-3 font-jakarta font-bold text-2xl">
+            {communityEvents.reduce((total, event) => {
+              return total + (event.attendees_count || 0);
+            }, 0)}
+          </div>
           <div className="font-inter font-normal text-secondary text-xs">
             Across All Events
           </div>
@@ -149,7 +153,10 @@ function Dashboard() {
           <h2 className="font-semibold font-jakarta text-lg">Your Events</h2>
           <div className="pt-4 flex flex-col gap-3">
             {communityEvents.map((e) => {
-              const pct = Math.min(100, ((e.attendees_count || 0) / e.capacity) * 100);
+              const pct = Math.min(
+                100,
+                ((e.attendees_count || 0) / e.capacity) * 100,
+              );
 
               return (
                 <div
@@ -158,7 +165,7 @@ function Dashboard() {
                 >
                   <div className="w-20 h-16 rounded-lg overflow-hidden shrink-0">
                     <img
-                      src={e.image_url}
+                      src={`${e.image_url.startsWith("http") ? e.image_url + "&w=400&auto=format" : e.image_url}`}
                       alt={e.title}
                       className="w-full h-full object-cover"
                     />
@@ -194,7 +201,10 @@ function Dashboard() {
                       </div>
                     </div>
                     <div className="flex pt-3 gap-2">
-                      <Link to={`event/${e.id}/edit`} className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary items-center cursor-pointer">
+                      <Link
+                        to={`event/${e.id}/edit`}
+                        className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary items-center cursor-pointer"
+                      >
                         <span>
                           <MdOutlineEdit />
                         </span>

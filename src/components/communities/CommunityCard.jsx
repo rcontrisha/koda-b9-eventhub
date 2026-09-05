@@ -26,7 +26,7 @@ function CommunityCard({ community }) {
             <Link to={`/communities/${slug}`}>
               <div>
                 <img
-                  src={community.banner_url}
+                  src={`${community.banner_url}&w=400&auto=format`}
                   height={176}
                   alt="Community Image"
                   className="w-full h-44 object-cover"

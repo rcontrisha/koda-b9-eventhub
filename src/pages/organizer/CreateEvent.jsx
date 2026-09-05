@@ -1,6 +1,7 @@
 import { Link } from "react-router";
 import { IoMdArrowBack } from "react-icons/io";
 import { RxCheck } from "react-icons/rx";
+import { useSelector } from "react-redux";
 
 // import { useEventContext } from "../../hooks/useEventContext";
 
@@ -8,7 +9,6 @@ import BasicInformation from "../../components/organizer/BasicInformation";
 import Detail from "../../components/organizer/Detail";
 import Review from "../../components/organizer/Review";
 
-import { useSelector } from "react-redux";
 import EventSuccess from "../../components/organizer/EventSuccess";
 
 function CreateEvent() {

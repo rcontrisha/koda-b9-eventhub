@@ -41,7 +41,7 @@ function EventCard({ events }) {
             <Link to={`/events/${slug}`}>
               <div className="relative">
                 <img
-                  src={events.image_url}
+                  src={`${events.image_url}&w=400&auto=format`}
                   alt={events.title}
                   className="rounded-t-xl w-full h-44 object-cover"
                 />

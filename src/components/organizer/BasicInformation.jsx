@@ -7,7 +7,11 @@ import { useNavigate } from "react-router";
 import communities from "../../data/communities.json";
 import tagList from "../../data/tags.json";
 // import { useEventContext } from "../../hooks/useEventContext";
-import { updateField, nextStep, resetForm } from "../../redux/slices/EventSlice";
+import {
+  updateField,
+  nextStep,
+  resetForm,
+} from "../../redux/slices/EventSlice";
 
 function BasicInformation() {
   const dispatch = useDispatch();
@@ -25,9 +29,9 @@ function BasicInformation() {
   }, [state.event.tags]);
 
   const handleRemoveImage = () => {
-    if (state.event.image_url) {
-      URL.revokeObjectURL(state.event.image_url);
-    }
+    // if (state.event.image_url) {
+    //   URL.revokeObjectURL(state.event.image_url);
+    // }
     dispatch(updateField({ ...state.event, image_url: "" }));
     // setFormData((prev) => ({
     //   ...prev,
@@ -114,15 +118,19 @@ function BasicInformation() {
             accept="image/*"
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
-                if (state.event.image_url) {
-                  URL.revokeObjectURL(state.event.image_url);
-                }
-                dispatch(
-                  updateField({
-                    ...state.event,
-                    image_url: URL.createObjectURL(e.target.files[0]),
-                  }),
-                );
+                // if (state.event.image_url) {
+                //   URL.revokeObjectURL(state.event.image_url);
+                // }
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                  dispatch(
+                    updateField({
+                      ...state.event,
+                      image_url: reader.result,
+                    }),
+                  );
+                };
+                reader.readAsDataURL(e.target.files[0])
                 // setFormData((prev) => ({
                 //   ...prev,
                 //   image_url: URL.createObjectURL(e.target.files[0]),

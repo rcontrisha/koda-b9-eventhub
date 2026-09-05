@@ -81,7 +81,7 @@ function LoginForm() {
         }
 
         reject("Incorrect email or password.");
-      }, 1000);
+      }, 2000);
     });
 
     toast.promise(loginPromise, {

@@ -24,7 +24,7 @@ function ForgotPassword() {
         state.resetSent = false
         state.sentTo = null
         navigate("/login")
-      }, 5000);
+      }, 3000);
     } catch (error) {
       console.error("Submit error:", error);
     }

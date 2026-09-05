@@ -12,12 +12,12 @@ const initialState = {
 
 export const getCommunities = createAsyncThunk(
   "get_communities",
-  async (payload, { rejectWithValue }) => {
+  async (_, { getState, rejectWithValue }) => {
     try {
       const data = await new Promise((resolve) => {
         setTimeout(() => {
-          resolve(payload);
-        }, 2000);
+          resolve(getState().communitiesState.communities);
+        }, 5000);
       });
       return data;
     } catch (error) {
