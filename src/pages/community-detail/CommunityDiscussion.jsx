@@ -14,7 +14,7 @@ function CommunityDiscussion() {
     (c) => slugify(c.name, { lower: true }) === slug,
   );
 
-  const { isAttendee } = useAuth();
+  const { role } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const handleComment = () => console.log("comment", event.id);
@@ -32,7 +32,7 @@ function CommunityDiscussion() {
             <button
               className="px-4 cursor-pointer"
               onClick={() =>
-                isAttendee ? handleComment() : setShowPrompt(true)
+                role === 'attendee' ? handleComment() : setShowPrompt(true)
               }
             >
               <IoMdSend className="text-primary w-5 h-5" />

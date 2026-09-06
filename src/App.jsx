@@ -1,10 +1,14 @@
 import { Routes, Route } from "react-router";
+import { Toaster } from "sonner";
+import { RxCheck, RxCross2 } from "react-icons/rx";
 
+// Auth
 import AuthLayout from "./layouts/AuthLayout";
 import LoginForm from "./components/auth/LoginForm";
 import RegisterForm from "./components/auth/RegisterForm";
 import ForgotPassword from "./components/auth/ForgotPassword";
 
+// Guest and Attendees
 import Event from "./pages/Event";
 import MainLayout from "./layouts/MainLayout";
 import Explore from "./pages/Explore";
@@ -24,13 +28,14 @@ import ProfileCommunities from "./components/profile/Communities";
 import ProfileSaved from "./components/profile/Saved";
 import ProfileLayout from "./layouts/ProfileLayout";
 
+// Organizer
 import OrganizerDashboard from "./pages/organizer/Dashboard";
 import CreateEvent from "./pages/organizer/CreateEvent";
 import EditEvent from "./pages/organizer/EditEvent";
 import OrganizerAuth from "./components/shared/OrganizerAuth";
-import { Toaster } from "sonner";
-import { RxCheck, RxCross2 } from "react-icons/rx";
 import EventSuccess from "./components/organizer/EventSuccess";
+
+// Admin
 import AdminLayout from "./layouts/AdminLayout";
 import AdminOverview from "./components/admin/AdminOverview";
 import AdminUsers from "./components/admin/AdminUsers";

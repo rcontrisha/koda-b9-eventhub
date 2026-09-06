@@ -65,9 +65,9 @@ function LoginForm() {
           (u) => u.email === form.email && u.password === form.password,
         );
 
-        const {password, ...cleanUser} = foundUser
-
         if (foundUser) {
+          const {password, ...cleanUser} = foundUser
+          
           dispatch(
             loginUser(cleanUser),
           );
@@ -98,7 +98,7 @@ function LoginForm() {
       <p className="font-inter font-normal text-sm mt-1">
         Don't have an account?{" "}
         <span className="font-inter font-medium text-sm text-primary">
-          <Link to="/signup">Sign Up</Link>
+          <Link to="/register">Sign Up</Link>
         </span>
       </p>
       <div className="flex gap-2 pt-7">

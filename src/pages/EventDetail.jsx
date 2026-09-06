@@ -24,7 +24,7 @@ function EventDetail() {
   
   const { slug } = useParams();
 
-  const { isAttendee, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } = useAuth();
+  const { role, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const event = events.find((e) => slugify(e.title, { lower: true }) === slug);
@@ -107,7 +107,7 @@ function EventDetail() {
               </div>
               <button
                 disabled={isFull || joined}
-                onClick={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
+                onClick={() => (role === 'attendee' ? handleJoin() : setShowPrompt(true))}
                 className={`w-full py-3 rounded-xl font-medium transition ${
                   isFull
                     ? "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -205,7 +205,7 @@ function EventDetail() {
                   trailing={
                     <button
                       className="px-4"
-                      onClick={() => (isAttendee ? handleComment() : setShowPrompt(true))}
+                      onClick={() => (role === 'attendee' ? handleComment() : setShowPrompt(true))}
                     >
                       <IoMdSend className="text-primary w-5 h-5" />
                     </button>
@@ -282,7 +282,7 @@ function EventDetail() {
               <div className="space-y-3 pt-2">
                 <button
                   disabled={isFull || joined}
-                  onClickCapture={() => (isAttendee ? handleJoin() : setShowPrompt(true))}
+                  onClickCapture={() => (role === 'attendee' ? handleJoin() : setShowPrompt(true))}
                   className={`w-full py-3 rounded-xl font-medium transition shadow-sm ${
                     isFull
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
@@ -304,7 +304,7 @@ function EventDetail() {
                 </button>
                 <div className="grid grid-cols-2 gap-3">
                   <button
-                    onClickCapture={() => (isAttendee ? handleSave() : setShowPrompt(true))}
+                    onClickCapture={() => (role === 'attendee' ? handleSave() : setShowPrompt(true))}
                     className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
                   >
                     {saved ? (
@@ -315,7 +315,7 @@ function EventDetail() {
                     {saved ? "Saved" : "Save"}
                   </button>
                   <button
-                    onClickCapture={() => (isAttendee ? handleShare() : setShowPrompt(true))}
+                    onClickCapture={() => (role === 'attendee' ? handleShare() : setShowPrompt(true))}
                     className="flex gap-2 justify-center items-center font-inter py-2.5 border border-gray-200 text-secondary rounded-xl font-medium text-sm hover:bg-gray-50 transition"
                   >
                     <IoShareSocialOutline /> Share

@@ -2,9 +2,9 @@ import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../hooks/useAuth";
 
 function AuthLayout() {
-  const { isAttendee } = useAuth();
+  const { role } = useAuth();
 
-  if (isAttendee) return <Navigate to="/" replace />;
+  if (role === 'attendee') return <Navigate to="/" replace />;
 
   return (
     <div className="min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_2fr] bg-gray-950 text-white">

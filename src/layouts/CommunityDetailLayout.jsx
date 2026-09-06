@@ -14,7 +14,7 @@ function CommunityDetailLayout() {
     (c) => slugify(c.name, { lower: true }) === slug,
   );
 
-  const { isAttendee, joinCommunity, hasJoinedCommunity } = useAuth();
+  const { role, joinCommunity, hasJoinedCommunity } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
   if (!community) return null;
@@ -61,7 +61,7 @@ function CommunityDetailLayout() {
             ) : (
               <button
                 onClick={() =>
-                  isAttendee
+                  role === 'attendee'
                     ? joinCommunity(community.id)
                     : setShowPrompt(true)
                 }

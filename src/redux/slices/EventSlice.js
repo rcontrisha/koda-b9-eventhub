@@ -94,7 +94,7 @@ const eventSlice = createSlice({
       state.event = initialState.event;
       state.currentStep = 1;
     },
-    editData: (state, {payload}) => {
+    injectEditData: (state, {payload}) => {
       state.event = state.events.find((e) => e.id === payload);
     },
   },
@@ -165,7 +165,7 @@ const eventSlice = createSlice({
   },
 });
 
-export const { updateField, nextStep, prevStep, submitAndRedirect, resetForm, editData } =
+export const { updateField, nextStep, prevStep, submitAndRedirect, resetForm, injectEditData } =
   eventSlice.actions;
 
 export default eventSlice.reducer;

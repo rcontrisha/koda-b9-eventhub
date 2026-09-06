@@ -10,7 +10,7 @@ import AuthPromptModal from "../shared/AuthPromptModal";
 import { toast } from "sonner";
 
 function CommunityCard({ community }) {
-  const { isAttendee, joinCommunity, hasJoinedCommunity } = useAuth();
+  const { role, joinCommunity, hasJoinedCommunity } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
   const joined = hasJoinedCommunity(community.id);
@@ -85,7 +85,7 @@ function CommunityCard({ community }) {
                 ) : (
                   <button
                     onClick={() => {
-                      isAttendee ? handleJoin() : setShowPrompt(true);
+                      role === 'attendee' ? handleJoin() : setShowPrompt(true);
                     }}
                     className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
                   >

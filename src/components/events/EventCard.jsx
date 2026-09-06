@@ -19,7 +19,7 @@ function EventCard({ events }) {
   const isFull = events.attendees_count >= events.capacity;
   const now = new Date();
 
-  const { isAttendee, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } =
+  const { role, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } =
     useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
@@ -33,7 +33,7 @@ function EventCard({ events }) {
   };
 
   const handleSave = () => {
-    if (!isAttendee) {
+    if (role !== 'attendee') {
       setShowPrompt(true);
       return;
     }
@@ -128,7 +128,7 @@ function EventCard({ events }) {
                   ) : (
                     <div
                       onClick={() => {
-                        isAttendee ? handleJoin() : setShowPrompt(true);
+                        role === 'attendee' ? handleJoin() : setShowPrompt(true);
                       }}
                       className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
                     >
@@ -137,7 +137,7 @@ function EventCard({ events }) {
                   )}
                   <button
                     onClick={() => {
-                      isAttendee ? handleSave() : setShowPrompt(true);
+                      role === 'attendee' ? handleSave() : setShowPrompt(true);
                     }}
                     className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
                   >

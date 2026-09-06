@@ -21,7 +21,7 @@ import { RxDashboard } from "react-icons/rx";
 
 function Header() {
   const dispatch = useDispatch();
-  const { user, isGuest, isOrganizer } = useAuth();
+  const { user, role } = useAuth();
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -73,7 +73,7 @@ function Header() {
                 Communities
               </NavLink>
             </li>
-            {!isGuest && (
+            {role !== null && (
               <li className="font-inter font-medium text-secondary text-sm">
                 <NavLink
                   to="/my-events"
@@ -91,7 +91,7 @@ function Header() {
         </nav>
 
         <div className="hidden md:flex gap-2 items-center">
-          {isGuest ? (
+          {role === null ? (
             <>
               <p className="text-[#9F9FA9] text-xs font-normal font-inter">
                 Browsing as guest
@@ -109,9 +109,9 @@ function Header() {
             </>
           ) : (
             <>
-              {(isOrganizer || user?.role === 'admin') && (
+              {(role === 'organizer' || role === 'admin') && (
                 <NavLink
-                  to={isOrganizer ? "/organizer" : user?.role === 'admin' && "/admin"}
+                  to={role === 'organizer' ? "/organizer" : role === 'admin' && "/admin"}
                   className={`flex items-center gap-2 font-inter font-medium text-secondary text-sm ${({
                     isActive,
                   }) =>
@@ -192,7 +192,7 @@ function Header() {
         </div>
 
         <div className="md:hidden flex items-center gap-2">
-          {!isGuest && (
+          {role !== null && (
             <div className="p-2 cursor-pointer">
               <MdOutlineNotificationsNone
                 color="#52525C"
@@ -213,7 +213,7 @@ function Header() {
             </button>
             {menuOpen && (
               <div className="absolute right-0 mt-2 w-56 bg-white border border-[#E4E4E7] rounded-2xl shadow-lg overflow-hidden">
-                {!isGuest && (
+                {role !== null && (
                   <div className="flex items-center gap-3 px-4 py-3 border-b border-[#E4E4E7]">
                     <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
                       {user.photo ? (
@@ -270,7 +270,7 @@ function Header() {
                         Communities
                       </NavLink>
                     </li>
-                    {!isGuest && (
+                    {role !== null && (
                       <>
                         <li>
                           <NavLink
@@ -299,7 +299,7 @@ function Header() {
                   </ul>
                 </nav>
                 <div className="border-t border-[#E4E4E7] py-2 px-2">
-                  {isGuest ? (
+                  {role === null ? (
                     <Link
                       to="/login"
                       className="flex items-center gap-2 px-4 py-2 font-inter text-sm text-primary font-semibold"

@@ -3,8 +3,8 @@ import { RxCross2 } from "react-icons/rx";
 
 function AuthPromptModal({ onClose }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-2xl max-w-md w-full mx-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-md w-full mx-4" onClick={onClose}>
         <div className="flex justify-between items-center border-b-2 border-b-[#E4E4E7] p-6">
           <h3 className="font-jakarta font-bold text-lg">
             Sign in to continue

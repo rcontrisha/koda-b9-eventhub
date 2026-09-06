@@ -100,9 +100,6 @@ export function useAuth() {
   return {
     user,
     role: user?.role ?? null,
-    isGuest: !user?.role,
-    isAttendee: user?.role === "attendee",
-    isOrganizer: user?.role === "organizer",
     editProfile,
     joinEvent,
     saveEvent,

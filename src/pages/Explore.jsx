@@ -13,7 +13,7 @@ import Banner from "../components/static/Banner";
 import { useAuth } from "../hooks/useAuth";
 
 function Explore() {
-  const { user, isAttendee } = useAuth();
+  const { user, role } = useAuth();
   
   const joined_communities = communities.filter((c) =>
     user?.joined_communities?.includes(c.id),
@@ -27,7 +27,7 @@ function Explore() {
     <>
       <HeroSection />
       {/* Recommendation Section */}
-      {isAttendee && joined_communities.length > 0 && (
+      {role === 'attendee' && joined_communities.length > 0 && (
         <div className="px-4 py-8 lg:py-10 lg:px-13">
           <div className="flex gap-2 text-primary font-inter font-medium text-xs items-center">
             <FaArrowTrendUp width={16} height={16} />

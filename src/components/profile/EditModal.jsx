@@ -12,8 +12,8 @@ function EditModal({ onClose }) {
   const [photo, setPhoto] = useState(user.photo || null);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white rounded-2xl max-w-md w-full mx-4">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-md w-full mx-4" onClick={(e) => e.stopPropagation()}>
         <div className="flex justify-between items-center border-b-2 border-b-[#E4E4E7] p-6">
           <h3 className="font-jakarta font-bold text-lg">Edit Profile</h3>
           <RxCross2
