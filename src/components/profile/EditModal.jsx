@@ -29,7 +29,9 @@ function EditModal({ onClose }) {
               bio: form.bio,
               photo: photo,
             });
-            toast.success("Success Updating User Info")
+            toast.success("Success Updating User Info");
+            onClose()
+            return
           })}
         >
           <div className="p-6">
@@ -73,10 +75,14 @@ function EditModal({ onClose }) {
                   className="hidden"
                   accept="image/*"
                   onChange={(e) => {
-                    if (photo) {
-                      URL.revokeObjectURL(photo);
-                    }
-                    setPhoto(() => URL.createObjectURL(e.target.files[0]));
+                    // if (photo) {
+                    //   URL.revokeObjectURL(photo);
+                    // }
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                      setPhoto(() => reader.result);
+                    };
+                    reader.readAsDataURL(e.target.files[0])
                   }}
                 />
               </div>
@@ -100,7 +106,7 @@ function EditModal({ onClose }) {
                 <input
                   type="text"
                   placeholder="Your location..."
-                  defaultValue={user.location || ''}
+                  defaultValue={user.location || ""}
                   className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
                   {...register("location")}
                 />
@@ -110,7 +116,7 @@ function EditModal({ onClose }) {
                   Bio
                 </label>
                 <textarea
-                  defaultValue={user.bio || ''}
+                  defaultValue={user.bio || ""}
                   className="border border-[#E4E4E7] px-3 py-2.5 rounded-lg focus:outline-gray-400"
                   placeholder="Tell the community a little about yourself..."
                   rows={3}

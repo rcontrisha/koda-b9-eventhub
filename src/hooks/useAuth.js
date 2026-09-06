@@ -42,7 +42,7 @@ export function useAuth() {
     console.log(updated);
     if (updated) {
       dispatch(updateActiveUser(updated));
-      dispatch(updateUser(updated))
+      dispatch(updateUser(updated));
     }
   };
 
@@ -69,20 +69,26 @@ export function useAuth() {
     };
     if (updated) {
       dispatch(updateActiveUser(updated));
-      dispatch(updateUser(updated))
+      dispatch(updateUser(updated));
     }
   };
 
   const editProfile = (payload) => {
+    console.log("isi payload", payload);
     const updated = {
-      ...user, ...payload
-    }
+      ...user,
+      ...payload,
+    };
 
     if (updated) {
-      dispatch(updateActiveUser(updated))
-      dispatch(updateUser(updated))
+      console.log("isi updated", updated);
+      if (!Object.hasOwn(payload, "password")) {
+        console.log('tes');
+        dispatch(updateActiveUser(updated));
+      }
+      dispatch(updateUser(updated));
     }
-  }
+  };
 
   const hasJoinedEvent = (eventId) =>
     user?.joined_events?.includes(eventId) || false;

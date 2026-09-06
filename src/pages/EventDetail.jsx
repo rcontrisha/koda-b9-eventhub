@@ -70,7 +70,7 @@ function EventDetail() {
           <div className="lg:col-span-2 space-y-6">
             {/* Banner Image */}
             <img
-              src={event.image_url}
+              src={`${event.image_url.startsWith("http") ? event.image_url + "&w=400&auto=format" : event.image_url}`}
               alt={event.title}
               className="w-full h-64 md:h-96 object-cover rounded-2xl shadow-sm"
             />
@@ -154,7 +154,7 @@ function EventDetail() {
                     className="flex items-center gap-3 p-4 border border-gray-200 rounded-xl"
                   >
                     <img
-                      src={speaker.avatar_url}
+                      src={`${speaker.avatar_url.startsWith("http") ? speaker.avatar_url + "&w=400&auto=format" : speaker.avatar_url}`}
                       className="w-12 h-12 rounded-full object-cover"
                       alt={speaker.name}
                     />

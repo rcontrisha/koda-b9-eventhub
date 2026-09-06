@@ -35,7 +35,7 @@ function CommunityDetailLayout() {
         </Link>
       </div>
       <section
-        style={{ backgroundImage: `url(${community.banner_url})` }}
+        style={{ backgroundImage: `url(${community.banner_url}&w=800&auto=format)` }}
         className="relative h-69 w-full bg-cover bg-center bg-no-repeat pb-5"
       >
         <div className="flex px-4 flex-col gap-3 lg:flex-row lg:justify-between lg:items-end pb-6 absolute bottom-0 left-0 right-0 lg:px-29">

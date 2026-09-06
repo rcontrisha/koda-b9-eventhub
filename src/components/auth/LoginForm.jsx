@@ -65,16 +65,11 @@ function LoginForm() {
           (u) => u.email === form.email && u.password === form.password,
         );
 
+        const {password, ...cleanUser} = foundUser
+
         if (foundUser) {
           dispatch(
-            loginUser({
-              fullName: foundUser.fullName,
-              email: form.email,
-              role: foundUser.role,
-              joined_events: foundUser.joined_events || [],
-              saved_events: foundUser.saved_events || [],
-              joined_communities: foundUser.joined_communities || [],
-            }),
+            loginUser(cleanUser),
           );
           resolve(`Welcome back, ${foundUser.fullName}!`);
           return;

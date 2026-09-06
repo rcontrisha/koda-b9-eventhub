@@ -4,14 +4,17 @@ import {
   MdOutlineEvent,
   MdOutlinePinDrop,
   MdOutlineEdit,
+  MdPassword,
 } from "react-icons/md";
 
 import { useAuth } from "../hooks/useAuth";
 import EditModal from "../components/profile/EditModal";
+import PasswordModal from "../components/profile/PasswordModal";
 
 function ProfileLayout() {
   const { user, role } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
+  const [showPassPrompt, setShowPassPrompt] = useState(false);
 
   return (
     <main>
@@ -35,20 +38,31 @@ function ProfileLayout() {
                   {user.email}
                 </p>
               </div>
-              <button
-                onClick={() => {
-                  setShowPrompt(true);
-                }}
-                className="flex gap-2 mt-2 lg:mt-0 h-fit items-center px-3 py-1.5 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
-              >
-                <MdOutlineEdit />
-                Edit Profile
-              </button>
+              <div className="flex justify-between lg:gap-3">
+                <button
+                  onClick={() => {
+                    setShowPrompt(true);
+                  }}
+                  className="flex gap-2 mt-2 lg:mt-0 h-fit items-center px-3 py-1.5 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
+                >
+                  <MdOutlineEdit />
+                  Edit Profile
+                </button>
+                <button
+                  onClick={() => {
+                    setShowPassPrompt(true);
+                  }}
+                  className="flex gap-2 mt-2 lg:mt-0 h-fit items-center px-3 py-1.5 border border-[#E4E4E7] rounded-lg font-inter font-medium text-sm text-secondary cursor-pointer"
+                >
+                  <MdPassword />
+                  Change Password
+                </button>
+              </div>
             </div>
             <div className="flex justify-between lg:justify-start flex-wrap gap-3 pt-2">
               <div className="flex gap-1 items-center font-inter font-normal text-xs text-secondary">
                 <MdOutlinePinDrop height={11} width={11} />
-                {user.location || 'Bandung, Indonesia'}
+                {user.location || "Bandung, Indonesia"}
               </div>
               <div className="flex gap-1 items-center font-inter font-normal text-xs text-secondary">
                 <MdOutlineEvent height={11} width={11} />
@@ -62,7 +76,8 @@ function ProfileLayout() {
             </div>
             <div className="pt-2">
               <p className="font-inter font-normal text-sm text-secondary">
-                {user.bio || `Backend engineer & community builder. Passionate about Go, distributed systems, and connecting people through events.`}
+                {user.bio ||
+                  `Backend engineer & community builder. Passionate about Go, distributed systems, and connecting people through events.`}
               </p>
             </div>
           </div>
@@ -137,6 +152,9 @@ function ProfileLayout() {
         </div>
       </div>
       {showPrompt && <EditModal onClose={() => setShowPrompt(false)} />}
+      {showPassPrompt && (
+        <PasswordModal onClose={() => setShowPassPrompt(false)} />
+      )}
     </main>
   );
 }

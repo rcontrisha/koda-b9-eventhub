@@ -29,8 +29,21 @@ function EventCard({ events }) {
 
   const handleJoin = () => {
     joinEvent(events.id);
+    toast.success("Success Joining Event");
   };
-  const handleSave = () => saveEvent(events.id);
+
+  const handleSave = () => {
+    if (!isAttendee) {
+      setShowPrompt(true);
+      return;
+    }
+    saveEvent(events.id);
+    if (saved) {
+      toast.error("Removed from 'Saved' List");
+    } else {
+      toast.success("Added to 'Saved' List");
+    }
+  };
 
   return (
     <article className="border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col bg-white">
@@ -41,7 +54,7 @@ function EventCard({ events }) {
             <Link to={`/events/${slug}`}>
               <div className="relative">
                 <img
-                  src={`${events.image_url}&w=400&auto=format`}
+                  src={`${events.image_url.startsWith("http") ? events.image_url + "&w=400&auto=format" : events.image_url}`}
                   alt={events.title}
                   className="rounded-t-xl w-full h-44 object-cover"
                 />
@@ -116,7 +129,6 @@ function EventCard({ events }) {
                     <div
                       onClick={() => {
                         isAttendee ? handleJoin() : setShowPrompt(true);
-                        toast.success("Success Joining Event");
                       }}
                       className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
                     >
@@ -126,9 +138,6 @@ function EventCard({ events }) {
                   <button
                     onClick={() => {
                       isAttendee ? handleSave() : setShowPrompt(true);
-                      saved
-                        ? toast.error("Removed from 'Saved' List")
-                        : toast.success("Added to 'Saved' List");
                     }}
                     className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
                   >
