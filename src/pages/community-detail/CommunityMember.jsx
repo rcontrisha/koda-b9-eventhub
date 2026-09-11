@@ -1,10 +1,11 @@
+import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import slugify from "slugify";
 
-import communities from "../../data/communities.json";
-
 function CommunityMember() {
   const { slug } = useParams();
+  const { communities } = useSelector((state) => state.communitiesState);
+
   const community = communities.find(
     (c) => slugify(c.name, { lower: true }) === slug,
   );
@@ -22,7 +23,9 @@ function CommunityMember() {
             </div>
             <div>
               <p className="font-inter font-semibold text-sm">{member.name}</p>
-              <p className="font-inter font-normal text-xs text-secondary">{member.role}</p>
+              <p className="font-inter font-normal text-xs text-secondary">
+                {member.role}
+              </p>
             </div>
           </div>
         );

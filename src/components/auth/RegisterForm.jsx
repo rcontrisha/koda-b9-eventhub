@@ -3,12 +3,15 @@ import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { registerUser } from "../../redux/slices/RegisterSlice";
 import { toast } from "sonner";
+import { useState } from "react";
+
+import { registerUser } from "../../redux/slices/RegisterSlice";
 
 function RegisterForm() {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.userState);
+  const [isVisible, setIsVisible] = useState(false)
 
   const {
     register,
@@ -147,7 +150,7 @@ function RegisterForm() {
               className={`px-3 py-2.5 border-2 rounded-lg ${
                 errors.password ? "border-red-500" : "border-gray-300"
               }`}
-              type="password"
+              type={isVisible ? "text" : "password"}
               id="pwd"
               placeholder="At least 8 characters"
               {...register("password", {
@@ -175,13 +178,23 @@ function RegisterForm() {
               className={`px-3 py-2.5 border-2 rounded-lg ${
                 errors.confirm ? "border-red-500" : "border-gray-300"
               }`}
-              type="password"
+              type={isVisible ? "text" : "password"}
               id="confirm"
               placeholder="Re-enter your password"
               {...register("confirm", {
                 required: "Please confirm your password",
               })}
             />
+            <div className="self-end flex gap-1 items-center justify-center">
+              <input
+                className="h-4 w-4 text-primary border-gray-300 rounded accent-primary cursor-pointer"
+                type="checkbox"
+                name="visibility"
+                id="visibility"
+                onChange={() => setIsVisible(!isVisible)}
+              />
+              <label htmlFor="visibility" className="font-inter font-medium text-secondary text-sm">Show Password</label>
+            </div>
             {errors.confirm && (
               <p className="text-red-500 text-xs font-inter mt-1">
                 {errors.confirm.message}

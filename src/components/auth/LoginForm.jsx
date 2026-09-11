@@ -3,6 +3,7 @@ import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import { toast } from "sonner";
+import { useState } from "react";
 
 // import { useAuth } from "../../hooks/useAuth";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import { loginUser } from "../../redux/slices/LoginSlice";
 function LoginForm() {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.userState);
+  const [isVisible, setIsVisible] = useState(false);
 
   const {
     register,
@@ -46,10 +48,7 @@ function LoginForm() {
           return;
         }
 
-        if (
-          form.email === adminEmail &&
-          form.password === adminPassword
-        ) {
+        if (form.email === adminEmail && form.password === adminPassword) {
           dispatch(
             loginUser({
               fullName: import.meta.env.VITE_ADMIN_NAME || "Admin",
@@ -66,11 +65,10 @@ function LoginForm() {
         );
 
         if (foundUser) {
-          const {password, ...cleanUser} = foundUser
-          
-          dispatch(
-            loginUser(cleanUser),
-          );
+          // eslint-disable-next-line no-unused-vars
+          const { password, ...cleanUser } = foundUser;
+
+          dispatch(loginUser(cleanUser));
           resolve(`Welcome back, ${foundUser.fullName}!`);
           return;
         }
@@ -139,16 +137,29 @@ function LoginForm() {
               className="flex justify-between font-inter font-medium text-secondary text-sm"
             >
               Password
-              <Link to="/forgot-password" className="text-primary font-inter font-normal text-xs cursor-pointer">
+              <Link
+                to="/forgot-password"
+                className="text-primary font-inter font-normal text-xs cursor-pointer"
+              >
                 Forgot password?
               </Link>
             </label>
             <input
               className="px-3 py-2.5 border-2 border-gray-300 rounded-lg"
-              type="password"
+              type={isVisible ? "text" : "password"}
               id="pwd"
               {...register("password", { required: true })}
             />
+            <div className="self-end flex gap-1 items-center justify-center">
+              <input
+                className="h-4 w-4 text-primary border-gray-300 rounded accent-primary cursor-pointer"
+                type="checkbox"
+                name="visibility"
+                id="visibility"
+                onChange={() => setIsVisible(!isVisible)}
+              />
+              <label htmlFor="visibility" className="font-inter font-medium text-secondary text-sm">Show Password</label>
+            </div>
           </div>
           {errors?.pwd && <p className="text-red-500">{errors.pwd.message}</p>}
           <button
@@ -160,7 +171,10 @@ function LoginForm() {
         </form>
       </div>
       <div className="text-secondary text-center mt-4 font-inter font-normal text-xs">
-        Just browsing? <Link to="/" className="underline">Continue as guest →</Link>
+        Just browsing?{" "}
+        <Link to="/" className="underline">
+          Continue as guest →
+        </Link>
       </div>
     </section>
   );

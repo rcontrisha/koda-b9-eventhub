@@ -12,16 +12,19 @@ import {
   MdOutlinePerson,
   MdOutlineLogin,
   MdOutlineLogout,
+  MdOutlineLightMode,
 } from "react-icons/md";
 import { useDispatch } from "react-redux";
 
 import { useAuth } from "../../hooks/useAuth";
 import { logout } from "../../redux/slices/LoginSlice";
 import { RxDashboard } from "react-icons/rx";
+import { useTheme } from "../../hooks/useTheme";
 
 function Header() {
   const dispatch = useDispatch();
   const { user, role } = useAuth();
+  const { dark, toggleDark } = useTheme();
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -96,9 +99,18 @@ function Header() {
               <p className="text-[#9F9FA9] text-xs font-normal font-inter">
                 Browsing as guest
               </p>
-              <div className="p-2">
-                <MdOutlineDarkMode color="#52525C" className="w-full h-full" />
-              </div>
+              <button
+                type="button"
+                onClick={toggleDark}
+                aria-label="Toggle dark mode"
+                className="p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              >
+                {dark ? (
+                  <MdOutlineLightMode className="w-5 h-5 text-yellow-400" />
+                ) : (
+                  <MdOutlineDarkMode className="w-5 h-5" />
+                )}
+              </button>
               <Link
                 to={"/login"}
                 className="flex items-center gap-1.5 bg-primary text-white font-inter font-semibold text-sm px-4 py-1.5 rounded-lg"
@@ -109,9 +121,13 @@ function Header() {
             </>
           ) : (
             <>
-              {(role === 'organizer' || role === 'admin') && (
+              {(role === "organizer" || role === "admin") && (
                 <NavLink
-                  to={role === 'organizer' ? "/organizer" : role === 'admin' && "/admin"}
+                  to={
+                    role === "organizer"
+                      ? "/organizer"
+                      : role === "admin" && "/admin"
+                  }
                   className={`flex items-center gap-2 font-inter font-medium text-secondary text-sm ${({
                     isActive,
                   }) =>

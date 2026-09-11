@@ -6,10 +6,11 @@ import { IoMdSend } from "react-icons/io";
 import { useAuth } from "../../hooks/useAuth";
 import AuthPromptModal from "../../components/shared/AuthPromptModal";
 import InputField from "../../components/shared/InputField";
-import communities from "../../data/communities.json";
+import { useSelector } from "react-redux";
 
 function CommunityDiscussion() {
   const { slug } = useParams();
+  const { communities } = useSelector((state) => state.communitiesState);
   const community = communities.find(
     (c) => slugify(c.name, { lower: true }) === slug,
   );
@@ -32,7 +33,7 @@ function CommunityDiscussion() {
             <button
               className="px-4 cursor-pointer"
               onClick={() =>
-                role === 'attendee' ? handleComment() : setShowPrompt(true)
+                role === "attendee" ? handleComment() : setShowPrompt(true)
               }
             >
               <IoMdSend className="text-primary w-5 h-5" />

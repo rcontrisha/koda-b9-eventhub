@@ -1,18 +1,19 @@
 import { useParams } from "react-router";
-import slugify from 'slugify'
+import slugify from "slugify";
 
 import EventCard from "../../components/events/EventCard";
-
-import communities from '../../data/communities.json'
-import events from '../../data/events.json'
+import { useSelector } from "react-redux";
 
 function CommunityEvents() {
   const { slug } = useParams();
+  const { communities } = useSelector((state) => state.communitiesState);
+  const { events } = useSelector((state) => state.eventState);
+
   const community = communities.find(
-    (c) => slugify(c.name, { lower: true }) === slug
+    (c) => slugify(c.name, { lower: true }) === slug,
   );
   const communityEvents = events.filter(
-    (e) => e.community_id === community?.id
+    (e) => e.community_id === community?.id,
   );
 
   return (
@@ -22,7 +23,7 @@ function CommunityEvents() {
       </p>
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4">
         {communityEvents.map((event) => {
-          return <EventCard events={event} />
+          return <EventCard events={event} />;
         })}
       </div>
     </>
