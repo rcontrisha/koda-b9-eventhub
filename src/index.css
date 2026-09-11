@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   /* Font Family */
   --font-jakarta: "Plus Jakarta Sans", sans-serif;
@@ -8,6 +10,20 @@
   /* Color */
   --color-primary: #ff5f22;
   --color-secondary: #71717b;
+}
+
+@layer base {
+  body {
+    background-color: #ffffff;
+    color: #18181b;
+    font-family: var(--font-inter);
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  :where(.dark) body {
+    background-color: #09090b;
+    color: #f4f4f5;
+  }
 }
 
 @utility active {
@@ -25,6 +41,12 @@
   border-radius: 8px;
   padding: 6px 12px;
   border: 1px solid #E4E4E7;
+  transition: all 0.2s ease;
+
+  &:where(.dark, .dark *) {
+    border-color: #27272a;
+    color: #a1a1aa;
+  }
 }
 
 @utility btn-primary {

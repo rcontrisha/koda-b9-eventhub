@@ -21,7 +21,7 @@ function CommunityCard({ community }) {
   }
 
   return (
-    <article className="flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+    <article className="flex flex-col bg-white dark:bg-neutral-900 dark:border-neutral-800  rounded-xl border border-gray-100 shadow-sm overflow-hidden">
       {(() => {
         const slug = slugify(community.name, { lower: true });
         return (
@@ -39,7 +39,7 @@ function CommunityCard({ community }) {
 
             <div className="flex flex-col grow p-4 justify-between">
               <div className="flex flex-col gap-2">
-                <p className="font-jakarta font-semibold text-base text-gray-900">
+                <p className="font-jakarta font-semibold text-base text-gray-900 dark:text-neutral-100">
                   {community.name}
                 </p>
                 <p className="font-inter font-normal text-gray-500 text-xs line-clamp-2">

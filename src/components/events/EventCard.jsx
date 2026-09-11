@@ -46,7 +46,7 @@ function EventCard({ events }) {
   };
 
   return (
-    <article className="border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col bg-white">
+    <article className="bg-white dark:bg-neutral-900 dark:border-neutral-800 border-2 border-[#E4E4E7] rounded-xl overflow-hidden flex flex-col">
       {(() => {
         const slug = slugify(events.title, { lower: true });
         return (
@@ -63,7 +63,7 @@ function EventCard({ events }) {
 
             <div className="p-4 flex flex-col grow justify-between gap-4">
               <div className="flex flex-col gap-3">
-                <p className="font-jakarta font-semibold text-base text-gray-900 line-clamp-2">
+                <p className="font-jakarta font-semibold text-base text-gray-900 dark:text-neutral-100 line-clamp-2">
                   {events.title}
                 </p>
 
@@ -103,7 +103,7 @@ function EventCard({ events }) {
                       {events.capacity} Capacity
                     </span>
                   </div>
-                  <div className="w-full bg-neutral-200 rounded-full h-2 overflow-hidden">
+                  <div className="w-full bg-neutral-200 dark:bg-neutral-800 rounded-full h-2 overflow-hidden">
                     <div
                       className={`${getProgressColor(pct)} h-2 rounded-full transition-all duration-300`}
                       style={{ width: `${pct}%` }}
@@ -113,15 +113,15 @@ function EventCard({ events }) {
 
                 <div className="flex gap-2 items-center">
                   {isFull ? (
-                    <div className="grow text-center bg-neutral-300 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
+                    <div className="grow text-center bg-neutral-300 dark:bg-neutral-800 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
                       Full
                     </div>
                   ) : ended ? (
-                    <div className="grow text-center bg-neutral-300 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
+                    <div className="grow text-center bg-neutral-300 dark:bg-neutral-800 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
                       Event has ended
                     </div>
                   ) : joined ? (
-                    <div className="grow flex items-center justify-center gap-1.5 bg-[#33B570] text-white rounded-lg py-2 px-3 font-inter font-medium text-sm">
+                    <div className="grow flex items-center justify-center gap-1.5 bg-[#33B570] dark:bg-neutral-800 text-white rounded-lg py-2 px-3 font-inter font-medium text-sm">
                       <IoCheckmark />
                       Registered
                     </div>
@@ -139,12 +139,12 @@ function EventCard({ events }) {
                     onClick={() => {
                       role === 'attendee' ? handleSave() : setShowPrompt(true);
                     }}
-                    className="border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors flex items-center justify-center"
+                    className="dark:border-neutral-800 border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors flex items-center justify-center"
                   >
                     {saved ? (
                       <GoBookmarkFill className="text-lg text-primary" />
                     ) : (
-                      <CiBookmark className="text-lg text-gray-700" />
+                      <CiBookmark className="text-lg text-gray-700 dark:text-neutral-400" />
                     )}
                   </button>
                 </div>

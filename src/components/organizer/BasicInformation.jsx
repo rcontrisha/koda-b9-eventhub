@@ -61,20 +61,20 @@ function BasicInformation() {
   return (
     <>
       <div>
-        <h2 className="font-jakarta font-bold text-xl leading-7">
+        <h2 className="font-jakarta font-bold text-xl leading-7 text-neutral-900 dark:text-neutral-100">
           Basic Information
         </h2>
-        <p className="font-inter font-normal text-sm text-secondary leading-5">
+        <p className="font-inter font-normal text-sm text-secondary dark:text-neutral-400 leading-5">
           Tell attendees what your event is about.
         </p>
       </div>
       <div className="pt-6">
-        <p className="font-inter font-medium text-sm leading-5 text-[#3F3F47]">
+        <p className="font-inter font-medium text-sm leading-5 text-[#3F3F47] dark:text-neutral-300">
           Cover Image
         </p>
         <div className="pt-1.5">
           {state.event.image_url ? (
-            <div className="relative w-full h-48 border border-[#E4E4E7] rounded-xl overflow-hidden group">
+            <div className="relative w-full h-48 border border-[#E4E4E7] dark:border-neutral-800 rounded-xl overflow-hidden group">
               <img
                 src={state.event.image_url}
                 alt="Event Cover Preview"
@@ -83,7 +83,7 @@ function BasicInformation() {
               <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
                 <label
                   htmlFor="image_url"
-                  className="px-3 py-2 bg-white text-gray-800 rounded-lg text-xs font-medium hover:bg-gray-100 transition cursor-pointer"
+                  className="px-3 py-2 bg-white dark:bg-neutral-800 text-gray-800 dark:text-neutral-100 rounded-lg text-xs font-medium hover:bg-gray-100 dark:hover:bg-neutral-700 transition cursor-pointer"
                 >
                   Change Image
                 </label>
@@ -98,12 +98,12 @@ function BasicInformation() {
             </div>
           ) : (
             <label htmlFor="image_url" className="cursor-pointer">
-              <div className="w-full h-36 border-2 border-[#E4E4E7] border-dashed p-8 rounded-xl flex flex-col gap-2 justify-center items-center hover:bg-gray-50 transition">
-                <FiUploadCloud className="w-6 h-6 text-secondary" />
-                <p className="font-inter font-normal text-sm text-[#9F9FA9] leading-5">
+              <div className="w-full h-36 border-2 border-[#E4E4E7] dark:border-neutral-700 border-dashed p-8 rounded-xl flex flex-col gap-2 justify-center items-center hover:bg-gray-50 dark:hover:bg-neutral-800/50 transition">
+                <FiUploadCloud className="w-6 h-6 text-secondary dark:text-neutral-400" />
+                <p className="font-inter font-normal text-sm text-[#9F9FA9] dark:text-neutral-400 leading-5">
                   Click to upload or drag and drop
                 </p>
-                <p className="font-inter font-normal text-sm text-[#9F9FA9] leading-5">
+                <p className="font-inter font-normal text-sm text-[#9F9FA9] dark:text-neutral-400 leading-5">
                   PNG, JPG up to 10MB · 16:9 recommended
                 </p>
               </div>
@@ -130,7 +130,7 @@ function BasicInformation() {
                     }),
                   );
                 };
-                reader.readAsDataURL(e.target.files[0])
+                reader.readAsDataURL(e.target.files[0]);
                 // setFormData((prev) => ({
                 //   ...prev,
                 //   image_url: URL.createObjectURL(e.target.files[0]),
@@ -141,13 +141,15 @@ function BasicInformation() {
         </div>
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
-        <label htmlFor="title">Event Title</label>
+        <label htmlFor="title" className="text-neutral-900 dark:text-neutral-200">
+          Event Title
+        </label>
         <input
           type="text"
           name="title"
           id="title"
           placeholder="Go Concurrency Workshop"
-          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
+          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600"
           value={state.event.title}
           onChange={(e) =>
             dispatch(updateField({ ...state.event, title: e.target.value }))
@@ -155,13 +157,15 @@ function BasicInformation() {
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
-        <label htmlFor="desc">Description</label>
+        <label htmlFor="desc" className="text-neutral-900 dark:text-neutral-200">
+          Description
+        </label>
         <textarea
           name="desc"
           id="desc"
           placeholder="What will attendees learn or experience?"
           rows={5}
-          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
+          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600"
           value={state.event.desc}
           onChange={(e) =>
             dispatch(updateField({ ...state.event, desc: e.target.value }))
@@ -169,18 +173,18 @@ function BasicInformation() {
         />
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
-        <p>Category</p>
+        <p className="text-neutral-900 dark:text-neutral-200">Category</p>
         <div className="w-full relative block">
           <select
             defaultValue=""
             onChange={handleTagChange}
-            className="w-full overflow-hidden whitespace-nowrap px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 text-sm bg-white cursor-pointer"
+            className="w-full overflow-hidden whitespace-nowrap px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600 text-sm bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 cursor-pointer"
           >
-            <option value="" disabled>
+            <option value="" disabled className="dark:bg-neutral-900">
               Select Category
             </option>
             {tagList?.map((tag, index) => (
-              <option key={index} value={tag}>
+              <option key={index} value={tag} className="dark:bg-neutral-900">
                 {tag}
               </option>
             ))}
@@ -192,13 +196,13 @@ function BasicInformation() {
               {tags.map((tag, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 border border-[#E4E4E7] rounded-lg text-xs font-medium text-gray-700"
+                  className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-100 dark:bg-neutral-800 border border-[#E4E4E7] dark:border-neutral-700 rounded-lg text-xs font-medium text-gray-700 dark:text-neutral-200"
                 >
                   <span>{tag}</span>
                   <button
                     type="button"
                     onClick={() => handleRemoveTag(tag)}
-                    className="text-gray-400 hover:text-red-600 transition cursor-pointer"
+                    className="text-gray-400 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-400 transition cursor-pointer"
                   >
                     <RxCross2 />
                   </button>
@@ -219,7 +223,7 @@ function BasicInformation() {
         </div> */}
       </div>
       <div className="pt-6 flex flex-col gap-1.5">
-        <p>Community (Optional)</p>
+        <p className="text-neutral-900 dark:text-neutral-200">Community (Optional)</p>
         <select
           value={state.event.community_id || ""}
           onChange={(e) =>
@@ -227,24 +231,24 @@ function BasicInformation() {
               updateField({ ...state.event, community_id: e.target.value }),
             )
           }
-          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400"
+          className="px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600"
         >
-          <option value="">No Community</option>
+          <option value="" className="dark:bg-neutral-900">No Community</option>
           {communities?.map((c) => (
-            <option key={c.id} value={c.id}>
+            <option key={c.id} value={c.id} className="dark:bg-neutral-900">
               {c.name}
             </option>
           ))}
         </select>
       </div>
       <div className="pt-8">
-        <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
+        <div className="pt-6 border-t border-t-[#E4E4E7] dark:border-t-neutral-800 flex justify-between items-center">
           <button
             onClick={() => {
               dispatch(resetForm());
               navigate("/organizer");
             }}
-            className="cursor-pointer"
+            className="cursor-pointer text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100"
           >
             Cancel
           </button>

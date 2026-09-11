@@ -6,33 +6,33 @@ import { useAuth } from "../hooks/useAuth";
 function AdminLayout() {
   const { role } = useAuth();
 
-  if (role !== 'admin') return <Navigate to="/" replace />
+  if (role !== "admin") return <Navigate to="/" replace />;
 
   return (
-    <main>
+    <main className="text-neutral-900 dark:text-neutral-100">
       <div className="lg:px-13 py-8">
         <div className="flex gap-3 items-center">
           <div className="bg-[#FF5F221A] rounded-xl w-9 h-9 flex items-center justify-center">
             <FiShield className="text-primary" />
           </div>
           <div>
-            <h1 className="font-jakarta font-bold text-2xl leading-8 text-black">
+            <h1 className="font-jakarta font-bold text-2xl leading-8 text-black dark:text-white">
               Admin Dashboard
             </h1>
-            <p className="font-inter font-normal text-secondary text-xs leading-4">
+            <p className="font-inter font-normal text-secondary dark:text-neutral-400 text-xs leading-4">
               Platform Management and Moderation
             </p>
           </div>
         </div>
         <div className="pt-6">
-          <nav className="border-b border-b-[#E4E4E7] flex gap-1">
+          <nav className="border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex gap-1">
             <NavLink
               to={"/admin"}
               end
               className={({ isActive }) =>
                 isActive
                   ? "tab-active flex gap-1.5 items-center justify-center"
-                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary flex gap-1.5 items-center justify-center"
+                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 flex gap-1.5 items-center justify-center transition-colors"
               }
             >
               <FiShield />
@@ -44,7 +44,7 @@ function AdminLayout() {
               className={({ isActive }) =>
                 isActive
                   ? "tab-active flex gap-1.5 items-center justify-center"
-                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary flex gap-1.5 items-center justify-center"
+                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 flex gap-1.5 items-center justify-center transition-colors"
               }
             >
               <RxPeople />
@@ -56,7 +56,7 @@ function AdminLayout() {
               className={({ isActive }) =>
                 isActive
                   ? "tab-active flex gap-1.5 items-center justify-center"
-                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary flex gap-1.5 items-center justify-center"
+                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 flex gap-1.5 items-center justify-center transition-colors"
               }
             >
               <FiCalendar />
@@ -68,7 +68,7 @@ function AdminLayout() {
               className={({ isActive }) =>
                 isActive
                   ? "tab-active flex gap-1.5 items-center justify-center"
-                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary flex gap-1.5 items-center justify-center"
+                  : "font-inter font-medium text-sm py-2.5 px-4 text-secondary dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 flex gap-1.5 items-center justify-center transition-colors"
               }
             >
               <RxPeople />

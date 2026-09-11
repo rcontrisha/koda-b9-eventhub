@@ -30,7 +30,7 @@ function Header() {
 
   return (
     <>
-      <header className="px-6 py-3 border-b border-b-[#E4E4E7] flex items-center justify-between">
+      <header className="px-6 py-3 border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <span className="w-8 h-8 bg-orange-600 rounded-lg flex items-center justify-center font-bold font-jakarta text-white">
             E
@@ -146,9 +146,18 @@ function Header() {
                   className="w-full h-full"
                 />
               </div>
-              <div className="p-2">
-                <MdOutlineDarkMode color="#52525C" className="w-full h-full" />
-              </div>
+              <button
+                type="button"
+                onClick={toggleDark}
+                aria-label="Toggle dark mode"
+                className="p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+              >
+                {dark ? (
+                  <MdOutlineLightMode className="w-5 h-5 text-yellow-400" />
+                ) : (
+                  <MdOutlineDarkMode className="w-5 h-5" />
+                )}
+              </button>
               <div className="relative">
                 <button
                   onClick={() => setProfileOpen((v) => !v)}
@@ -164,8 +173,8 @@ function Header() {
                   )}
                 </button>
                 {profileOpen && (
-                  <div className="absolute right-0 mt-2 w-56 bg-white border border-[#E4E4E7] rounded-lg shadow-lg overflow-hidden">
-                    <div className="flex items-center gap-3 px-2 py-3 border-b border-[#E4E4E7]">
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-900 border border-[#E4E4E7] dark:border-neutral-800 rounded-lg shadow-lg overflow-hidden">
+                    <div className="flex items-center gap-3 px-2 py-3 border-b border-[#E4E4E7] dark:border-neutral-800">
                       <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
                         {user.photo ? (
                           <img
@@ -177,10 +186,10 @@ function Header() {
                         )}
                       </div>
                       <div>
-                        <p className="font-inter font-semibold text-sm">
+                        <p className="font-inter font-semibold text-sm text-neutral-900 dark:text-neutral-100">
                           {user?.fullName}
                         </p>
-                        <p className="font-inter text-xs text-secondary">
+                        <p className="font-inter text-xs text-secondary dark:text-neutral-400">
                           {user?.email}
                         </p>
                       </div>
@@ -188,14 +197,14 @@ function Header() {
                     <Link
                       to="/profile"
                       onClick={() => setProfileOpen(false)}
-                      className="flex items-center gap-2 w-full text-left px-4 py-2.5 font-inter text-sm text-secondary hover:bg-gray-50"
+                      className="flex items-center gap-2 w-full text-left px-4 py-2.5 font-inter text-sm text-secondary dark:text-neutral-300 hover:bg-gray-50 dark:hover:bg-neutral-800"
                     >
                       <MdOutlinePerson className="w-5 h-5" />
                       My Profile
                     </Link>
                     <button
                       onClick={() => dispatch(logout())}
-                      className="w-full flex items-center gap-2 text-left px-4 py-2.5 font-inter text-sm text-red-500 font-medium hover:bg-gray-50"
+                      className="w-full flex items-center gap-2 text-left px-4 py-2.5 font-inter text-sm text-red-500 font-medium hover:bg-gray-50 dark:hover:bg-neutral-800"
                     >
                       <MdOutlineLogout className="w-5 h-5" />
                       Sign Out
@@ -216,9 +225,18 @@ function Header() {
               />
             </div>
           )}
-          <div className="p-2">
-            <MdOutlineDarkMode color="#52525C" className="w-full h-full" />
-          </div>
+          <button
+            type="button"
+            onClick={toggleDark}
+            aria-label="Toggle dark mode"
+            className="p-2 rounded-lg text-neutral-600 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+          >
+            {dark ? (
+              <MdOutlineLightMode className="w-5 h-5 text-yellow-400" />
+            ) : (
+              <MdOutlineDarkMode className="w-5 h-5" />
+            )}
+          </button>
           <div className="relative">
             <button className="p-2" onClick={() => setMenuOpen((v) => !v)}>
               {menuOpen ? (

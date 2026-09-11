@@ -2,7 +2,7 @@ import { FiSearch } from "react-icons/fi";
 
 function InputField({ placeholder, leading, trailing, value, onChange }) {
   return (
-    <div className="flex items-center rounded-xl p-1.5 border border-[#E4E4E7] grow">
+    <div className="flex items-center rounded-xl p-1.5 border border-[#E4E4E7] dark:border-neutral-800 grow">
       {leading === undefined ? (
         <FiSearch className="text-secondary text-lg ml-3" />
       ) : (

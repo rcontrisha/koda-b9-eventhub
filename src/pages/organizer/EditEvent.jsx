@@ -27,46 +27,66 @@ function EditEvent() {
         <EventSuccess isEditing />
       ) : (
         <>
-          <div className="px-6 py-3 border-b border-b-[#E4E4E7]">
+          <div className="px-6 py-3 border-b border-b-[#E4E4E7] dark:border-b-neutral-800">
             <div className="lg:max-w-322.5 lg:px-65.25 flex gap-4 items-center">
               <Link
                 to="/organizer"
-                className="inline-flex text-sm text-secondary hover:text-primary items-center"
+                className="inline-flex text-sm text-secondary dark:text-neutral-400 hover:text-primary dark:hover:text-primary items-center transition-colors"
               >
                 <span className="mr-1.5">
                   <IoMdArrowBack />
                 </span>{" "}
                 Back
               </Link>
-              <h1 className="font-jakarta font-semibold text-base leading-6 grow">
+              <h1 className="font-jakarta font-semibold text-base leading-6 grow text-neutral-900 dark:text-neutral-100">
                 Edit Event
               </h1>
               <div className="flex items-center gap-2">
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep >= 1 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${
+                    currentStep >= 1
+                      ? "bg-primary text-white"
+                      : "bg-[#E4E4E7] dark:bg-neutral-800 text-secondary dark:text-neutral-400"
+                  }`}
                 >
                   {currentStep > 1 ? <RxCheck /> : 1}
                 </div>
                 <div
-                  className={`w-8 h-0.5 ${currentStep > 1 ? "bg-primary" : "bg-[#E4E4E7]"}`}
+                  className={`w-8 h-0.5 ${
+                    currentStep > 1
+                      ? "bg-primary"
+                      : "bg-[#E4E4E7] dark:bg-neutral-800"
+                  }`}
                 ></div>
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep >= 2 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${
+                    currentStep >= 2
+                      ? "bg-primary text-white"
+                      : "bg-[#E4E4E7] dark:bg-neutral-800 text-secondary dark:text-neutral-400"
+                  }`}
                 >
                   {currentStep > 2 ? <RxCheck /> : 2}
                 </div>
                 <div
-                  className={`w-8 h-0.5 ${currentStep > 2 ? "bg-primary" : "bg-[#E4E4E7]"}`}
+                  className={`w-8 h-0.5 ${
+                    currentStep > 2
+                      ? "bg-primary"
+                      : "bg-[#E4E4E7] dark:bg-neutral-800"
+                  }`}
                 ></div>
                 <div
-                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${currentStep === 3 ? "bg-primary text-white" : "bg-[#E4E4E7] text-secondary"}`}
+                  className={`w-6 h-6 rounded-full flex items-center justify-center font-inter font-semibold text-xs ${
+                    currentStep === 3
+                      ? "bg-primary text-white"
+                      : "bg-[#E4E4E7] dark:bg-neutral-800 text-secondary dark:text-neutral-400"
+                  }`}
                 >
                   {currentStep > 3 ? <RxCheck /> : 3}
                 </div>
               </div>
             </div>
           </div>
-          <main className="max-w-334.5 px-4 lg:px-77.25 py-8">
+          <main className="max-w-334.5 px-4 lg:px-77.25 py-8 text-neutral-900 dark:text-neutral-100">
             {currentStep === 1 && <BasicInformation />}
             {currentStep === 2 && <Detail />}
             {currentStep === 3 && <Review isEditing />}

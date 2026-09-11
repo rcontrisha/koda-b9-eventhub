@@ -48,7 +48,7 @@ function Review({ isEditing = false }) {
       // navigate("/events");
       setTimeout(() => {
         navigate("/organizer"); 
-        dispatch(resetForm())
+        dispatch(resetForm());
       }, 2000);
     } catch (error) {
       console.error("Submit error:", error);
@@ -86,16 +86,16 @@ function Review({ isEditing = false }) {
   return (
     <>
       <div>
-        <h2 className="font-jakarta font-bold text-xl leading-7">
+        <h2 className="font-jakarta font-bold text-xl leading-7 text-neutral-900 dark:text-neutral-100">
           Speakers and Review
         </h2>
-        <p className="font-inter font-normal text-sm text-secondary leading-5">
+        <p className="font-inter font-normal text-sm text-secondary dark:text-neutral-400 leading-5">
           Add speakers and confirm your event details.
         </p>
       </div>
 
       <div className="pt-6">
-        <label className="font-inter font-medium text-sm text-[#3F3F47]">
+        <label className="font-inter font-medium text-sm text-[#3F3F47] dark:text-neutral-300">
           Speakers (optional)
         </label>
         <div className="flex flex-col md:flex-row pt-2 gap-2">
@@ -106,7 +106,7 @@ function Review({ isEditing = false }) {
             value={speakerInput.name}
             onChange={handleInputChange}
             placeholder="Speaker name"
-            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 text-sm"
+            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600 text-sm"
           />
           <input
             type="text"
@@ -115,7 +115,7 @@ function Review({ isEditing = false }) {
             value={speakerInput.role}
             onChange={handleInputChange}
             placeholder="Speaker's role (e.g. Lead Dev)"
-            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 text-sm"
+            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600 text-sm"
           />
           <input
             type="text"
@@ -130,12 +130,12 @@ function Review({ isEditing = false }) {
               }
             }}
             placeholder="Company (e.g. Google)"
-            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] focus:outline-2 focus:outline-gray-400 text-sm"
+            className="grow px-3 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 dark:placeholder:text-neutral-500 focus:outline-2 focus:outline-gray-400 dark:focus:outline-neutral-600 text-sm"
           />
           <button
             type="button"
             onClick={handleAddSpeaker}
-            className="px-5 py-2.5 rounded-lg border border-[#E4E4E7] font-inter font-medium text-sm text-[#3F3F47] leading-5 hover:bg-gray-50 transition cursor-pointer"
+            className="px-5 py-2.5 rounded-lg border border-[#E4E4E7] dark:border-neutral-800 font-inter font-medium text-sm text-[#3F3F47] dark:text-neutral-300 leading-5 hover:bg-gray-50 dark:hover:bg-neutral-800 transition cursor-pointer"
           >
             Add
           </button>
@@ -152,12 +152,12 @@ function Review({ isEditing = false }) {
               return (
                 <div
                   key={index}
-                  className="flex justify-between gap-3 items-center px-3 py-1.5 bg-gray-50 border border-[#E4E4E7] rounded-lg text-sm text-gray-800"
+                  className="flex justify-between gap-3 items-center px-3 py-1.5 bg-gray-50 dark:bg-neutral-800 border border-[#E4E4E7] dark:border-neutral-700 rounded-lg text-sm text-gray-800 dark:text-neutral-200"
                 >
                   <div className="flex flex-col text-left">
                     <span className="font-semibold text-xs">{name}</span>
                     {(role || company) && (
-                      <span className="text-[11px] text-gray-500">
+                      <span className="text-[11px] text-gray-500 dark:text-neutral-400">
                         {role} {company && role ? `at ${company}` : company}
                       </span>
                     )}
@@ -165,7 +165,7 @@ function Review({ isEditing = false }) {
                   <button
                     type="button"
                     onClick={() => handleRemoveSpeaker(index)}
-                    className="text-gray-400 hover:text-red-600 font-bold cursor-pointer"
+                    className="text-gray-400 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-400 font-bold cursor-pointer"
                   >
                     <RxCross2 className="w-4 h-4" />
                   </button>
@@ -177,56 +177,62 @@ function Review({ isEditing = false }) {
       </div>
 
       <div className="pt-6">
-        <div className="border border-[#E4E4E7] rounded-xl">
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+        <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl overflow-hidden">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Title
             </p>
-            <p className="text-sm font-semibold">{state.event.title || "-"}</p>
+            <p className="text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+              {state.event.title || "-"}
+            </p>
           </div>
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Category
             </p>
-            <p className="text-sm">
+            <p className="text-sm text-neutral-900 dark:text-neutral-200">
               {state.event.tags?.length > 0
                 ? state.event.tags.join(", ")
                 : "No Categories Added"}
             </p>
           </div>
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Date
             </p>
-            <p className="text-sm">
+            <p className="text-sm text-neutral-900 dark:text-neutral-200">
               {state.event.date ? formatEventDate(state.event.date) : "-"}
             </p>
           </div>
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Time
             </p>
-            <p className="text-sm">
+            <p className="text-sm text-neutral-900 dark:text-neutral-200">
               {state.event.start_time || "-"} - {state.event.end_time || "-"}
             </p>
           </div>
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Format (Location)
             </p>
-            <p className="text-sm">{state.event.location || "-"}</p>
+            <p className="text-sm text-neutral-900 dark:text-neutral-200">
+              {state.event.location || "-"}
+            </p>
           </div>
-          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+          <div className="flex justify-between px-4 py-3 border-b border-b-gray-100 dark:border-b-neutral-800">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Capacity
             </p>
-            <p className="text-sm">{state.event.capacity || 0} persons</p>
+            <p className="text-sm text-neutral-900 dark:text-neutral-200">
+              {state.event.capacity || 0} persons
+            </p>
           </div>
           <div className="flex justify-between px-4 py-3">
-            <p className="font-inter font-medium text-xs text-secondary leading-4">
+            <p className="font-inter font-medium text-xs text-secondary dark:text-neutral-400 leading-4">
               Speakers
             </p>
-            <p className="text-sm">
+            <p className="text-sm text-neutral-900 dark:text-neutral-200 text-right">
               {speakers.length > 0
                 ? speakers
                     .map((s) =>
@@ -242,12 +248,12 @@ function Review({ isEditing = false }) {
       </div>
 
       <div className="pt-8">
-        <div className="pt-6 border-t border-t-[#E4E4E7] flex justify-between">
+        <div className="pt-6 border-t border-t-[#E4E4E7] dark:border-t-neutral-800 flex justify-between items-center">
           <button
             type="button"
             onClick={() => dispatch(prevStep())}
             disabled={state.isPending}
-            className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7] disabled:opacity-50"
+            className="flex gap-2 px-4 py-2 rounded-lg items-center cursor-pointer border border-[#E4E4E7] dark:border-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors disabled:opacity-50"
           >
             <FiArrowLeft />
             Previous

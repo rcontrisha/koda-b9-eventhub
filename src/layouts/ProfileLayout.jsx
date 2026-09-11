@@ -92,7 +92,7 @@ function ProfileLayout() {
                 Events
               </p>
             </div>
-            <div className="text-center border-x-2 border-x-[#E4E4E7]">
+            <div className="text-center border-x-2 border-x-[#E4E4E7] dark:border-x-neutral-800 ">
               <p className="font-jakarta font-bold text-2xl">
                 {user.joined_communities ? user.joined_communities.length : 0}
               </p>
@@ -111,7 +111,7 @@ function ProfileLayout() {
           </div>
         </div>
         <div className="pt-6 lg:px-61.25">
-          <nav className="border-b border-b-[#E4E4E7] flex gap-1">
+          <nav className="border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex gap-1">
             <NavLink
               to={"/profile"}
               end

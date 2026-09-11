@@ -7,7 +7,7 @@ function MyEventsLayout() {
         <div className="">
           <h1 className="font-jakarta font-bold text-2xl">My Events</h1>
           <div className="pt-4">
-            <nav className="border-b border-b-[#E4E4E7] flex gap-1">
+            <nav className="border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex gap-1">
               <NavLink
                 to={"/my-events"}
                 end

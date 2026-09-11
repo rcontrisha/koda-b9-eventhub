@@ -37,7 +37,7 @@ function Event() {
 
   return (
     <>
-      <div className="py-4 px-6 border-b border-b-[#E4E4E7] flex gap-3 items-center">
+      <div className="py-4 px-6 border-b border-b-[#E4E4E7] dark:border-neutral-800 flex gap-3 items-center">
         <InputField
           placeholder={"Search events..."}
           value={query}
@@ -64,7 +64,7 @@ function Event() {
       <section className="px-4 py-8 lg:py-10 lg:px-13 flex flex-col min-h-[calc(100vh-200px)]">
         {isPending && (
           <div className="flex items-center justify-center grow">
-            <div className="w-16 h-16 border-10 border-gray-300 border-t-primary rounded-full animate-spin"></div>
+            <div className="w-14 h-14 border-4 border-neutral-200 dark:border-neutral-800 border-t-primary dark:border-t-primary rounded-full animate-spin"></div>
           </div>
         )}
 

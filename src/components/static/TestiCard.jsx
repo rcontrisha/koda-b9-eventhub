@@ -25,7 +25,7 @@ const testimonials = [
 function TestiCard() {
   return testimonials.map((testi, idx) => {
     return (
-      <article key={idx} className="grid grid-cols-1 gap-4 p-5 rounded-xl border-2 border-[#E4E4E7]">
+      <article key={idx} className="grid grid-cols-1 gap-4 p-5 rounded-xl border-2 border-[#E4E4E7] dark:border-neutral-800">
         <div className="text-primary font-inter text-2xl font-normal">"</div>
         <p className="text-secondary text-sm font-normal font-inter">
           {testi.review}
@@ -38,7 +38,7 @@ function TestiCard() {
               .join("")}
           </div>
           <div>
-            <p className="text-black font-inter font-semibold text-sm">{testi.name}</p>
+            <p className="text-black dark:text-neutral-100 font-inter font-semibold text-sm">{testi.name}</p>
             <p className="text-secondary font-inter font-normal text-xs">
               {testi.role} · {testi.company}
             </p>
