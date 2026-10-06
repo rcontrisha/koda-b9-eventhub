@@ -66,13 +66,13 @@ function CommunityCard({ community }) {
                   <div className="flex gap-1 items-center">
                     <RxPeople className="text-gray-500" />
                     <p className="text-gray-500 font-inter font-normal text-xs">
-                      {community.member_count} Members
+                      {community.members_count} Members
                     </p>
                   </div>
                   <div className="flex gap-1 items-center">
                     <CiCalendar className="text-gray-500" />
                     <p className="text-gray-500 font-inter font-normal text-xs">
-                      {community.upcoming_events_count} Upcoming
+                      {community.upcoming_events} Upcoming
                     </p>
                   </div>
                 </div>

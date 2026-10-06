@@ -1,4 +1,3 @@
-import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { BrowserRouter } from "react-router";
@@ -10,15 +9,13 @@ import reduxStore, { persistor } from "./redux/store";
 import ThemeProvider from "./contexts/theme/themeProvider";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <ThemeProvider>
-      <Provider store={reduxStore}>
-        <PersistGate loading={null} persistor={persistor}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </PersistGate>
-      </Provider>
-    </ThemeProvider>
-  </StrictMode>,
+  <ThemeProvider>
+    <Provider store={reduxStore}>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  </ThemeProvider>,
 );

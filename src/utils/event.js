@@ -11,3 +11,17 @@ export function formatEventDate(dateISO) {
     year: "numeric",
   });
 }
+
+export function formatEventTime(timestamp, includeSeconds = false) {
+  const date = new Date(timestamp);
+  
+  const hours = String(date.getUTCHours()).padStart(2, '0');
+  const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+  
+  if (includeSeconds) {
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    return `${hours}:${minutes}:${seconds}`;
+  }
+  
+  return `${hours}:${minutes}`;
+}

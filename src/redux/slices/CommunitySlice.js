@@ -1,9 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import mockCommunities from "../../data/communities.json";
-
 const initialState = {
-  communities: mockCommunities || [],
+  communities: [],
   isPending: false,
   isFulfilled: false,
   isRejected: false,
@@ -12,13 +10,12 @@ const initialState = {
 
 export const getCommunities = createAsyncThunk(
   "get_communities",
-  async (_, { getState, rejectWithValue }) => {
+  async (url, { rejectWithValue }) => {
     try {
-      const data = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(getState().communitiesState.communities);
-        }, 5000);
-      });
+      const response = await fetch(url)
+      const data = response.json()
+
+      console.log("[Response]-Popular Communities", data);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -42,7 +39,7 @@ const communitiesSlice = createSlice({
       fulfilled: (state, { payload }) => {
         ((state.isPending = false),
           (state.isFulfilled = true),
-          (state.communities = payload));
+          (state.communities = payload.data.communities));
       },
       rejected: (state, { payload }) => {
         ((state.isPending = false),

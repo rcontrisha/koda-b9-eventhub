@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import mockEvents from '../../data/events.json'
 
 const initialState = {
   currentStep: 1,
-  events: mockEvents || [],
+  events: [],
   event: {
     image_url: "",
     title: "",
@@ -25,13 +24,12 @@ const initialState = {
 
 export const getEvents = createAsyncThunk(
   "get_events",
-  async (_, { getState, rejectWithValue }) => {
+  async (url, { rejectWithValue }) => {
     try {
-      const data = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(getState().eventState.events);
-        }, 5000);
-      });
+      const response = await fetch(url)
+      const data = response.json()
+
+      console.log("[Response]-Upcoming Events", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch event data.");
@@ -107,7 +105,7 @@ const eventSlice = createSlice({
           (state.error = null));
       },
       fulfilled: (state, { payload }) => {
-        ((state.events = payload),
+        ((state.events = payload.data.events),
           (state.isPending = false),
           (state.isFulfilled = true));
       },

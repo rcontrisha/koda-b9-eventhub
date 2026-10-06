@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import slugify from "slugify";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import HeroSection from "../components/HeroSection";
 import EventCard from "../components/events/EventCard";
@@ -8,26 +10,39 @@ import CommunityCard from "../components/communities/CommunityCard";
 import TestiCard from "../components/static/TestiCard";
 
 // import events from "../data/events.json";
-import communities from "../data/communities.json";
+// import communities from "../data/communities.json";
 import Banner from "../components/static/Banner";
 import { useAuth } from "../hooks/useAuth";
+import { getEvents } from "../redux/slices/EventSlice";
+import { getCommunities } from "../redux/slices/CommunitySlice";
 
 function Explore() {
   const { user, role } = useAuth();
+  const dispatch = useDispatch();
+  const { events } = useSelector((state) => state.eventState);
+  const { communities } = useSelector((state) => state.communitiesState);
+
+  const eventUrl = "http://localhost:8080/events/upcoming";
+  const communitiesUrl = "http://localhost:8080/communities/popular";
   
-  const joined_communities = communities.filter((c) =>
+  useEffect(() => {
+    dispatch(getEvents(eventUrl));
+    dispatch(getCommunities(communitiesUrl))
+  }, [dispatch]);
+
+  const joined_communities = communities?.filter((c) =>
     user?.joined_communities?.includes(c.id),
   );
 
-  // const recommendedEvent = events.filter(
-  //   (e) => e.community_id === joined_communities[0]?.id,
-  // );
+  const recommendedEvent = events?.filter(
+    (e) => e.community_id === joined_communities[0]?.id,
+  );
 
   return (
     <>
       <HeroSection />
       {/* Recommendation Section */}
-      {role === 'attendee' && joined_communities.length > 0 && (
+      {role === "attendee" && joined_communities.length > 0 && (
         <div className="px-4 py-8 lg:py-10 lg:px-13">
           <div className="flex gap-2 text-primary font-inter font-medium text-xs items-center">
             <FaArrowTrendUp width={16} height={16} />
@@ -66,7 +81,7 @@ function Explore() {
           </Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-5">
-          {events.slice(0, 6).map((event) => {
+          {events?.slice(0, 6).map((event) => {
             return <EventCard key={event.id} events={event} />;
           })}
         </div>
