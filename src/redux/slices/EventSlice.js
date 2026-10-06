@@ -26,10 +26,10 @@ export const getEvents = createAsyncThunk(
   "get_events",
   async (url, { rejectWithValue }) => {
     try {
-      const response = await fetch(url)
-      const data = response.json()
+      const response = await fetch(url);
+      const data = response.json();
 
-      console.log("[Response]-Upcoming Events", data);
+      console.log("[Response]-Fetch Events", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to fetch event data.");
@@ -86,33 +86,42 @@ const eventSlice = createSlice({
       state.currentStep = Math.max(1, state.currentStep - 1);
     },
     submitAndRedirect: (state) => {
-      state.currentStep = 'submitted'
+      state.currentStep = "submitted";
     },
     resetForm: (state) => {
       state.event = initialState.event;
       state.currentStep = 1;
     },
-    injectEditData: (state, {payload}) => {
+    injectEditData: (state, { payload }) => {
       state.event = state.events.find((e) => e.id === payload);
     },
   },
   extraReducers: (builder) => {
     builder.addAsyncThunk(getEvents, {
       pending: (state) => {
-        ((state.isPending = true),
-          (state.isFulfilled = false),
-          (state.isRejected = false),
-          (state.error = null));
+        state.isPending = true;
+        state.isFulfilled = false;
+        state.isRejected = false;
+        state.error = null;
       },
       fulfilled: (state, { payload }) => {
-        ((state.events = payload.data.events),
-          (state.isPending = false),
-          (state.isFulfilled = true));
+        const { events = [], total = 0, page = 1 } = payload?.data || {};
+
+        if (page > 1) {
+          state.events = [...state.events, ...events];
+        } else {
+          state.events = events;
+        }
+
+        state.total = total;
+        state.page = page;
+        state.isPending = false;
+        state.isFulfilled = true;
       },
       rejected: (state, { payload }) => {
-        ((state.isPending = false),
-          (state.isRejected = true),
-          (state.error = payload));
+        state.isPending = false;
+        state.isRejected = true;
+        state.error = payload;
       },
     });
 
@@ -145,14 +154,14 @@ const eventSlice = createSlice({
       fulfilled: (state, { payload }) => {
         ((state.isPending = false),
           (state.isFulfilled = true),
-          state.events = state.events.map((event) => {
+          (state.events = state.events.map((event) => {
             if (event.title === payload.title) {
               console.log("Matched.");
               console.log(payload);
               return payload;
             }
             return event;
-          }));
+          })));
       },
       rejected: (state, { payload }) => {
         ((state.isPending = false),
@@ -163,7 +172,13 @@ const eventSlice = createSlice({
   },
 });
 
-export const { updateField, nextStep, prevStep, submitAndRedirect, resetForm, injectEditData } =
-  eventSlice.actions;
+export const {
+  updateField,
+  nextStep,
+  prevStep,
+  submitAndRedirect,
+  resetForm,
+  injectEditData,
+} = eventSlice.actions;
 
 export default eventSlice.reducer;

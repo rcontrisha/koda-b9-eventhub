@@ -24,7 +24,7 @@ function EventCard({ events }) {
   const [showPrompt, setShowPrompt] = useState(false);
 
   const joined = hasJoinedEvent(events.id);
-  const ended = new Date(events.date) < now;
+  const ended = new Date(events.start_time) < now;
   const saved = hasSavedEvent(events.id);
 
   const handleJoin = () => {

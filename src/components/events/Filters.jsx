@@ -1,4 +1,4 @@
-const categories = [
+const tags = [
   "Technology",
   "Design",
   "Business",
@@ -11,7 +11,7 @@ const locations = ["Bandung", "Jakarta", "Surabaya", "Yogyakarta", "Online"];
 const sortBy = ["Most Popular", "Almost Full", "Recently Added"];
 
 function Filters({ searchParams, setSearchParams }) {
-  const currentCat = searchParams.get("cat") || "";
+  const currentTag = searchParams.get("tag") || "";
   const currentLoc = searchParams.get("loc") || "";
   // const currentSort = searchParams.get("sort") || "";
 
@@ -33,19 +33,19 @@ function Filters({ searchParams, setSearchParams }) {
           </p>
           <div className="flex gap-2 pt-2 flex-wrap">
             <button
-              onClick={() => handleFilterChange("cat", "")}
+              onClick={() => handleFilterChange("tag", "")}
               className={`btn font-inter font-medium text-xs ${
-                !currentCat ? "btn-primary" : "text-secondary"
+                !currentTag ? "btn-primary" : "text-secondary"
               }`}
             >
               All
             </button>
-            {categories.map((category) => {
-              const isActive = currentCat === category;
+            {tags.map((category) => {
+              const isActive = currentTag === category;
               return (
                 <button
                   key={category}
-                  onClick={() => handleFilterChange("cat", category)}
+                  onClick={() => handleFilterChange("tag", category)}
                   className={`btn font-inter font-medium text-xs ${
                     isActive ? "btn-primary" : "text-secondary"
                   }`}
