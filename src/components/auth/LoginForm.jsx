@@ -2,22 +2,22 @@ import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { useState } from "react";
 
 // import { useAuth } from "../../hooks/useAuth";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/slices/LoginSlice";
 
 function LoginForm() {
   const dispatch = useDispatch();
-  const userState = useSelector((state) => state.userState);
+  // const userState = useSelector((state) => state.userState);
   const [isVisible, setIsVisible] = useState(false);
 
   const {
     register,
     handleSubmit,
-    setError,
+    // setError,
     formState: { errors },
   } = useForm();
 
@@ -25,69 +25,85 @@ function LoginForm() {
   // const { login } = useAuth();
 
   const handleLogin = async (form) => {
-    const loginPromise = new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const organizerEmail = import.meta.env.VITE_ORGANIZER_EMAIL;
-        const organizerPassword = import.meta.env.VITE_ORGANIZER_PASSWORD;
+    // const loginPromise = new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     const organizerEmail = import.meta.env.VITE_ORGANIZER_EMAIL;
+    //     const organizerPassword = import.meta.env.VITE_ORGANIZER_PASSWORD;
 
-        const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
-        const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
+    //     const adminEmail = import.meta.env.VITE_ADMIN_EMAIL;
+    //     const adminPassword = import.meta.env.VITE_ADMIN_PASSWORD;
 
-        if (
-          form.email === organizerEmail &&
-          form.password === organizerPassword
-        ) {
-          dispatch(
-            loginUser({
-              fullName: import.meta.env.VITE_ORGANIZER_NAME || "Organizer",
-              email: organizerEmail,
-              role: import.meta.env.VITE_ORGANIZER_ROLE || "organizer",
-            }),
-          );
-          resolve(`Welcome back, ${import.meta.env.VITE_ORGANIZER_NAME}!`);
-          return;
-        }
+    //     if (
+    //       form.email === organizerEmail &&
+    //       form.password === organizerPassword
+    //     ) {
+    //       dispatch(
+    //         loginUser({
+    //           fullName: import.meta.env.VITE_ORGANIZER_NAME || "Organizer",
+    //           email: organizerEmail,
+    //           role: import.meta.env.VITE_ORGANIZER_ROLE || "organizer",
+    //         }),
+    //       );
+    //       resolve(`Welcome back, ${import.meta.env.VITE_ORGANIZER_NAME}!`);
+    //       return;
+    //     }
 
-        if (form.email === adminEmail && form.password === adminPassword) {
-          dispatch(
-            loginUser({
-              fullName: import.meta.env.VITE_ADMIN_NAME || "Admin",
-              email: adminEmail,
-              role: import.meta.env.VITE_ADMIN_ROLE || "admin",
-            }),
-          );
-          resolve(`Welcome back, ${import.meta.env.VITE_ADMIN_NAME}!`);
-          return;
-        }
+    //     if (form.email === adminEmail && form.password === adminPassword) {
+    //       dispatch(
+    //         loginUser({
+    //           fullName: import.meta.env.VITE_ADMIN_NAME || "Admin",
+    //           email: adminEmail,
+    //           role: import.meta.env.VITE_ADMIN_ROLE || "admin",
+    //         }),
+    //       );
+    //       resolve(`Welcome back, ${import.meta.env.VITE_ADMIN_NAME}!`);
+    //       return;
+    //     }
 
-        const foundUser = userState.users.find(
-          (u) => u.email === form.email && u.password === form.password,
-        );
+    //     const foundUser = userState.users.find(
+    //       (u) => u.email === form.email && u.password === form.password,
+    //     );
 
-        if (foundUser) {
-          // eslint-disable-next-line no-unused-vars
-          const { password, ...cleanUser } = foundUser;
+    //     if (foundUser) {
+    //       // eslint-disable-next-line no-unused-vars
+    //       const { password, ...cleanUser } = foundUser;
 
-          dispatch(loginUser(cleanUser));
-          resolve(`Welcome back, ${foundUser.fullName}!`);
-          return;
-        }
+    //       dispatch(loginUser(cleanUser));
+    //       resolve(`Welcome back, ${foundUser.fullName}!`);
+    //       return;
+    //     }
 
-        reject("Incorrect email or password.");
-      }, 2000);
-    });
+    //     reject("Incorrect email or password.");
+    //   }, 2000);
 
-    toast.promise(loginPromise, {
-      loading: "Signing in...",
-      success: (msg) => {
-        navigate("/");
-        return msg;
-      },
-      error: (err) => {
-        setError("password", { type: "manual", message: err });
-        return `Login Failed. ${err}`;
-      },
-    });
+    //   try {
+    //     const result = dispatch(loginUser(form)).unwrap()
+    //     console.log(result);
+    //     resolve(result)
+    //   } catch (error) {
+    //     reject('Failed to login:', error)
+    //   }
+    // });
+
+    // toast.promise(loginPromise, {
+    //   loading: "Signing in...",
+    //   success: (msg) => {
+    //     console.log(msg);
+    //     navigate("/");
+    //     return msg;
+    //   },
+    //   error: (err) => {
+    //     setError("password", { type: "manual", message: err });
+    //     return `Login Failed. ${err}`;
+    //   },
+    // });
+    try {
+      const result = await dispatch(loginUser(form)).unwrap()
+      navigate("/");
+      console.log(result);
+    } catch (error) {
+      console.error('Failed to login:', error);
+    }
   };
 
   return (

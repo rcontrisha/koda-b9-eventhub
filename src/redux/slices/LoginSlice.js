@@ -14,19 +14,49 @@ export const loginUser = createAsyncThunk(
   "login",
   async (payload, { rejectWithValue }) => {
     try {
-      const data = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(payload);
-          // resolve(() => {
-          //   payload;
-          //   toast.success("Login Success");
-          // });
-        }, 2000);
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: payload.email,
+          password: payload.password,
+        }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Login]-Response: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to Sign In");
+    }
+  },
+);
+
+export const logout = createAsyncThunk(
+  "logout",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active.token;
+
+      const response = await fetch("http://localhost:8080/auth/logout", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Logout]-Response: ", data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to Sign Out");
     }
   },
 );
@@ -54,9 +84,6 @@ const activeSlice = createSlice({
     updateActiveUser: (state, { payload }) => {
       state.active = payload;
     },
-    logout: (state) => {
-      state.active = null;
-    },
   },
   extraReducers: (builder) => {
     builder.addAsyncThunk(loginUser, {
@@ -68,7 +95,25 @@ const activeSlice = createSlice({
       fulfilled: (state, { payload }) => {
         ((state.isPending = false),
           (state.isFulfilled = true),
-          (state.active = payload));
+          (state.active = payload.data));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
+
+    builder.addAsyncThunk(logout, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false));
+      },
+      fulfilled: (state) => {
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.active = null));
       },
       rejected: (state, { payload }) => {
         ((state.isPending = false),
@@ -84,19 +129,19 @@ const activeSlice = createSlice({
           (state.isRejected = false));
       },
       fulfilled: (state, { payload }) => {
-        state.isPending = false,
-        state.isFulfilled = true,
-        state.resetSent = true,
-        state.sentTo = payload
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.resetSent = true),
+          (state.sentTo = payload));
       },
       rejected: (state, { payload }) => {
-        state.isPending = false,
-        state.isRejected = true,
-        state.error = payload
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
       },
     });
   },
 });
 
-export const { logout, updateActiveUser } = activeSlice.actions;
+export const { updateActiveUser } = activeSlice.actions;
 export default activeSlice.reducer;

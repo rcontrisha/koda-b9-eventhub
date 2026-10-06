@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import Divider from "@mui/material/Divider";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { useState } from "react";
 
@@ -10,7 +10,7 @@ import { registerUser } from "../../redux/slices/RegisterSlice";
 
 function RegisterForm() {
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.userState);
+  // const { users } = useSelector((state) => state.userState);
   const [isVisible, setIsVisible] = useState(false)
 
   const {
@@ -33,20 +33,20 @@ function RegisterForm() {
       return;
     }
 
-    if (users.some((u) => u.email === form.email)) {
-      setError("email", {
-        type: "manual",
-        message: "Email already exists",
-      });
-      return;
-    }
-    console.log(form);
+    // if (users.some((u) => u.email === form.email)) {
+    //   setError("email", {
+    //     type: "manual",
+    //     message: "Email already exists",
+    //   });
+    //   return;
+    // }
+    // console.log(form);
 
     // eslint-disable-next-line no-unused-vars
     const { confirm, terms, ...userInfo } = form;
 
     const registrationPromise = dispatch(
-      registerUser({ ...userInfo, role: "attendee" }),
+      registerUser({ ...userInfo }),
     ).unwrap();
 
     toast.promise(registrationPromise, {

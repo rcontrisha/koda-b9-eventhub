@@ -24,7 +24,7 @@ function ProfileLayout() {
             {user.photo ? (
               <img src={user.photo} className="w-full h-full rounded-2xl" />
             ) : (
-              user.fullName[0]
+              user.name[0]
             )}
             <div className="bg-[#33B570] w-5 h-5 absolute -bottom-1 -right-1 rounded-full"></div>
           </div>

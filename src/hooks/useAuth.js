@@ -98,8 +98,8 @@ export function useAuth() {
     user?.joined_communities?.includes(communityId) || false;
 
   return {
-    user,
-    role: user?.role ?? null,
+    user: user?.user,
+    role: user?.user.role ?? null,
     editProfile,
     joinEvent,
     saveEvent,

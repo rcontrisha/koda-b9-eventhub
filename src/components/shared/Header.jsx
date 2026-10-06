@@ -28,6 +28,9 @@ function Header() {
   const [profileOpen, setProfileOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // console.log("[Header]-User", user);
+  // console.log("[Header]-Role", role);
+
   return (
     <>
       <header className="px-6 py-3 border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex items-center justify-between">
@@ -163,31 +166,31 @@ function Header() {
                   onClick={() => setProfileOpen((v) => !v)}
                   className="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm"
                 >
-                  {user.photo ? (
+                  {user.avatar_url ? (
                     <img
-                      src={user.photo}
+                      src={user.avatar_url}
                       className="w-8 h-8 rounded-full object-center"
                     />
                   ) : (
-                    user?.fullName[0]
+                    user?.name[0]
                   )}
                 </button>
                 {profileOpen && (
                   <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-neutral-900 border border-[#E4E4E7] dark:border-neutral-800 rounded-lg shadow-lg overflow-hidden">
                     <div className="flex items-center gap-3 px-2 py-3 border-b border-[#E4E4E7] dark:border-neutral-800">
                       <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
-                        {user.photo ? (
+                        {user.avatar_url ? (
                           <img
-                            src={user.photo}
+                            src={user.avatar_url}
                             className="w-10 h-10 rounded-full object-center"
                           />
                         ) : (
-                          user?.fullName[0]
+                          user?.name[0]
                         )}
                       </div>
                       <div>
                         <p className="font-inter font-semibold text-sm text-neutral-900 dark:text-neutral-100">
-                          {user?.fullName}
+                          {user?.name}
                         </p>
                         <p className="font-inter text-xs text-secondary dark:text-neutral-400">
                           {user?.email}
@@ -250,18 +253,18 @@ function Header() {
                 {role !== null && (
                   <div className="flex items-center gap-3 px-4 py-3 border-b border-[#E4E4E7]">
                     <div className="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-semibold text-sm shrink-0">
-                      {user.photo ? (
+                      {user.avatar_url ? (
                         <img
-                          src={user.photo}
+                          src={user.avatar_url}
                           className="w-10 h-10 rounded-full object-center"
                         />
                       ) : (
-                        user?.fullName[0]
+                        user?.name
                       )}
                     </div>
                     <div>
                       <p className="font-inter font-semibold text-sm">
-                        {user?.fullName}
+                        {user?.name}
                       </p>
                       <p className="font-inter text-xs text-secondary">
                         {user?.email}

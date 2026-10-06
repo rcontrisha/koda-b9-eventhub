@@ -7,7 +7,7 @@ import EventCard from "../components/events/EventCard";
 import CommunityCard from "../components/communities/CommunityCard";
 import TestiCard from "../components/static/TestiCard";
 
-import events from "../data/events.json";
+// import events from "../data/events.json";
 import communities from "../data/communities.json";
 import Banner from "../components/static/Banner";
 import { useAuth } from "../hooks/useAuth";
@@ -19,9 +19,9 @@ function Explore() {
     user?.joined_communities?.includes(c.id),
   );
 
-  const recommendedEvent = events.filter(
-    (e) => e.community_id === joined_communities[0]?.id,
-  );
+  // const recommendedEvent = events.filter(
+  //   (e) => e.community_id === joined_communities[0]?.id,
+  // );
 
   return (
     <>

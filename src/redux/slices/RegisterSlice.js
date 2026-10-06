@@ -19,11 +19,22 @@ export const registerUser = createAsyncThunk(
   "register",
   async (payload, { rejectWithValue }) => {
     try {
-      const data = await new Promise((resolve) => {
-        setTimeout(() => {
-          resolve(payload);
-        }, 2000);
+      console.log(payload);
+      const response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        body: JSON.stringify({
+          "name": payload.fullName,
+          "email": payload.email,
+          "password": payload.password,
+        }),
       });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = response.json();
+      console.log("[Register]-Response: ", data);
       return data;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to create account.");
