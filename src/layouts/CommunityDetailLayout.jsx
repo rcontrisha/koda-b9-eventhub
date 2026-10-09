@@ -1,25 +1,37 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, NavLink, Outlet, useParams } from "react-router";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoCheckmark } from "react-icons/io5";
-import slugify from "slugify";
+// import slugify from "slugify";
 
 import { useAuth } from "../hooks/useAuth";
 import AuthPromptModal from "../components/shared/AuthPromptModal";
-import communities from "../data/communities.json";
 
 function CommunityDetailLayout() {
-  const { slug } = useParams();
-  const community = communities.find(
-    (c) => slugify(c.name, { lower: true }) === slug,
-  );
+  const [community, setCommunity] = useState({});
+  const { id } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/communities/${id}`);
+        const data = await response.json();
+        console.log(data);
+        setCommunity(data.data.community);
+        return data;
+      } catch (error) {
+        console.log(error);
+        return "Failed to fetch event's detail.";
+      }
+    })();
+  }, [id]);
 
   const { role, joinCommunity, hasJoinedCommunity } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
 
-  if (!community) return null;
+  // if (!community) return null;
 
-  const joined = hasJoinedCommunity(community.id);
+  const joined = hasJoinedCommunity(community?.id);
 
   return (
     <main>
@@ -35,20 +47,22 @@ function CommunityDetailLayout() {
         </Link>
       </div>
       <section
-        style={{ backgroundImage: `url(${community.banner_url}&w=800&auto=format)` }}
+        style={{
+          backgroundImage: `url(${community?.banner_url?.startsWith("https") ? community?.banner_url + "&w=400&auto=format" : community?.banner_url})`,
+        }}
         className="relative h-69 w-full bg-cover bg-center bg-no-repeat pb-5"
       >
         <div className="flex px-4 flex-col gap-3 lg:flex-row lg:justify-between lg:items-end pb-6 absolute bottom-0 left-0 right-0 lg:px-29">
           <div>
             <p className="font-jakarta font-bold text-3xl text-white">
-              {community.name}
+              {community?.name}
             </p>
             <div className="flex gap-3 pt-1 pl-4.5">
               <p className="font-inter font-normal text-sm text-[#FFFFFFCC]">
-                {community.member_count} members
+                {community?.member_count} members
               </p>
               <p className="font-inter font-normal text-sm text-[#FFFFFFCC]">
-                {community.upcoming_events_count} upcoming events
+                {community?.upcoming_events_count} upcoming events
               </p>
             </div>
           </div>
@@ -61,8 +75,8 @@ function CommunityDetailLayout() {
             ) : (
               <button
                 onClick={() =>
-                  role === 'attendee'
-                    ? joinCommunity(community.id)
+                  role === "attendee"
+                    ? joinCommunity(community?.id)
                     : setShowPrompt(true)
                 }
                 className="w-fit rounded-lg px-4 py-2 bg-primary text-white cursor-pointer"
@@ -76,10 +90,10 @@ function CommunityDetailLayout() {
       <section className="py-2 max-w-6xl mx-auto px-4">
         <div className="w-full rounded-xl border border-[#E4E4E7] p-5">
           <p className="font-inter font-normal text-sm text-secondary">
-            {community.description}
+            {community?.description}
           </p>
           <div className="flex gap-2 pt-3">
-            {community["tags"].map((tag, index) => {
+            {community?.tags?.map((tag, index) => {
               return (
                 <div
                   key={index}
@@ -94,7 +108,7 @@ function CommunityDetailLayout() {
         <div className="pt-6">
           <nav className="border-b border-b-[#E4E4E7] flex gap-1">
             <NavLink
-              to={`/communities/${slug}`}
+              to={`/communities/${id}`}
               end
               className={({ isActive }) =>
                 isActive
@@ -105,7 +119,7 @@ function CommunityDetailLayout() {
               Events
             </NavLink>
             <NavLink
-              to={`/communities/${slug}/members`}
+              to={`/communities/${id}/members`}
               className={({ isActive }) =>
                 isActive
                   ? "tab-active"
@@ -115,7 +129,7 @@ function CommunityDetailLayout() {
               Members
             </NavLink>
             <NavLink
-              to={`/communities/${slug}/discussion`}
+              to={`/communities/${id}/discussion`}
               className={({ isActive }) =>
                 isActive
                   ? "tab-active"

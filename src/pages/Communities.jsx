@@ -15,8 +15,10 @@ function Communities() {
     (state) => state.communitiesState,
   );
 
+  const url = "http://localhost:8080/communities"
+
   useEffect(() => {
-    dispatch(getCommunities());
+    dispatch(getCommunities(url));
   }, [dispatch]);
 
   const query = searchParams.get("q") || "";

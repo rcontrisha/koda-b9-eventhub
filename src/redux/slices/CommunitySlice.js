@@ -13,7 +13,7 @@ export const getCommunities = createAsyncThunk(
   async (url, { rejectWithValue }) => {
     try {
       const response = await fetch(url)
-      const data = response.json()
+      const data = await response.json()
 
       console.log("[Response]-Popular Communities", data);
       return data;

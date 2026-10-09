@@ -31,19 +31,38 @@ export function useAuth() {
   // const { users } = useSelector((state) => state.userState);
   const { active: user } = useSelector((state) => state.activeState);
 
-  const joinEvent = (eventId) => {
+  const joinEvent = async (eventId) => {
     console.log(eventId);
-    const updated = {
-      ...user,
-      joined_events: user.joined_events?.includes(eventId)
-        ? user.joined_events
-        : [...(user.joined_events ?? []), eventId],
-    };
-    console.log(updated);
-    if (updated) {
-      dispatch(updateActiveUser(updated));
-      dispatch(updateUser(updated));
+    const url = `http://localhost:8080/events/${eventId}/toggle-join`;
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Join Event]-Response: ", data);
+      return data;
+    } catch (error) {
+      error.message
     }
+    // const updated = {
+    //   ...user,
+    //   joined_events: user.joined_events?.includes(eventId)
+    //     ? user.joined_events
+    //     : [...(user.joined_events ?? []), eventId],
+    // };
+    // console.log(updated);
+    // if (updated) {
+    //   dispatch(updateActiveUser(updated));
+    //   dispatch(updateUser(updated));
+    // }
   };
 
   const saveEvent = (eventId) => {
@@ -83,7 +102,7 @@ export function useAuth() {
     if (updated) {
       console.log("isi updated", updated);
       if (!Object.hasOwn(payload, "password")) {
-        console.log('tes');
+        console.log("tes");
         dispatch(updateActiveUser(updated));
       }
       dispatch(updateUser(updated));
@@ -91,11 +110,11 @@ export function useAuth() {
   };
 
   const hasJoinedEvent = (eventId) =>
-    user?.joined_events?.includes(eventId) || false;
+    user?.user?.joined_events?.includes(eventId) || false;
   const hasSavedEvent = (eventId) =>
-    user?.saved_events?.includes(eventId) || false;
+    user?.user?.saved_events?.includes(eventId) || false;
   const hasJoinedCommunity = (communityId) =>
-    user?.joined_communities?.includes(communityId) || false;
+    user?.user?.joined_communities?.includes(communityId) || false;
 
   return {
     user: user?.user,

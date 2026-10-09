@@ -59,7 +59,7 @@ export default function App() {
           </Route>
           <Route path="communities">
             <Route index element={<Communities />} />
-            <Route path=":slug" element={<CommunityDetailLayout />}>
+            <Route path=":id" element={<CommunityDetailLayout />}>
               <Route index element={<CommunityEvents />} />
               <Route path="members" element={<CommunityMember />} />
               <Route path="discussion" element={<CommunityDiscussion />} />

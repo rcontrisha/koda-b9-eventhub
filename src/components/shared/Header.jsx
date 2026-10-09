@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, Link } from "react-router";
 import {
   MdOutlineDarkMode,
@@ -17,7 +17,7 @@ import {
 import { useDispatch } from "react-redux";
 
 import { useAuth } from "../../hooks/useAuth";
-import { logout } from "../../redux/slices/LoginSlice";
+import { getUserInfo, logout } from "../../redux/slices/LoginSlice";
 import { RxDashboard } from "react-icons/rx";
 import { useTheme } from "../../hooks/useTheme";
 
@@ -31,6 +31,10 @@ function Header() {
   // console.log("[Header]-User", user);
   // console.log("[Header]-Role", role);
 
+  useEffect(() => {
+    dispatch(getUserInfo())
+  }, [dispatch])
+  
   return (
     <>
       <header className="px-6 py-3 border-b border-b-[#E4E4E7] dark:border-b-neutral-800 flex items-center justify-between">

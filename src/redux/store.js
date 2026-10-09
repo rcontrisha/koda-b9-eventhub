@@ -33,13 +33,13 @@ const persistActiveConfig = {
 const persistEventConfig = {
   key: "event",
   storage,
-  whitelist: ["events"],
+  whitelist: [],
 };
 
 const persistCommunitiesConfig = {
   key: "communities",
   storage,
-  whitelist: ["communities"]
+  whitelist: []
 }
 
 const store = configureStore({

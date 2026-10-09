@@ -35,6 +35,32 @@ export const loginUser = createAsyncThunk(
   },
 );
 
+export const getUserInfo = createAsyncThunk(
+  "user_info",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active.token;
+
+      const response = await fetch("http://localhost:8080/user/info", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[User Info]-Response: ", data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to Get User Info");
+    }
+  },
+);
+
 export const logout = createAsyncThunk(
   "logout",
   async (_, { getState, rejectWithValue }) => {
@@ -44,8 +70,8 @@ export const logout = createAsyncThunk(
       const response = await fetch("http://localhost:8080/auth/logout", {
         method: "POST",
         headers: {
-          "Authorization": `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       if (!response.ok) {
@@ -121,6 +147,24 @@ const activeSlice = createSlice({
           (state.error = payload));
       },
     });
+
+    builder.addAsyncThunk(getUserInfo, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false));
+      },
+      fulfilled: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.active.user = payload.data.user));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    })
 
     builder.addAsyncThunk(sendResetLink, {
       pending: (state) => {
