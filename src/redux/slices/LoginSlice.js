@@ -61,6 +61,34 @@ export const getUserInfo = createAsyncThunk(
   },
 );
 
+export const myEvents = createAsyncThunk(
+  "my_events",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active.token;
+
+      const response = await fetch("http://localhost:8080/events/my-events", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[My Events]-Response: ", data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.message || "Failed to Retrieve User's Events",
+      );
+    }
+  },
+);
+
 export const logout = createAsyncThunk(
   "logout",
   async (_, { getState, rejectWithValue }) => {
@@ -164,7 +192,28 @@ const activeSlice = createSlice({
           (state.isRejected = true),
           (state.error = payload));
       },
-    })
+    });
+
+    builder.addAsyncThunk(myEvents, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false));
+      },
+      fulfilled: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.active.user = {
+            ...state.active.user,
+            joined_events: payload.data.events.map((e) => e.id),
+          }));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
 
     builder.addAsyncThunk(sendResetLink, {
       pending: (state) => {
