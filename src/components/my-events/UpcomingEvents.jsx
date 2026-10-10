@@ -1,12 +1,11 @@
 import EventCard from "../events/EventCard";
 import { useAuth } from "../../hooks/useAuth";
-import events from "../../data/events.json";
 
 function UpcomingEvents() {
   const { user } = useAuth();
   const now = new Date();
-  const upcoming = events.filter(
-    (e) => user?.joined_events?.includes(e.id) && new Date(e.date) >= now,
+  const upcoming = user.joined_events.filter(
+    (e) => new Date(e.start_time) >= now,
   );
 
   if (upcoming.length === 0) {

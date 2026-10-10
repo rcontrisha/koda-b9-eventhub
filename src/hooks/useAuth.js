@@ -50,7 +50,7 @@ export function useAuth() {
       console.log("[Join Event]-Response: ", data);
       return data;
     } catch (error) {
-      error.message
+      error.message;
     }
     // const updated = {
     //   ...user,
@@ -110,7 +110,7 @@ export function useAuth() {
   };
 
   const hasJoinedEvent = (eventId) =>
-    user?.user?.joined_events?.includes(eventId) || false;
+    user?.user?.joined_events?.map((e) => e.id).includes(eventId) || false;
   const hasSavedEvent = (eventId) =>
     user?.user?.saved_events?.includes(eventId) || false;
   const hasJoinedCommunity = (communityId) =>

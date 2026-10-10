@@ -1,12 +1,11 @@
 import EventCard from "../events/EventCard";
 import { useAuth } from "../../hooks/useAuth";
-import events from "../../data/events.json";
 
 function PastEvents() {
   const { user } = useAuth();
   const now = new Date();
-  const past = events.filter(
-    (e) => user?.joined_events?.includes(e.id) && new Date(e.date) < now,
+  const past = user.joined_events.filter(
+    (e) => new Date(e.end_time) < now,
   );
 
   if (past.length === 0) {

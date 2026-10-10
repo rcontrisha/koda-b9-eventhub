@@ -205,7 +205,7 @@ const activeSlice = createSlice({
           (state.isFulfilled = true),
           (state.active.user = {
             ...state.active.user,
-            joined_events: payload.data.events.map((e) => e.id),
+            joined_events: payload.data.events,
           }));
       },
       rejected: (state, { payload }) => {
