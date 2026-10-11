@@ -89,6 +89,62 @@ export const myEvents = createAsyncThunk(
   },
 );
 
+export const savedEvents = createAsyncThunk(
+  "saved_events",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active.token;
+
+      const response = await fetch("http://localhost:8080/events/saved-events", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Saved Events]-Response: ", data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.message || "Failed to Retrieve User's Events",
+      );
+    }
+  },
+);
+
+export const myCommunities = createAsyncThunk(
+  "my_communities",
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active.token;
+
+      const response = await fetch("http://localhost:8080/communities/my-communities", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[My Communities]-Response: ", data);
+      return data;
+    } catch (error) {
+      return rejectWithValue(
+        error.message || "Failed to Retrieve User's Events",
+      );
+    }
+  },
+);
+
 export const logout = createAsyncThunk(
   "logout",
   async (_, { getState, rejectWithValue }) => {
@@ -206,6 +262,48 @@ const activeSlice = createSlice({
           (state.active.user = {
             ...state.active.user,
             joined_events: payload.data.events,
+          }));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
+
+    builder.addAsyncThunk(savedEvents, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false));
+      },
+      fulfilled: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.active.user = {
+            ...state.active.user,
+            saved_events: payload.data.events,
+          }));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
+
+    builder.addAsyncThunk(myCommunities, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false));
+      },
+      fulfilled: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isFulfilled = true),
+          (state.active.user = {
+            ...state.active.user,
+            joined_communities: payload.data.communities,
           }));
       },
       rejected: (state, { payload }) => {

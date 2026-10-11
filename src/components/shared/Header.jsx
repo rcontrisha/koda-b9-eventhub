@@ -17,7 +17,7 @@ import {
 import { useDispatch } from "react-redux";
 
 import { useAuth } from "../../hooks/useAuth";
-import { getUserInfo, logout, myEvents } from "../../redux/slices/LoginSlice";
+import { getUserInfo, logout, myCommunities, myEvents, savedEvents } from "../../redux/slices/LoginSlice";
 import { RxDashboard } from "react-icons/rx";
 import { useTheme } from "../../hooks/useTheme";
 
@@ -34,6 +34,8 @@ function Header() {
   useEffect(() => {
     dispatch(getUserInfo())
     dispatch(myEvents());
+    dispatch(savedEvents())
+    dispatch(myCommunities())
   }, [dispatch])
   
   return (

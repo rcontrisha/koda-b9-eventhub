@@ -1,10 +1,10 @@
 import EventCard from "../events/EventCard";
 import { useAuth } from "../../hooks/useAuth";
-import events from "../../data/events.json";
+// import events from "../../data/events.json";
 
 function SavedEvents() {
   const { user } = useAuth();
-  const saved = events.filter((e) => user?.saved_events?.includes(e.id));
+  const saved = user.saved_events;
 
   if (saved.length === 0) {
     return (

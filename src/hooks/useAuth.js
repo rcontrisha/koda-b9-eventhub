@@ -112,9 +112,10 @@ export function useAuth() {
   const hasJoinedEvent = (eventId) =>
     user?.user?.joined_events?.map((e) => e.id).includes(eventId) || false;
   const hasSavedEvent = (eventId) =>
-    user?.user?.saved_events?.includes(eventId) || false;
+    user?.user?.saved_events?.map((e) => e.id).includes(eventId) || false;
   const hasJoinedCommunity = (communityId) =>
-    user?.user?.joined_communities?.includes(communityId) || false;
+    user?.user?.joined_communities?.map((c) => c.id).includes(communityId) ||
+    false;
 
   return {
     user: user?.user,
