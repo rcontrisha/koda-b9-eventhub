@@ -241,7 +241,7 @@ const activeSlice = createSlice({
       fulfilled: (state, { payload }) => {
         ((state.isPending = false),
           (state.isFulfilled = true),
-          (state.active.user = payload.data.user));
+          (state.active.user = { ...state.active.user, ...payload.data.user }));
       },
       rejected: (state, { payload }) => {
         ((state.isPending = false),

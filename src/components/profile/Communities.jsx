@@ -1,12 +1,9 @@
 import { useAuth } from "../../hooks/useAuth";
 import CommunityCard from "../communities/CommunityCard";
-import communities from '../../data/communities.json'
 
 function Communities() {
   const { user } = useAuth();
-  const joined_communities = communities.filter((c) =>
-    user?.joined_communities?.includes(c.id),
-  );
+  const joined_communities = user?.joined_communities
   
   if (joined_communities.length === 0) {
     return (
