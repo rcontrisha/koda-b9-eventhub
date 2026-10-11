@@ -20,7 +20,7 @@ export const registerUser = createAsyncThunk(
   async (payload, { rejectWithValue }) => {
     try {
       console.log(payload);
-      const response = await fetch("http://localhost:8080/auth/register", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/register`, {
         method: "POST",
         body: JSON.stringify({
           "name": payload.fullName,

@@ -9,7 +9,7 @@ function CommunityMember() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`http://localhost:8080/communities/${id}/members`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/communities/${id}/members`);
         const data = await response.json();
         console.log(data);
         setCommunityMembers(data.data.members);

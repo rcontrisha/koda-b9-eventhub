@@ -35,7 +35,7 @@ function Event() {
     params.set("page", nextPage);
     params.set("limit", limit);
 
-    dispatch(getEvents(`http://localhost:8080/events?${params.toString()}`));
+    dispatch(getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`));
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ function Event() {
       params.set("page", pageNum);
       params.set("limit", limit);
 
-      return `http://localhost:8080/events?${params.toString()}`;
+      return `${import.meta.env.VITE_API_URL}/events?${params.toString()}`;
     };
 
     dispatch(getEvents(buildUrl(1)));

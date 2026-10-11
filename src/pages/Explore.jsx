@@ -22,13 +22,13 @@ function Explore() {
   const { events } = useSelector((state) => state.eventState);
   const { communities } = useSelector((state) => state.communitiesState);
 
-  const eventUrl = "http://localhost:8080/events/upcoming";
-  const communitiesUrl = "http://localhost:8080/communities/popular";
+  const eventUrl = `${import.meta.env.VITE_API_URL}/events/upcoming`;
+  const communitiesUrl = `${import.meta.env.VITE_API_URL}/communities/popular`;
   
   useEffect(() => {
     dispatch(getEvents(eventUrl));
     dispatch(getCommunities(communitiesUrl))
-  }, [dispatch]);
+  }, [communitiesUrl, dispatch, eventUrl]);
 
   const joined_communities = communities?.filter((c) =>
     user?.joined_communities?.includes(c.id),

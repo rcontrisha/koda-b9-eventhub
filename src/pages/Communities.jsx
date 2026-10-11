@@ -15,11 +15,11 @@ function Communities() {
     (state) => state.communitiesState,
   );
 
-  const url = "http://localhost:8080/communities"
+  const url = `${import.meta.env.VITE_API_URL}/communities`
 
   useEffect(() => {
     dispatch(getCommunities(url));
-  }, [dispatch]);
+  }, [dispatch, url]);
 
   const query = searchParams.get("q") || "";
   const status = searchParams.get("status") || "All";

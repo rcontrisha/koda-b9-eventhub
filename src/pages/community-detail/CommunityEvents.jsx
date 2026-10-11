@@ -12,7 +12,7 @@ function CommunityEvents() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`http://localhost:8080/communities/${id}/upcoming-events`);
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/communities/${id}/upcoming-events`);
         const data = await response.json();
         console.log(data);
         setCommunityEvents(data.data.events);

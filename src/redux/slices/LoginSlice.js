@@ -14,7 +14,7 @@ export const loginUser = createAsyncThunk(
   "login",
   async (payload, { rejectWithValue }) => {
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
         method: "POST",
         body: JSON.stringify({
           email: payload.email,
@@ -41,7 +41,7 @@ export const getUserInfo = createAsyncThunk(
     try {
       const token = getState().activeState.active.token;
 
-      const response = await fetch("http://localhost:8080/user/info", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/user/info`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -67,7 +67,7 @@ export const myEvents = createAsyncThunk(
     try {
       const token = getState().activeState.active.token;
 
-      const response = await fetch("http://localhost:8080/events/my-events", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/events/my-events`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export const savedEvents = createAsyncThunk(
       const token = getState().activeState.active.token;
 
       const response = await fetch(
-        "http://localhost:8080/events/saved-events",
+        `${import.meta.env.VITE_API_URL}/events/saved-events`,
         {
           method: "GET",
           headers: {
@@ -127,7 +127,7 @@ export const myCommunities = createAsyncThunk(
       const token = getState().activeState.active.token;
 
       const response = await fetch(
-        "http://localhost:8080/communities/my-communities",
+        `${import.meta.env.VITE_API_URL}/communities/my-communities`,
         {
           method: "GET",
           headers: {
@@ -157,7 +157,7 @@ export const toggleJoinEvent = createAsyncThunk(
     try {
       const token = getState().activeState.active?.token;
       const response = await fetch(
-        `http://localhost:8080/events/${payload}/toggle-join`,
+        `${import.meta.env.VITE_API_URL}/events/${payload}/toggle-join`,
         { method: "POST", headers: { Authorization: `Bearer ${token}` } },
       );
 
@@ -181,7 +181,7 @@ export const toggleJoinCommunity = createAsyncThunk(
     try {
       const token = getState().activeState.active?.token;
       const response = await fetch(
-        `http://localhost:8080/communities/${payload}/toggle-join`,
+        `${import.meta.env.VITE_API_URL}/communities/${payload}/toggle-join`,
         { method: "POST", headers: { Authorization: `Bearer ${token}` } },
       );
 
@@ -205,7 +205,7 @@ export const logout = createAsyncThunk(
     try {
       const token = getState().activeState.active.token;
 
-      const response = await fetch("http://localhost:8080/auth/logout", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/logout`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
