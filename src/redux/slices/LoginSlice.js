@@ -95,12 +95,15 @@ export const savedEvents = createAsyncThunk(
     try {
       const token = getState().activeState.active.token;
 
-      const response = await fetch("http://localhost:8080/events/saved-events", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        "http://localhost:8080/events/saved-events",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -123,12 +126,15 @@ export const myCommunities = createAsyncThunk(
     try {
       const token = getState().activeState.active.token;
 
-      const response = await fetch("http://localhost:8080/communities/my-communities", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
+      const response = await fetch(
+        "http://localhost:8080/communities/my-communities",
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         },
-      });
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -141,6 +147,54 @@ export const myCommunities = createAsyncThunk(
       return rejectWithValue(
         error.message || "Failed to Retrieve User's Events",
       );
+    }
+  },
+);
+
+export const toggleJoinEvent = createAsyncThunk(
+  "toggle_join_event",
+  async (payload, { getState, dispatch, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active?.token;
+      const response = await fetch(
+        `http://localhost:8080/events/${payload}/toggle-join`,
+        { method: "POST", headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Toggle Join Event]-Response: ", data);
+      await dispatch(myEvents());
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to join/leave event");
+    }
+  },
+);
+
+export const toggleJoinCommunity = createAsyncThunk(
+  "toggle_join_community",
+  async (payload, { getState, dispatch, rejectWithValue }) => {
+    try {
+      const token = getState().activeState.active?.token;
+      const response = await fetch(
+        `http://localhost:8080/communities/${payload}/toggle-join`,
+        { method: "POST", headers: { Authorization: `Bearer ${token}` } },
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("[Toggle Join Community]-Response: ", data);
+      await dispatch(myCommunities());
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message || "Failed to join/leave community");
     }
   },
 );
@@ -242,6 +296,40 @@ const activeSlice = createSlice({
         ((state.isPending = false),
           (state.isFulfilled = true),
           (state.active.user = { ...state.active.user, ...payload.data.user }));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
+
+    builder.addAsyncThunk(toggleJoinEvent, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false),
+          (state.error = null));
+      },
+      fulfilled: (state) => {
+        ((state.isPending = false), (state.isFulfilled = true));
+      },
+      rejected: (state, { payload }) => {
+        ((state.isPending = false),
+          (state.isRejected = true),
+          (state.error = payload));
+      },
+    });
+
+    builder.addAsyncThunk(toggleJoinCommunity, {
+      pending: (state) => {
+        ((state.isPending = true),
+          (state.isFulfilled = false),
+          (state.isRejected = false),
+          (state.error = null));
+      },
+      fulfilled: (state) => {
+        ((state.isPending = false), (state.isFulfilled = true));
       },
       rejected: (state, { payload }) => {
         ((state.isPending = false),

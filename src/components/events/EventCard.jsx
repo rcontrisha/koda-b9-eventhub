@@ -22,14 +22,27 @@ function EventCard({ events }) {
   const { role, joinEvent, hasJoinedEvent, saveEvent, hasSavedEvent } =
     useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
+  const [joining, setJoining] = useState(false);
 
   const joined = hasJoinedEvent(events.id);
-  const ended = new Date(events.start_time) < now;
+  const ended = new Date(events.end_time) < now;
   const saved = hasSavedEvent(events.id);
 
-  const handleJoin = () => {
-    joinEvent(events.id);
-    toast.success("Success Joining Event");
+  const handleToggleJoin = async () => {
+    if (role !== "attendee") {
+      setShowPrompt(true);
+      return;
+    }
+
+    setJoining(true);
+    try {
+      const res = await joinEvent(events.id);
+      toast.success(res?.message || "Success");
+    } catch (err) {
+      toast.error(typeof err === "string" ? err : "Something went wrong");
+    } finally {
+      setJoining(false);
+    }
   };
 
   const handleSave = () => {
@@ -62,10 +75,6 @@ function EventCard({ events }) {
           <p className="font-jakarta font-semibold text-base text-gray-900 dark:text-neutral-100 line-clamp-2">
             {events.title}
           </p>
-
-          {/* <p className="font-inter font-normal text-xs text-secondary line-clamp-2">
-                  {events.overview}
-                </p> */}
 
           <div className="flex flex-col gap-1.5">
             <div className="flex gap-2 items-center">
@@ -108,33 +117,45 @@ function EventCard({ events }) {
           </div>
 
           <div className="flex gap-2 items-center">
-            {isFull ? (
-              <div className="grow text-center bg-neutral-300 dark:bg-neutral-800 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
-                Full
-              </div>
-            ) : ended ? (
+            {ended ? (
               <div className="grow text-center bg-neutral-300 dark:bg-neutral-800 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
                 Event has ended
               </div>
             ) : joined ? (
-              <div className="grow flex items-center justify-center gap-1.5 bg-[#33B570] dark:bg-neutral-800 text-white rounded-lg py-2 px-3 font-inter font-medium text-sm">
-                <IoCheckmark />
-                Registered
+              <button
+                onClick={handleToggleJoin}
+                disabled={joining}
+                className="group grow flex items-center justify-center gap-1.5 bg-[#33B570] hover:bg-red-500 dark:bg-neutral-800 text-white rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-pointer transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {joining ? (
+                  "..."
+                ) : (
+                  <>
+                    <span className="flex items-center gap-1.5 group-hover:hidden">
+                      <IoCheckmark />
+                      Registered
+                    </span>
+                    <span className="hidden group-hover:inline">
+                      Leave Event
+                    </span>
+                  </>
+                )}
+              </button>
+            ) : isFull ? (
+              <div className="grow text-center bg-neutral-300 dark:bg-neutral-800 text-neutral-500 rounded-lg py-2 px-3 font-inter font-medium text-sm cursor-not-allowed">
+                Full
               </div>
             ) : (
-              <div
-                onClick={() => {
-                  role === "attendee" ? handleJoin() : setShowPrompt(true);
-                }}
-                className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer"
+              <button
+                onClick={handleToggleJoin}
+                disabled={joining}
+                className="grow text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white py-2 px-3 font-inter font-medium text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
               >
-                Join Event
-              </div>
+                {joining ? "..." : "Join Event"}
+              </button>
             )}
             <button
-              onClick={() => {
-                role === "attendee" ? handleSave() : setShowPrompt(true);
-              }}
+              onClick={handleSave}
               className="dark:border-neutral-800 border-2 border-[#E4E4E7] p-2.5 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-800 transition-colors flex items-center justify-center"
             >
               {saved ? (

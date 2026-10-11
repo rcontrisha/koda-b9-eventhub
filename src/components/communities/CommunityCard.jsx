@@ -12,12 +12,25 @@ import { toast } from "sonner";
 function CommunityCard({ community }) {
   const { role, joinCommunity, hasJoinedCommunity } = useAuth();
   const [showPrompt, setShowPrompt] = useState(false);
+  const [joining, setJoining] = useState(false);
 
   const joined = hasJoinedCommunity(community.id);
 
-  const handleJoin = () => {
-    joinCommunity(community.id);
-    toast.success("Success Joining Community.");
+  const handleToggleJoin = async () => {
+    if (role !== "attendee") {
+      setShowPrompt(true);
+      return;
+    }
+
+    setJoining(true);
+    try {
+      const res = await joinCommunity(community.id);
+      toast.success(res?.message || "Success");
+    } catch (err) {
+      toast.error(typeof err === "string" ? err : "Something went wrong");
+    } finally {
+      setJoining(false);
+    }
   };
 
   return (
@@ -74,18 +87,32 @@ function CommunityCard({ community }) {
           </div>
 
           {joined ? (
-            <div className="w-full flex items-center justify-center gap-1.5 bg-[#33B570] text-white rounded-lg font-medium py-2 px-3 text-sm">
-              <IoCheckmark />
-              Registered
-            </div>
+            <button
+              onClick={handleToggleJoin}
+              disabled={joining}
+              className="group w-full flex items-center justify-center gap-1.5 bg-[#33B570] hover:bg-red-500 text-white rounded-lg font-medium py-2 px-3 text-sm cursor-pointer transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              {joining ? (
+                "..."
+              ) : (
+                <>
+                  <span className="flex items-center gap-1.5 group-hover:hidden">
+                    <IoCheckmark />
+                    Registered
+                  </span>
+                  <span className="hidden group-hover:inline">
+                    Leave Community
+                  </span>
+                </>
+              )}
+            </button>
           ) : (
             <button
-              onClick={() => {
-                role === "attendee" ? handleJoin() : setShowPrompt(true);
-              }}
-              className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer"
+              onClick={handleToggleJoin}
+              disabled={joining}
+              className="w-full text-center bg-primary hover:opacity-95 transition-opacity rounded-lg text-white font-medium py-2 px-3 text-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
             >
-              Join Community
+              {joining ? "..." : "Join Community"}
             </button>
           )}
         </div>

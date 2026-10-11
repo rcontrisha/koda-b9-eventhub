@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateActiveUser } from "../redux/slices/LoginSlice";
+import { toggleJoinCommunity, toggleJoinEvent, updateActiveUser } from "../redux/slices/LoginSlice";
 import { updateUser } from "../redux/slices/RegisterSlice";
 
 // function readUsers() {
@@ -33,36 +33,7 @@ export function useAuth() {
 
   const joinEvent = async (eventId) => {
     console.log(eventId);
-    const url = `http://localhost:8080/events/${eventId}/toggle-join`;
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log("[Join Event]-Response: ", data);
-      return data;
-    } catch (error) {
-      error.message;
-    }
-    // const updated = {
-    //   ...user,
-    //   joined_events: user.joined_events?.includes(eventId)
-    //     ? user.joined_events
-    //     : [...(user.joined_events ?? []), eventId],
-    // };
-    // console.log(updated);
-    // if (updated) {
-    //   dispatch(updateActiveUser(updated));
-    //   dispatch(updateUser(updated));
-    // }
+    dispatch(toggleJoinEvent(eventId)).unwrap();
   };
 
   const saveEvent = (eventId) => {
@@ -80,16 +51,8 @@ export function useAuth() {
   };
 
   const joinCommunity = (communityId) => {
-    const updated = {
-      ...user,
-      joined_communities: user.joined_communities?.includes(communityId)
-        ? user.joined_communities
-        : [...(user.joined_communities ?? []), communityId],
-    };
-    if (updated) {
-      dispatch(updateActiveUser(updated));
-      dispatch(updateUser(updated));
-    }
+    console.log(communityId);
+    dispatch(toggleJoinCommunity(communityId)).unwrap();
   };
 
   const editProfile = (payload) => {
