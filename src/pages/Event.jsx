@@ -39,18 +39,17 @@ function Event() {
   };
 
   useEffect(() => {
-    const buildUrl = (pageNum) => {
-      const params = new URLSearchParams();
-      if (query) params.set("search", query);
-      if (tag) params.set("tag", tag);
-      if (loc) params.set("location", loc);
-      params.set("page", pageNum);
-      params.set("limit", limit);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPage(1);
 
-      return `${import.meta.env.VITE_API_URL}/events?${params.toString()}`;
-    };
+    const params = new URLSearchParams();
+    if (query) params.set("search", query);
+    if (tag) params.set("tag", tag);
+    if (loc) params.set("location", loc);
+    params.set("page", 1);
+    params.set("limit", limit);
 
-    dispatch(getEvents(buildUrl(1)));
+    dispatch(getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`));
   }, [query, tag, loc, limit, dispatch]);
 
   return (
@@ -92,7 +91,7 @@ function Event() {
         {(!isPending || page > 1) && !isRejected && (
           <>
             <p className="font-inter font-semibold text-sm text-secondary">
-              {total || events.length}{" "}
+              {total}{" "}
               <span className="font-inter font-normal text-sm text-secondary">
                 events found
               </span>

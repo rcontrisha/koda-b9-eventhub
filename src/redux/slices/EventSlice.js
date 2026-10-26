@@ -27,7 +27,7 @@ export const getEvents = createAsyncThunk(
   async (url, { rejectWithValue }) => {
     try {
       const response = await fetch(url);
-      const data = response.json();
+      const data = await response.json();
 
       console.log("[Response]-Fetch Events", data);
       return data;
