@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   MdOutlineEvent,
   MdOutlinePeople,
@@ -7,7 +8,7 @@ import {
 } from "react-icons/md";
 import { FaArrowTrendUp, FaPlus } from "react-icons/fa6";
 import { Bar } from "react-chartjs-2";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import {
   Chart as ChartJS,
@@ -19,9 +20,8 @@ import {
   Legend,
 } from "chart.js";
 
-// import events from "../../data/events.json";
 import { formatEventDate, getProgressColor } from "../../utils/event";
-// import communities from "../../data/communities.json";
+import { getOrganizerDashboard } from "../../redux/slices/OrganizerSlice";
 
 ChartJS.register(
   CategoryScale,
@@ -29,20 +29,35 @@ ChartJS.register(
   BarElement,
   Title,
   Tooltip,
-  Legend,
+  Legend
 );
 
 function Dashboard() {
-  const { events: communityEvents } = useSelector((state) => state.eventState);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const communityEvents = events.filter((e) => e.community_id === "c5");
 
-  const chartData = {
-    labels: ["Nov", "Dec", "Jan", "Feb", "Mar", "Apr"],
+  const {
+    stats,
+    chartData,
+    yourEvents,
+    upcomingEvents,
+    isPending,
+    isRejected,
+    error,
+  } = useSelector((state) => state.organizerState);
+
+  useEffect(() => {
+    dispatch(
+      getOrganizerDashboard(`${import.meta.env.VITE_API_URL}/organizer/dashboard`)
+    );
+  }, [dispatch]);
+
+  const chartConfig = {
+    labels: chartData.map((item) => item.month),
     datasets: [
       {
         label: "Registrations",
-        data: [12, 19, 15, 30, 25, 42],
+        data: chartData.map((item) => item.total),
         backgroundColor: "#FF5F2259",
         hoverBackgroundColor: "#ff5f22",
         borderRadius: 4,
@@ -79,6 +94,32 @@ function Dashboard() {
     },
   };
 
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <div className="w-12 h-12 border-4 border-neutral-200 dark:border-neutral-800 border-t-primary rounded-full animate-spin"></div>
+      </div>
+    );
+  }
+
+  if (isRejected) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-3">
+        <p className="text-red-500 font-inter text-sm">{error || "Failed to load dashboard data"}</p>
+        <button
+          onClick={() =>
+            dispatch(
+              getOrganizerDashboard(`${import.meta.env.VITE_API_URL}/organizer/dashboard`)
+            )
+          }
+          className="px-4 py-2 bg-primary text-white text-xs rounded-lg cursor-pointer"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
     <main className="px-4 lg:px-29.25 py-8 text-neutral-900 dark:text-neutral-100">
       <div className="flex lg:justify-between lg:items-center lg:flex-row flex-col">
@@ -98,6 +139,7 @@ function Dashboard() {
           Create Event
         </button>
       </div>
+
       <section className="pt-8 grid lg:grid-cols-4 grid-cols-2 gap-4">
         <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
           <div className="flex justify-between font-inter font-medium text-secondary dark:text-neutral-400 text-xs">
@@ -107,12 +149,13 @@ function Dashboard() {
             </span>
           </div>
           <div className="pt-3 font-jakarta font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            {communityEvents.length}
+            {stats.total_events}
           </div>
           <div className="font-inter font-normal text-secondary dark:text-neutral-400 text-xs">
             All Time
           </div>
         </div>
+
         <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
           <div className="flex justify-between font-inter font-medium text-secondary dark:text-neutral-400 text-xs">
             TOTAL ATTENDEES
@@ -121,14 +164,13 @@ function Dashboard() {
             </span>
           </div>
           <div className="pt-3 font-jakarta font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            {communityEvents.reduce((total, event) => {
-              return total + (event.attendees_count || 0);
-            }, 0)}
+            {stats.total_attendees}
           </div>
           <div className="font-inter font-normal text-secondary dark:text-neutral-400 text-xs">
             Across All Events
           </div>
         </div>
+
         <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
           <div className="flex justify-between font-inter font-medium text-secondary dark:text-neutral-400 text-xs">
             AVG FILL RATE
@@ -137,12 +179,13 @@ function Dashboard() {
             </span>
           </div>
           <div className="pt-3 font-jakarta font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            57%
+            {stats.avg_fill_rate}%
           </div>
           <div className="font-inter font-normal text-secondary dark:text-neutral-400 text-xs">
             Capacity Utilization
           </div>
         </div>
+
         <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
           <div className="flex justify-between font-inter font-medium text-secondary dark:text-neutral-400 text-xs">
             EVENT VIEWS
@@ -151,24 +194,24 @@ function Dashboard() {
             </span>
           </div>
           <div className="pt-3 font-jakarta font-bold text-2xl text-neutral-900 dark:text-neutral-100">
-            3241
+            {stats.event_views}
           </div>
           <div className="font-inter font-normal text-secondary dark:text-neutral-400 text-xs">
             Last 30 Days
           </div>
         </div>
       </section>
+
       <div className="pt-8 grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-3">
         <section>
           <h2 className="font-semibold font-jakarta text-lg text-neutral-900 dark:text-neutral-100">
             Your Events
           </h2>
           <div className="pt-4 flex flex-col gap-3">
-            {communityEvents.map((e) => {
-              const pct = Math.min(
-                100,
-                ((e.attendees_count || 0) / e.capacity) * 100,
-              );
+            {yourEvents.map((e) => {
+              const pct = e.capacity
+                ? Math.min(100, ((e.attendees_count || 0) / e.capacity) * 100)
+                : 0;
 
               return (
                 <div
@@ -177,7 +220,11 @@ function Dashboard() {
                 >
                   <div className="w-20 h-16 rounded-lg overflow-hidden shrink-0">
                     <img
-                      src={`${e.image_url.startsWith("http") ? e.image_url + "&w=400&auto=format" : e.image_url}`}
+                      src={
+                        e.image_url?.startsWith("https")
+                          ? `${e.image_url}&w=400&auto=format`
+                          : e.image_url
+                      }
                       alt={e.title}
                       className="w-full h-full object-cover"
                     />
@@ -189,7 +236,7 @@ function Dashboard() {
                           {e.title}
                         </p>
                         <p className="font-inter font-normal text-xs text-secondary dark:text-neutral-400">
-                          {formatEventDate(e.date)} · {e.location}
+                          {formatEventDate(e.start_time)} · {e.location}
                         </p>
                       </div>
                       <div className="px-2 py-0.5 bg-[#33B5701A] text-[#33B570] font-inter font-medium text-xs rounded-full">
@@ -214,18 +261,14 @@ function Dashboard() {
                     </div>
                     <div className="flex pt-3 gap-2">
                       <Link
-                        to={`event/${e.id}/edit`}
+                        to={`/events/${e.id}/edit`}
                         className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-lg font-inter font-medium text-sm text-secondary dark:text-neutral-300 items-center cursor-pointer transition-colors"
                       >
-                        <span>
-                          <MdOutlineEdit />
-                        </span>
+                        <MdOutlineEdit />
                         Edit
                       </Link>
                       <button className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-lg font-inter font-medium text-sm text-secondary dark:text-neutral-300 items-center cursor-pointer transition-colors">
-                        <span>
-                          <MdOutlineRemoveRedEye />
-                        </span>
+                        <MdOutlineRemoveRedEye />
                         {e.attendees_count || 0} Attendees
                       </button>
                     </div>
@@ -235,18 +278,20 @@ function Dashboard() {
             })}
           </div>
         </section>
+
         <section className="grid grid-cols-1 gap-4 h-fit">
           <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
             <h2 className="flex items-center gap-2 font-inter font-semibold text-sm leading-5 text-neutral-900 dark:text-neutral-100">
               <span className="text-secondary dark:text-neutral-400">
                 <MdOutlineBarChart />
               </span>
-              Registrations (6 months)
+              Registrations
             </h2>
             <div className="pt-4 h-48 w-full">
-              <Bar data={chartData} options={chartOptions} />
+              <Bar data={chartConfig} options={chartOptions} />
             </div>
           </div>
+
           <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
             <h2 className="font-inter font-semibold text-sm leading-5 text-neutral-900 dark:text-neutral-100">
               Quick Actions
@@ -265,34 +310,33 @@ function Dashboard() {
               </button>
             </div>
           </div>
+
           <div className="border border-[#E4E4E7] dark:border-neutral-800 bg-white dark:bg-neutral-900 rounded-xl p-5">
             <h2 className="font-inter font-semibold text-sm leading-5 text-neutral-900 dark:text-neutral-100">
               Upcoming Events
             </h2>
             <div className="pt-3 flex flex-col gap-2">
-              {communityEvents.map((e) => {
-                return (
-                  <div
-                    key={e.id}
-                    className="flex gap-3 py-2 items-center justify-between"
-                  >
-                    <div className="flex gap-3 items-center">
-                      <div className="bg-[#33B570] rounded-full w-1.5 h-1.5"></div>
-                      <div>
-                        <p className="font-inter font-medium text-xs leading-4 text-[#18181B] dark:text-neutral-200">
-                          {e.title}
-                        </p>
-                        <p className="font-inter font-normal text-[10px] leading-3.75 text-[#9F9FA9] dark:text-neutral-400">
-                          {formatEventDate(e.date)}
-                        </p>
-                      </div>
+              {upcomingEvents.map((e) => (
+                <div
+                  key={e.id}
+                  className="flex gap-3 py-2 items-center justify-between"
+                >
+                  <div className="flex gap-3 items-center">
+                    <div className="bg-[#33B570] rounded-full w-1.5 h-1.5 shrink-0"></div>
+                    <div>
+                      <p className="font-inter font-medium text-xs leading-4 text-[#18181B] dark:text-neutral-200">
+                        {e.title}
+                      </p>
+                      <p className="font-inter font-normal text-[10px] leading-3.75 text-[#9F9FA9] dark:text-neutral-400">
+                        {formatEventDate(e.start_time)}
+                      </p>
                     </div>
-                    <p className="font-inter font-normal text-xs leading-4 text-secondary dark:text-neutral-400">
-                      {e.attendees_count || 0}/{e.capacity}
-                    </p>
                   </div>
-                );
-              })}
+                  <p className="font-inter font-normal text-xs leading-4 text-secondary dark:text-neutral-400 shrink-0">
+                    {e.attendees_count || 0}/{e.capacity}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
