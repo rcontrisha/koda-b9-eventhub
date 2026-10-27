@@ -261,7 +261,7 @@ function Dashboard() {
                     </div>
                     <div className="flex pt-3 gap-2">
                       <Link
-                        to={`/events/${e.id}/edit`}
+                        to={`event/${e.id}/edit`}
                         className="px-3 py-1.5 flex gap-2 border border-[#E4E4E7] dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-lg font-inter font-medium text-sm text-secondary dark:text-neutral-300 items-center cursor-pointer transition-colors"
                       >
                         <MdOutlineEdit />
