@@ -9,7 +9,28 @@ RUN npm run build
 
 FROM nginx:1.28.3
 COPY --from=builder /app/dist /usr/share/nginx/html
-RUN echo 'server { listen 80; server_name _; root /usr/share/nginx/html; index index.html; location /api/ { proxy_pass http://host.docker.internal:8080/; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for; } location / { try_files $uri $uri/ /index.html; } }' > /etc/nginx/conf.d/default.conf
+
+RUN echo 'server {\
+    listen 80;\
+    server_name _;\
+    root /usr/share/nginx/html;\
+    index index.html;\
+    location /api/ {\
+        proxy_pass http://host.docker.internal:8080/;\
+        proxy_set_header Host $host;\
+        proxy_set_header X-Real-IP $remote_addr;\
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;\
+        proxy_http_version 1.1;\
+        proxy_set_header Connection "";\
+        proxy_buffering off;\
+        proxy_cache off;\
+        proxy_read_timeout 24h;\
+        proxy_send_timeout 24h;\
+    }\
+    location / {\
+        try_files $uri $uri/ /index.html;\
+    }\
+}' > /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
