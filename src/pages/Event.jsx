@@ -7,12 +7,23 @@ import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
 import Filters from "../components/events/Filters";
 import { getEvents } from "../redux/slices/EventSlice";
+import { useAttendeeStream } from "../hooks/useAttendeeStream";
 
 function Event() {
   const dispatch = useDispatch();
-  const { events = [], total = 0, isPending, isRejected } = useSelector(
-    (state) => state.eventState
-  );
+  const {
+    events = [],
+    total = 0,
+    isPending,
+    isRejected,
+  } = useSelector((state) => state.eventState);
+
+  const idsKey = events
+    .map((e) => e.id)
+    .filter(Boolean)
+    .sort()
+    .join(",");
+  useAttendeeStream(idsKey);
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,7 +46,9 @@ function Event() {
     params.set("page", nextPage);
     params.set("limit", limit);
 
-    dispatch(getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`));
+    dispatch(
+      getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`),
+    );
   };
 
   useEffect(() => {
@@ -49,7 +62,9 @@ function Event() {
     params.set("page", 1);
     params.set("limit", limit);
 
-    dispatch(getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`));
+    dispatch(
+      getEvents(`${import.meta.env.VITE_API_URL}/events?${params.toString()}`),
+    );
   }, [query, tag, loc, limit, dispatch]);
 
   return (

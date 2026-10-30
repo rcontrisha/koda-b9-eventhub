@@ -79,6 +79,12 @@ const eventSlice = createSlice({
         ...payload,
       };
     },
+    attendeeCountUpdated: (state, { payload }) => {
+      const { eventId, count } = payload;
+      const target = state.events.find((e) => e.id === eventId);
+      // TODO: kalau target ketemu, set field jumlah peserta = count
+      target.attendees_count = count
+    },
     nextStep: (state) => {
       state.currentStep = Math.min(3, state.currentStep + 1);
     },
@@ -179,6 +185,7 @@ export const {
   submitAndRedirect,
   resetForm,
   injectEditData,
+  attendeeCountUpdated
 } = eventSlice.actions;
 
 export default eventSlice.reducer;
