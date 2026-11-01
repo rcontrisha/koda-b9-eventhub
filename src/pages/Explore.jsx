@@ -13,8 +13,9 @@ import TestiCard from "../components/static/TestiCard";
 // import communities from "../data/communities.json";
 import Banner from "../components/static/Banner";
 import { useAuth } from "../hooks/useAuth";
-import { getEvents } from "../redux/slices/EventSlice";
+import { attendeeCountUpdated, getEvents } from "../redux/slices/EventSlice";
 import { getCommunities } from "../redux/slices/CommunitySlice";
+import { useAttendeeStream } from "../hooks/useAttendeeStream";
 
 function Explore() {
   const { user, role } = useAuth();
@@ -29,6 +30,15 @@ function Explore() {
     dispatch(getEvents(eventUrl));
     dispatch(getCommunities(communitiesUrl))
   }, [communitiesUrl, dispatch, eventUrl]);
+
+  const idsKey = events
+      .map((e) => e.id)
+      .filter(Boolean)
+      .sort()
+      .join(",");
+    useAttendeeStream(idsKey, (u) => {
+      dispatch(attendeeCountUpdated(u));
+    });
 
   const joined_communities = communities?.filter((c) =>
     user?.joined_communities?.includes(c.id),
