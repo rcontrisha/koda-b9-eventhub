@@ -6,7 +6,7 @@ import EventCard from "../components/events/EventCard";
 import FilterButton from "../components/shared/FilterButton";
 import InputField from "../components/shared/InputField";
 import Filters from "../components/events/Filters";
-import { getEvents } from "../redux/slices/EventSlice";
+import { attendeeCountUpdated, getEvents } from "../redux/slices/EventSlice";
 import { useAttendeeStream } from "../hooks/useAttendeeStream";
 
 function Event() {
@@ -23,7 +23,9 @@ function Event() {
     .filter(Boolean)
     .sort()
     .join(",");
-  useAttendeeStream(idsKey);
+  useAttendeeStream(idsKey, (u) => {
+    dispatch(attendeeCountUpdated(u));
+  });
 
   const [filterOpen, setFilterOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();

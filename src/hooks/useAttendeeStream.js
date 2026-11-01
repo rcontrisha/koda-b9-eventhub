@@ -1,25 +1,24 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { attendeeCountUpdated } from "../redux/slices/EventSlice";
+import { useEffect, useRef } from "react";
 
-export function useAttendeeStream(idsKey) {
-  const dispatch = useDispatch();
+export function useAttendeeStream(idsKey, onUpdate) {
+  const onUpdateRef = useRef(onUpdate);
+
+  useEffect(() => {
+    onUpdateRef.current = onUpdate;
+  });
 
   useEffect(() => {
     if (!idsKey) return;
-    // TODO 1: const es = new EventSource(`${BASE_URL}/events/stream?ids=${idsKey}`);
+    
     const es = new EventSource(
       `${import.meta.env.VITE_API_URL}/events/stream?ids=${idsKey}`,
     );
-    // TODO 2: es.addEventListener("attendee_count", (e) => {
-    //           const { event_id, count } = JSON.parse(e.data);
-    //           dispatch(attendeeCountUpdated({ eventId: event_id, count }));
-    //         });
+
     es.addEventListener("attendee_count", (e) => {
       const { event_id, count } = JSON.parse(e.data);
-      dispatch(attendeeCountUpdated({ eventId: event_id, count }));
+      onUpdateRef.current?.({ eventId: event_id, count });
     });
-    // TODO 3: return () => es.close();
+    
     return () => es.close();
-  }, [idsKey, dispatch]);
+  }, [idsKey]);
 }

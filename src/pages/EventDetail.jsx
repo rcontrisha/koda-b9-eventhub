@@ -10,7 +10,8 @@ import {
   IoCheckmark,
 } from "react-icons/io5";
 import { RxPeople } from "react-icons/rx";
-// import slugify from 'slugify'
+import { useAuth } from "../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 import EventCard from "../components/events/EventCard";
 import InputField from "../components/shared/InputField";
@@ -20,11 +21,7 @@ import {
   formatEventDate,
   formatEventTime,
 } from "../utils/event";
-import { useAuth } from "../hooks/useAuth";
-
-// import events from "../data/events.json";
-// import communities from "../data/communities.json";
-import { useSelector } from "react-redux";
+import { useAttendeeStream } from "../hooks/useAttendeeStream";
 
 function EventDetail() {
   const { events } = useSelector((state) => state.eventState);
@@ -38,7 +35,9 @@ function EventDetail() {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/events/${id}`);
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/events/${id}`,
+        );
         const data = await response.json();
         console.log(data);
         setEvent(data.data.event);
@@ -49,6 +48,10 @@ function EventDetail() {
       }
     })();
   }, [id]);
+
+  useAttendeeStream(event?.id, ({ count }) =>
+    setEvent((prev) => (prev ? { ...prev, total_participants: count } : prev)),
+  );
 
   // if (!event) return null;
 

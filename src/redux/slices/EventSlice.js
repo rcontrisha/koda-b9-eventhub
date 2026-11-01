@@ -82,7 +82,7 @@ const eventSlice = createSlice({
     attendeeCountUpdated: (state, { payload }) => {
       const { eventId, count } = payload;
       const target = state.events.find((e) => e.id === eventId);
-      // TODO: kalau target ketemu, set field jumlah peserta = count
+      if (!target) return;
       target.attendees_count = count
     },
     nextStep: (state) => {
